@@ -1,0 +1,33 @@
+﻿@inject IUnitOfWork _uw
+@inject IUtilities utilities
+@{
+    string todayOfMonth = utilities.GetDayDate(0).ToString("0#");
+    string yesterdayOfMonth = utilities.GetDayDate(-1).ToString("0#");
+    string thisMonth = utilities.GetMonthDate(0).ToString("0#");
+    string thisYear = utilities.GetYearDate(0).ToString();
+
+    int totalVisitorsCount = _uw.VisitorStatisticRepository.Get().Sum(v=>v.VisitCount);
+    int thisYearVisitorsCount = _uw.VisitorStatisticRepository.Get(v=>EF.Functions.Like(v.Date,thisYear+"/%")).Sum(v=>v.VisitCount);
+    int thisMonthVisitorsCount = _uw.VisitorStatisticRepository.Get(v => EF.Functions.Like(v.Date,thisYear + "/"+thisMonth+"/%")).Sum(v => v.VisitCount);
+    int yesterdayVisitorsCount = _uw.VisitorStatisticRepository.Get(v => EF.Functions.Like(v.Date, thisYear + "/" + thisMonth + "/"+yesterdayOfMonth)).Sum(v => v.VisitCount);
+    int todayVisitorsCount = _uw.VisitorStatisticRepository.Get(v => EF.Functions.Like(v.Date, thisYear + "/" + thisMonth + "/" + todayOfMonth)).Sum(v => v.VisitCount);
+}
+<div>
+    <!-- Widget: user widget style 1 -->
+    <div class="box box-widget widget-user-2">
+        <!-- Add the bg color to the header using any of the bg-* classes -->
+        <div class="widget-user-header bg-yellow">
+            <h5 class="widget-user-desc text-center">آمار بازدید</h5>
+        </div>
+        <div class="box-footer no-padding">
+            <ul class="nav nav-stacked">
+                <li><a>امروز <span class="pull-left badge bg-blue">@todayVisitorsCount</span></a></li>
+                <li><a>دیروز <span class="pull-left badge bg-aqua">@yesterdayVisitorsCount</span></a></li>
+                <li><a>ماه <span class="pull-left badge bg-green">@thisMonthVisitorsCount</span></a></li>
+                <li><a>سال جاری <span class="pull-left badge bg-red">@thisYearVisitorsCount</span></a></li>
+                <li><a>کل <span class="pull-left badge bg-blue">@totalVisitorsCount</span></a></li>
+            </ul>
+        </div>
+    </div>
+    <!-- /.widget-user -->
+</div>

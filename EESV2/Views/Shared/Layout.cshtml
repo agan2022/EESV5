@@ -1,0 +1,280 @@
+﻿@inject IUnitOfWork _uw
+@{ 
+    int countUnReadInbox = _uw.ReferralRepository.Get(r => r.QualityEvaluation == null && r.QuantitativEvaluation == null && r.NewQualityEvaluation == null && r.StatusID != 3 && r.Reciver.Username == User.Identity.Name && r.EvaluationTypeID != null).Count();
+    var countUnReadImparts = _uw.ImpartRepository.Get(i => i.Executor.Username == User.Identity.Name&&(i.ImpartStatusID==1|| i.ImpartStatusID == 4)).Count();
+    var countUnReadImpartsAdmin = _uw.ImpartRepository.Get(i =>i.ImpartStatusID == 1).Count();
+    int countUnAnsweredObjections = _uw.ObjectionRepository.Get(o => String.IsNullOrEmpty(o.Result)).Count();
+    int countUnReadSurveys = _uw.SurveyRepository.Get(s=>!s.IsSeenByAdmin).Count();
+    int countInEvaluatingProposals = _uw.ProposalRepository.Get(p => p.StatusID==4).Count();
+    int countReturnedFromCommittee = _uw.ProposalRepository.Get(p => p.StatusID == 6).Count();
+    int countReadyForPropose = _uw.ProposalRepository.Get(p => p.StatusID == 8).Count();
+    string page = (string)ViewData["page"];
+    string Title = (string)ViewData["Title"];
+    Layout = null; }
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>@Title</title>
+    <style>
+        a {
+            cursor: pointer;
+        }
+
+        ::-webkit-scrollbar {
+            width: 7px;
+        }
+
+        /* Track */
+        ::-webkit-scrollbar-track {
+            box-shadow: inset 0 0 5px grey;
+            border-radius: 10px;
+        }
+
+        /* Handle */
+        ::-webkit-scrollbar-thumb {
+            background: #b30000;
+            border-radius: 10px;
+        }
+
+            /* Handle on hover */
+            ::-webkit-scrollbar-thumb:hover {
+                background: black;
+            }
+    </style>
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <!-- Bootstrap 3.3.7 -->
+    <link rel="stylesheet" href="~/dist/css/bootstrap-theme.css">
+    <!-- Bootstrap rtl -->
+    <link rel="stylesheet" href="~/dist/css/rtl.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="~/dist/css/all.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="~/bower_components/Ionicons/css/ionicons.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="~/dist/css/AdminLTE.css">
+    <!-- AdminLTE Skins. Choose a skin from the css/skins folder instead of downloading all of them to reduce the load. -->
+    <link rel="stylesheet" href="~/dist/css/skins/_all-skins.css">
+    <!-- jQuery 3 -->
+    <script src="~/bower_components/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap 3.3.7 -->
+    <script src="~/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- FastClick -->
+    <script src="~/bower_components/fastclick/lib/fastclick.js"></script>
+    <!-- AdminLTE App -->
+    <script src="~/dist/js/adminlte.min.js"></script>
+    <!-- AdminLTE for demo purposes -->
+    <script src="~/dist/js/demo.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('.sidebar-menu').tree();
+            $('.select2').select2();
+
+        })
+    </script>
+
+</head>
+<body class="skin-blue fixed sidebar-mini sidebar-mini-expand-feature">
+    <div class="wrapper">
+
+        <header class="main-header">
+            <!-- Logo -->
+            <a href="/home/index" class="logo">
+                <!-- mini logo for sidebar mini 50x50 pixels -->
+                <span class="logo-mini">پنل</span>
+                <!-- logo for regular state and mobile devices -->
+                <span class="logo-lg"><b>سامانه نظام مشارکت</b></span>
+            </a>
+            <!-- Header Navbar: style can be found in header.less -->
+            <nav class="navbar navbar-static-top">
+                <!-- Sidebar toggle button-->
+                <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+                    <span class="sr-only">Toggle navigation</span>
+                </a>
+
+
+
+                <div class="navbar-custom-menu">
+                    <ul class="nav navbar-nav">
+
+                        <li class="dropdown user user-menu">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <img onerror="this.onerror=null; this.src='/dist/img/boxed-bg.png'" src="/User/GetPersonnelPhoto?id=@User.Claims.SingleOrDefault(c=>c.Type=="ID").Value" class="user-image" alt="">
+                                <span class="hidden-xs">@User.Claims.FirstOrDefault(t => t.Type == "FullName").Value</span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <!-- User image -->
+                                <li class="user-header">
+                                    <img onerror="this.onerror=null; this.src='/dist/img/boxed-bg.png'" src="/User/GetPersonnelPhoto?id=@User.Claims.SingleOrDefault(c=>c.Type=="ID").Value" class="img-circle" alt="">
+
+                                    <p>
+                                        @User.Claims.FirstOrDefault(t => t.Type == "FullName").Value
+                                        @*<small>تنظیم نشده است</small>*@
+                                    </p>
+                                </li>
+                                <!-- Menu Footer-->
+                                <li class="user-footer">
+                                    <div class="pull-right">
+                                        <a href="/User/Edit" class="btn btn-default btn-flat">اصلاح و تغییر رمز</a>
+                                    </div>
+                                    <div class="pull-left">
+                                        <a href="/Account/Logout" class="btn btn-default btn-flat">خروج</a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </header>
+        <!-- right side column. contains the logo and sidebar -->
+        <aside class="main-sidebar">
+            <!-- sidebar: style can be found in sidebar.less -->
+            <section class="sidebar">
+                <!-- Sidebar user panel -->
+                <div class="user-panel">
+                    <div class="pull-right image">
+                        <img style="height:45px;width:45px" onerror="this.onerror=null; this.src='/dist/img/boxed-bg.png'" src="/User/GetPersonnelPhoto?id=@User.Claims.SingleOrDefault(c=>c.Type=="ID").Value" class="img-circle" alt="User Image">
+                    </div>
+                    <div class="pull-right info">
+                        <p>@User.Claims.FirstOrDefault(t => t.Type == "FullName").Value</p>
+                        <a href="#"><i class="fa fa-circle text-success"></i> آنلاین</a>
+                    </div>
+                </div>
+                <!-- sidebar menu: : style can be found in sidebar.less -->
+                <ul class="sidebar-menu" data-widget="tree">
+                    @*<li style="color: rgb(26,28,65);" class="header">منو</li>*@
+                    <li class="@(page=="HOME" ? "menu-open" : "")"><a href="/Home/Index"><i class="fas fa-home"></i> <span>خانه</span></a></li>
+                    <li class="@((page=="NewProposal"||page=="SNT") ? "menu-open" : "") treeview">
+                        <a href="#">
+                            <i class="fas fa-mail-bulk"></i> <span>پیشنهادات</span>
+                            <span class="pull-left-container">
+                                <i class="fa fa-angle-right pull-left"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu" style="@((page=="NewProposal"||page=="SNT") ? "display:block" : "")">
+                            <li class="@(page=="NewProposal" ? "active" : "")"><a href="/Proposal/Create"><i class="fas fa-comment-dots"></i> پیشنهاد جدید</a></li>
+                            <li class="@(page=="SNT" ? "active" : "")"><a href="/Proposal/Sent"><i class="fas fa-comments"></i> پیشنهادات ارسال شده شما </a></li>
+                        </ul>
+                    </li>
+                    <li class="@(page=="Index" ? "menu-open" : "")"><a href="/Home/AdvanceDashboard"><i class="fa fa-fw fa-home"></i> <span>داشبورد پیشرفته</span></a></li>
+                    @if (User.Claims.FirstOrDefault(c => c.Type == "Role") != null)
+                    {
+                        if (User.Claims.FirstOrDefault(c => c.Type == "Role").Value == "Secretary")
+                        {
+                            bool IsMenuOpen = (page.IndexOf("Proposals") >= 0) || (page == "CheckSatateExecutiveNotifications") || (page == "NEU") || (page == "OM");
+
+                            <li class="@(IsMenuOpen ?"menu-open":"") treeview">
+                                <a href="#">
+                                    <i class="fas fa-desktop"></i> <span>مدیریت نظام مشارکت (@(countInEvaluatingProposals+countReturnedFromCommittee+countUnAnsweredObjections+ countUnReadImpartsAdmin+countReadyForPropose))</span>
+                                    <span class="pull-left-container">
+                                        <i class="fa fa-angle-right pull-left"></i>
+                                    </span>
+                                </a>
+                                <ul class="treeview-menu" style="@(IsMenuOpen ? "display:block" : "")">
+                                    <li class="@(page=="OM"?"active":"")"><a href="/Secretary/Objection/Objections"><i class="fas fa-file-invoice"></i>اعتراضات (@countUnAnsweredObjections)</a></li>
+                                    <li class="@(page=="NEU"?"active":"")"><a href="/Secretary/Impart/CreateImparts"><i class="fas fa-bullhorn"></i>ابلاغ به واحد مجری</a></li>
+                                    <li class="@(page=="Proposals?status=4"?"active":"")"><a href="/Secretary/Proposal/Proposals?StatusID=4"><i class="fas fa-flask"></i>پیشنهادات در حال ارزیابی (@countInEvaluatingProposals)</a></li>
+                                    <li class="@(page=="Proposals?status=6"?"active":"")"><a href="/Secretary/Proposal/Proposals?StatusID=6"><i class="fas fa-file-signature"></i>عودت از ارزیابی به دبیرخانه (@countReturnedFromCommittee)</a></li>
+                                    <li class="@(page=="Proposals?status=8"?"active":"")"><a href="/Secretary/Proposal/Proposals?StatusID=8"><i class="fas fa-clipboard-list"></i> آماده طرح در شورای مرکزی (@countReadyForPropose)</a></li>
+                                    <li class="@(page=="CSEN"?"active":"")"><a href="/Secretary/Impart/Imparts"><i class="fas fa-check-circle"></i>پیگیری ابلاغ های اجرایی (@countUnReadImpartsAdmin)</a></li>
+                                    <li class="@(page=="FPBT"?"active":"")"><a href="/Secretary/Proposal/FilterProposalsByTarget"><i class="fa fa-city"></i> گزارش گیری بر اساس نتایج  </a></li>
+                                </ul>
+                            </li>
+                            <li class="@(page=="SRV"?"active":"")"><a href="/Secretary/Survey/Surveys"><i class="fa fa-city"></i> مدیریت نظرسنجی ها (@countUnReadSurveys)  </a></li>
+                            <li class="@(page=="USRS"?"active":"")"><a href="/Secretary/User/Users"><i class="fa fa-city"></i> مدیریت کاربران  </a></li>
+                            <li class="@(page=="OFCS"?"active":"")"><a href="/Secretary/Office/Offices"><i class="fa fa-city"></i> مدیریت ادارات  </a></li>
+                            <li class="@(page=="UPOSTS"?"active":"")"><a href="/Secretary/UserPost/UserPosts"><i class="fa fa-city"></i> مدیریت سمت ها  </a></li>
+                            <li class="@(page=="NFT"?"active":"")"><a href="/Secretary/Notification/Notifications"><i class="fa fa-city"></i> مدیریت اطلاعیه ها  </a></li>
+
+                            <li class="@(page=="WGList" ? "menu-open" : "")"><a href="/Secretary/Committee/index"><i class="fa fa-users-cog"></i> <span>مدیریت کمیته / کارگروه </span></a></li>
+                            <li onclick="UploadBazrFile()"><a> <i class="fas fa-file-upload"> </i> آپلود فایل کد بذر/اطلاعیه </a> </li>
+                            <form method="post" enctype="multipart/form-data" action="/Secretary/Bazr/UploadBazrFile" id="formUploadBazrFile">
+                                <input name="formUploadBazrFile" onchange="UploadBazrFileCompleted()" accept="application/pdf" id="uploadBazrFile" type="file" class="hidden" />
+                            </form>
+                            <script>
+                                function UploadBazrFile() {
+                                    document.getElementById('uploadBazrFile').click();
+                                }
+                                function UploadBazrFileCompleted() {
+                                    let form = document.getElementById('formUploadBazrFile');
+                                    let file = form.formUploadBazrFile.files[0];
+                                    let fd = new FormData();
+                                    fd.append("file", file);
+                                    let request = new XMLHttpRequest();
+                                    request.open(form.method, form.action);
+                                    request.send(fd);
+                                    request.onreadystatechange = () => {
+                                        if (request.readyState == 4 && request.status == 200) {
+
+                                            alert(request.responseText);
+                                        }
+                                    }
+                                }
+                            </script>
+                        }
+                    }
+
+                    <li class="treeview @((page=="TPM"||page=="RMI") ? "menu-open" : "")">
+                        <a href="#">
+                            <i class="fas fa-server"></i> <span>اطلاعات و آمار</span>
+                            <span class="pull-left-container">
+                                <i class="fa fa-angle-right pull-left"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu" style="@((page=="TPM"||page=="RMI") ? "display:block" : "")">
+                            <li class="@(page=="TPM"?"active":"")"><a href="/TopMemberReport/TopMembers"><i class="fas fa-sun"></i>نفرات برتر</a></li>
+                            <li class="@(page=="RMI"?"active":"")"><a href="/ReportMonitoringIndicatorsOfEES"><i class="fas fa-poll"></i>پایش نظام مشارکت</a></li>
+                        </ul>
+                    </li>
+                    <li class="@(page=="Inbox" ? "menu-open" : "")"><a href="/Referral/Inbox"><i class="fa fa-fw fa-inbox"></i> <span>صندوق ورودی(@countUnReadInbox)</span></a></li>
+                    <li class="treeview @(page=="EPNF"||page=="PIPR" ? "menu-open" : "")">
+                        <a href="#">
+                            <i class="fas fa-newspaper"></i> <span>فرم ابلاغ جدید (@countUnReadImparts)</span>
+                            <span class="pull-left-container">
+                                <i class="fa fa-angle-right pull-left"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu" style="@(page=="EPNF"||page=="PIPR" ? "display:block" : "")">
+                            <li class="@(page=="EPNF"?"active":"")"><a href="/Impart/Imparts"><i class="fas fa-file-export"></i>فرم ابلاغ اجرای پیشنهاد (@countUnReadImparts)</a></li>
+                            <li class="@(page=="PIPR"?"active":"")"><a href="/ProgressReport/Imparts"><i class="fas fa-chart-line"></i>گزارش پیشرفت اجرای پیشنهاد</a></li>
+                        </ul>
+                    </li>
+                    <li class="treeview @(page=="GF" || page=="BZR" ? "menu-open" : "")">
+                        <a href="#">
+                            <i class="fas fa-folder-open"></i> <span>مدیریت یکپارچه</span>
+                            <span class="pull-left-container">
+                                <i class="fa fa-angle-right pull-left"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu" style="@(page=="GF" ? "display:block" : "")">
+                            <li class="@(page=="GF"?"active":"")"><a href="/Form/Forms"><i class="fas fa-file-download"></i>دریافت فرم ها</a></li>
+
+                            <li><a onclick="openBazrCode()" href="#" type="text/html"><i class="fas fa-seedling"></i>دریافت فایل کد بذر/اطلاعیه</a></li>
+                            <script>
+                                function openBazrCode() {
+                                    let newWindow = window.open(document.location.href);
+                                    newWindow.addEventListener('DOMContentLoaded', () => {
+                                        newWindow.document.body.innerHTML = '<embed src="/BazrFile/BazrFile.pdf" style="width:100%;height:100%;position: fixed;" type="application/pdf"/>'
+
+
+                                    })
+                                }
+                            </script>
+                        </ul>
+                    </li>
+                </ul>
+            </section>
+            <!-- /.sidebar -->
+        </aside>
+
+        @RenderBody()
+        <div class="control-sidebar-bg"></div>
+    </div>
+
+    <script src="~/dist/js/all.min.js"></script>
+    <script src="~/plugins/ExcelExport/ExcelExport.js"></script>
+</body>
+
+</html>

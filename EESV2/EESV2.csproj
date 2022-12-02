@@ -1,0 +1,77 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="5.0.17" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Areas\Secretary\Data\" />
+    <Folder Include="Areas\Secretary\Models\" />
+    <Folder Include="AttachmentFiles\" />
+    <Folder Include="Formes\" />
+    <Folder Include="PersonnelPhotos\" />
+    <Folder Include="wwwroot\BazrFile\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Areas\Secretary\Views\Committee\Create.cshtml" />
+    <None Include="Areas\Secretary\Views\Committee\Edit.cshtml" />
+    <None Include="Areas\Secretary\Views\Committee\Index.cshtml" />
+    <None Include="Areas\Secretary\Views\Impart\CreateImparts.cshtml" />
+    <None Include="Areas\Secretary\Views\Impart\EstimationCostForm.cshtml" />
+    <None Include="Areas\Secretary\Views\Impart\Imparts.cshtml" />
+    <None Include="Areas\Secretary\Views\Notification\Create.cshtml" />
+    <None Include="Areas\Secretary\Views\Notification\Edit.cshtml" />
+    <None Include="Areas\Secretary\Views\Notification\Notifications.cshtml" />
+    <None Include="Areas\Secretary\Views\Objection\Objections.cshtml" />
+    <None Include="Areas\Secretary\Views\ProgressReport\ProgressReports.cshtml" />
+    <None Include="Areas\Secretary\Views\Proposal\FilterProposalsByTarget.cshtml" />
+    <None Include="Areas\Secretary\Views\Proposal\Proposal.cshtml" />
+    <None Include="Areas\Secretary\Views\Proposal\Proposals.cshtml" />
+    <None Include="Areas\Secretary\Views\Refrral\Create.cshtml" />
+    <None Include="Areas\Secretary\Views\User\Create.cshtml" />
+    <None Include="Areas\Secretary\Views\User\Details.cshtml" />
+    <None Include="Areas\Secretary\Views\User\Edit.cshtml" />
+    <None Include="Areas\Secretary\Views\User\Users.cshtml" />
+    <None Include="Areas\Secretary\_ViewImports.cshtml" />
+    <None Include="Views\Account\AccessDenied.cshtml" />
+    <None Include="Views\Account\Login.cshtml" />
+    <None Include="Views\Home\AdvanceDashboard.cshtml" />
+    <None Include="Views\Home\Index.cshtml" />
+    <None Include="Views\Impart\EstimationCostForm.cshtml" />
+    <None Include="Views\Impart\Imparts.cshtml" />
+    <None Include="Views\Messages\NotFoundFile.cshtml" />
+    <None Include="Views\Messages\SuccessAddNewProposal.cshtml" />
+    <None Include="Views\Messages\SuccessOperation.cshtml" />
+    <None Include="Views\Objection\Create.cshtml" />
+    <None Include="Views\ProgressReport\AddProgressReport.cshtml" />
+    <None Include="Views\ProgressReport\Imparts.cshtml" />
+    <None Include="Views\Proposal\Create.cshtml" />
+    <None Include="Views\Proposal\Review.cshtml" />
+    <None Include="Views\Proposal\Sent.cshtml" />
+    <None Include="Views\QualitativeEvaluation\Form.cshtml" />
+    <None Include="Views\QuantitativeEvaluation\Form.cshtml" />
+    <None Include="Views\Referral\Inbox.cshtml" />
+    <None Include="Views\Shared\Layout.cshtml" />
+    <None Include="Views\Shared\_VisitorStatistic.cshtml" />
+    <None Include="Views\_ViewImports.cshtml" />
+    <None Include="Views\_ViewStart.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\EESV2.DAL\EESV2.DAL.csproj" />
+  </ItemGroup>
+
+</Project>

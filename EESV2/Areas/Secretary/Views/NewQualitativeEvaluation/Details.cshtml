@@ -1,0 +1,579 @@
+﻿@model NewQualityEvaluation 
+@{
+    ViewData["page"] = "Inbox";
+    ViewData["Title"] = "ارزیابی";
+    Layout = "Layout";
+}
+
+<link rel="stylesheet" href="~/dist/css/animate.css">
+<script src="~/dist/js/wow.min.js"></script>
+<div class="content-wrapper">
+    <section class="content-header">
+        <h1 class="wow animate__animated animate__lightSpeedInRight">
+            فرم ارزیابی کیفی
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="/Home/Index"><i class="fas fa-home"></i> خانه</a></li>
+            <li><a href="#">صندوق ورودی</a></li>
+            <li><a href="#">فرم ارزیابی کیفی</a></li>
+        </ol>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+
+        <!-- Default box -->
+        <div class="box wow animate__animated animate__zoomInDown" data-wow-delay=".3s">
+            <div class="box-header with-border">
+                <h3 class="box-title">جدول ارزیابی میزان کارایی و اثر بخشی پیشنهاد @Model.Referral.ProposalID<a class="btn btn-lg btn-link" href="/Proposal/Review?proposalID=@Model.Referral.ProposalID">مشاهده پیشنهاد</a></h3>
+
+                <div class="box-tools pull-right"></div>
+            </div>
+            <div class="box-body">
+                <div class="col-lg-12">
+                    <div class="form-group">
+                        <div class="radio">
+                            <label>
+                                <input onchange="AgreeProposal(this)" type="radio" disabled asp-for="PishOk" id="isConfirmed1" value="true">
+                                پیشنهاد مورد تأیید می باشد.
+                            </label>
+                        </div>
+                        <div class="radio">
+                            <label title="در صورت رد پیشنهاد تمامی امتیازات برابر صفر قرار داده خواهد شد." style="color:red">
+                                <input onchange="disAgreeProposal(this)" type="radio" disabled asp-for="PishOk" id="isConfirmed2" value="false">
+                                پیشنهاد مورد تأیید نیست.
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                @if ((bool)Model.PishOk)
+                {
+                    <div class="col-md-12 Agree">
+                        <div class="table-responsive no-padding">
+                            <table id="example2" class="table table-bordered table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>ردیف</th>
+                                        <th>معیار های امتیاز اثرات کیفی پیشنهاد</th>
+                                        <th>ضریب معیار</th>
+                                        <th>ضعیف</th>
+                                        <th>متوسط</th>
+                                        <th>خوب</th>
+                                        <th>خیلی خوب</th>
+                                        <th>عالی</th>
+                                        <th>امتیاز</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>بهبود شرایط کار به لحاظ ایمنی /محیط زیست/بهداشت</td>
+                                        <td class="Coefficient">1.5</td>
+                                        <td>
+                                            <input asp-for="Q1" type="radio" disabled value="1" />
+                                        </td>
+                                        <td>
+                                            <input asp-for="Q1" type="radio" disabled value="2" />
+                                        </td>
+                                        <td>
+                                            <input asp-for="Q1" type="radio" disabled value="3" />
+                                        </td>
+                                        <td>
+                                            <input asp-for="Q1" type="radio" disabled value="4" />
+                                        </td>
+                                        <td>
+                                            <input asp-for="Q1" type="radio" disabled value="5" />
+                                        </td>
+                                        <td class="score">0</td>
+                                    </tr>
+                                    <tr>
+                                        <td>2</td>
+                                        <td>افزایش دقت / سرعت / کیفیت / کارایی / اثربخشی / ساده سازی کارها</td>
+                                        <td class="Coefficient">1</td>
+                                        <td>
+                                            <input asp-for="Q2" type="radio" disabled value="1" />
+                                        </td>
+                                        <td>
+                                            <input asp-for="Q2" type="radio" disabled value="2" />
+                                        </td>
+                                        <td>
+                                            <input asp-for="Q2" type="radio" disabled value="3" />
+                                        </td>
+                                        <td>
+                                            <input asp-for="Q2" type="radio" disabled value="4" />
+                                        </td>
+                                        <td>
+                                            <input asp-for="Q2" type="radio" disabled value="5" />
+                                        </td>
+                                        <td class="score">0</td>
+                                    </tr>
+                                    <tr>
+                                        <td>3</td>
+                                        <td> بهبود کنترل و نظارت</td>
+                                        <td class="Coefficient">1</td>
+                                        <td>
+                                            <input asp-for="Q3" type="radio" disabled value="1" />
+                                        </td>
+                                        <td>
+                                            <input asp-for="Q3" type="radio" disabled value="2" />
+                                        </td>
+                                        <td>
+                                            <input asp-for="Q3" type="radio" disabled value="3" />
+                                        </td>
+                                        <td>
+                                            <input asp-for="Q3" type="radio" disabled value="4" />
+                                        </td>
+                                        <td>
+                                            <input asp-for="Q3" type="radio" disabled value="5" />
+                                        </td>
+                                        <td class="score">0</td>
+                                    </tr>
+                                    <tr>
+                                        <td>4</td>
+                                        <td> بهبود سیستم ها و روش ها/ ساده و موثرکردن ارتباطات</td>
+                                        <td class="Coefficient">1</td>
+                                        <td>
+                                            <input asp-for="Q4" type="radio" disabled value="1" />
+                                        </td>
+                                        <td>
+                                            <input asp-for="Q4" type="radio" disabled value="2" />
+                                        </td>
+                                        <td>
+                                            <input asp-for="Q4" type="radio" disabled value="3" />
+                                        </td>
+                                        <td>
+                                            <input asp-for="Q4" type="radio" disabled value="4" />
+                                        </td>
+                                        <td>
+                                            <input asp-for="Q4" type="radio" disabled value="5" />
+                                        </td>
+                                        <td class="score">0</td>
+                                    </tr>
+                                    <tr>
+                                        <td>5</td>
+                                        <td>استفاده بهتر از منابع/ امکانات/ دانش فنی/ تجهیزاات</td>
+                                        <td class="Coefficient">1</td>
+                                        <td>
+                                            <input asp-for="Q5" type="radio" disabled value="1" />
+                                        </td>
+                                        <td>
+                                            <input asp-for="Q5" type="radio" disabled value="2" />
+                                        </td>
+                                        <td>
+                                            <input asp-for="Q5" type="radio" disabled value="3" />
+                                        </td>
+                                        <td>
+                                            <input asp-for="Q5" type="radio" disabled value="4" />
+                                        </td>
+                                        <td>
+                                            <input asp-for="Q5" type="radio" disabled value="5" />
+                                        </td>
+                                        <td class="score">0</td>
+                                    </tr>
+                                    <tr>
+                                        <td>6</td>
+                                        <td>شفاف سازی اطلاعات</td>
+                                        <td class="Coefficient">0.5</td>
+                                        <td>
+                                            <input asp-for="Q6" type="radio" disabled value="1" />
+                                        </td>
+                                        <td>
+                                            <input asp-for="Q6" type="radio" disabled value="2" />
+                                        </td>
+                                        <td>
+                                            <input asp-for="Q6" type="radio" disabled value="3" />
+                                        </td>
+                                        <td>
+                                            <input asp-for="Q6" type="radio" disabled value="4" />
+                                        </td>
+                                        <td>
+                                            <input asp-for="Q6" type="radio" disabled value="5" />
+                                        </td>
+                                        <td class="score">0</td>
+                                    </tr>
+                                    <tr>
+                                        <td>7</td>
+                                        <td>افزایش رضایت و تکریم ارباب رجوع</td>
+                                        <td class="Coefficient">1.5</td>
+                                        <td>
+                                            <input asp-for="Q7" type="radio" disabled value="1" />
+                                        </td>
+                                        <td>
+                                            <input asp-for="Q7" type="radio" disabled value="2" />
+                                        </td>
+                                        <td>
+                                            <input asp-for="Q7" type="radio" disabled value="3" />
+                                        </td>
+                                        <td>
+                                            <input asp-for="Q7" type="radio" disabled value="4" />
+                                        </td>
+                                        <td>
+                                            <input asp-for="Q7" type="radio" disabled value="5" />
+                                        </td>
+                                        <td class="score">0</td>
+                                    </tr>
+                                    <tr>
+                                        <td>8</td>
+                                        <td>
+                                            شناسایی انواع نیازها / تسهیل ارتباط / کسب اطلاعات
+                                            ذینفعان
+                                        </td>
+                                        <td class="Coefficient">1.25</td>
+                                        <td>
+                                            <input asp-for="Q8" type="radio" disabled value="1" />
+                                        </td>
+                                        <td>
+                                            <input asp-for="Q8" type="radio" disabled value="2" />
+                                        </td>
+                                        <td>
+                                            <input asp-for="Q8" type="radio" disabled value="3" />
+                                        </td>
+                                        <td>
+                                            <input asp-for="Q8" type="radio" disabled value="4" />
+                                        </td>
+                                        <td>
+                                            <input asp-for="Q8" type="radio" disabled value="5" />
+                                        </td>
+                                        <td class="score">0</td>
+                                    </tr>
+                                    <tr>
+                                        <td>9</td>
+                                        <td> ارائه روش جدید تسهیل و گردش کار/ ارتباط با ذینفعان</td>
+                                        <td class="Coefficient">1.25</td>
+                                        <td>
+                                            <input asp-for="Q9" type="radio" disabled value="1" />
+                                        </td>
+                                        <td>
+                                            <input asp-for="Q9" type="radio" disabled value="2" />
+                                        </td>
+                                        <td>
+                                            <input asp-for="Q9" type="radio" disabled value="3" />
+                                        </td>
+                                        <td>
+                                            <input asp-for="Q9" type="radio" disabled value="4" />
+                                        </td>
+                                        <td>
+                                            <input asp-for="Q9" type="radio" disabled value="5" />
+                                        </td>
+                                        <td class="score">0</td>
+                                    </tr>
+                                    <tr>
+                                        <td>10</td>
+                                        <td>
+                                            بیان  مشکلات فعلی مقررات/ ارائه راهکار جدید و اصلاح
+                                            مورد نیاز
+                                        </td>
+                                        <td class="Coefficient">1.5</td>
+                                        <td>
+                                            <input asp-for="Q10" type="radio" disabled value="1" />
+                                        </td>
+                                        <td>
+                                            <input asp-for="Q10" type="radio" disabled value="2" />
+                                        </td>
+                                        <td>
+                                            <input asp-for="Q10" type="radio" disabled value="3" />
+                                        </td>
+                                        <td>
+                                            <input asp-for="Q10" type="radio" disabled value="4" />
+                                        </td>
+                                        <td>
+                                            <input asp-for="Q10" type="radio" disabled value="5" />
+                                        </td>
+                                        <td class="score">0</td>
+                                    </tr>
+                                    <tr>
+                                        <td>11</td>
+                                        <td>
+                                            ارائه دستورالعمل/ روش اجرایی جدید در چارچوب قوانین و
+                                            مقررات
+                                        </td>
+                                        <td class="Coefficient">1.25</td>
+                                        <td>
+                                            <input asp-for="Q11" type="radio" disabled value="1" />
+                                        </td>
+                                        <td>
+                                            <input asp-for="Q11" type="radio" disabled value="2" />
+                                        </td>
+                                        <td>
+                                            <input asp-for="Q11" type="radio" disabled value="3" />
+                                        </td>
+                                        <td>
+                                            <input asp-for="Q11" type="radio" disabled value="4" />
+                                        </td>
+                                        <td>
+                                            <input asp-for="Q11" type="radio" disabled value="5" />
+                                        </td>
+                                        <td class="score">0</td>
+                                    </tr>
+                                    <tr>
+                                        <td>12</td>
+                                        <td>بیان روش های اجرا و پیاده سازی بهتر قوانین موجود</td>
+                                        <td class="Coefficient">1.25</td>
+                                        <td>
+                                            <input asp-for="Q12" type="radio" disabled value="1" />
+                                        </td>
+                                        <td>
+                                            <input asp-for="Q12" type="radio" disabled value="2" />
+                                        </td>
+                                        <td>
+                                            <input asp-for="Q12" type="radio" disabled value="3" />
+                                        </td>
+                                        <td>
+                                            <input asp-for="Q12" type="radio" disabled value="4" />
+                                        </td>
+                                        <td>
+                                            <input asp-for="Q12" type="radio" disabled value="5" />
+                                        </td>
+                                        <td class="score">0</td>
+                                    </tr>
+                                    <tr>
+                                        <td>13</td>
+                                        <td>بهبود روابط انسانی بین کارکنان و ذینفعان</td>
+                                        <td class="Coefficient">1</td>
+                                        <td>
+                                            <input asp-for="Q13" type="radio" disabled value="1" />
+                                        </td>
+                                        <td>
+                                            <input asp-for="Q13" type="radio" disabled value="2" />
+                                        </td>
+                                        <td>
+                                            <input asp-for="Q13" type="radio" disabled value="3" />
+                                        </td>
+                                        <td>
+                                            <input asp-for="Q13" type="radio" disabled value="4" />
+                                        </td>
+                                        <td>
+                                            <input asp-for="Q13" type="radio" disabled value="5" />
+                                        </td>
+                                        <td class="score">0</td>
+                                    </tr>
+                                    <tr>
+                                        <td>14</td>
+                                        <td>بهبود روابط کارکنان با مدیریت/ رفع چالش های مدیریتی</td>
+                                        <td class="Coefficient">1</td>
+                                        <td>
+                                            <input asp-for="Q14" type="radio" disabled value="1" />
+                                        </td>
+                                        <td>
+                                            <input asp-for="Q14" type="radio" disabled value="2" />
+                                        </td>
+                                        <td>
+                                            <input asp-for="Q14" type="radio" disabled value="3" />
+                                        </td>
+                                        <td>
+                                            <input asp-for="Q14" type="radio" disabled value="4" />
+                                        </td>
+                                        <td>
+                                            <input asp-for="Q14" type="radio" disabled value="5" />
+                                        </td>
+                                        <td class="score">0</td>
+                                    </tr>
+                                    <tr>
+                                        <td>15</td>
+                                        <td>
+                                            ارائه طرح های آموزشی جدید و موثر/ روش های آموز شی
+                                            ابتکاری
+                                        </td>
+                                        <td class="Coefficient">1</td>
+                                        <td>
+                                            <input asp-for="Q15" type="radio" disabled value="1" />
+                                        </td>
+                                        <td>
+                                            <input asp-for="Q15" type="radio" disabled value="2" />
+                                        </td>
+                                        <td>
+                                            <input asp-for="Q15" type="radio" disabled value="3" />
+                                        </td>
+                                        <td>
+                                            <input asp-for="Q15" type="radio" disabled value="4" />
+                                        </td>
+                                        <td>
+                                            <input asp-for="Q15" type="radio" disabled value="5" />
+                                        </td>
+                                        <td class="score">0</td>
+                                    </tr>
+                                    <tr>
+                                        <td>16</td>
+                                        <td>افزایش تفاهم/ روحیه کار تیمی کارکنان</td>
+                                        <td class="Coefficient">1</td>
+                                        <td>
+                                            <input asp-for="Q16" type="radio" disabled value="1" />
+                                        </td>
+                                        <td>
+                                            <input asp-for="Q16" type="radio" disabled value="2" />
+                                        </td>
+                                        <td>
+                                            <input asp-for="Q16" type="radio" disabled value="3" />
+                                        </td>
+                                        <td>
+                                            <input asp-for="Q16" type="radio" disabled value="4" />
+                                        </td>
+                                        <td>
+                                            <input asp-for="Q16" type="radio" disabled value="5" />
+                                        </td>
+                                        <td class="score">0</td>
+                                    </tr>
+                                    <tr>
+                                        <td>17</td>
+                                        <td>بهبود امور رفاهی کارکنان</td>
+                                        <td class="Coefficient">1</td>
+                                        <td>
+                                            <input asp-for="Q17" type="radio" disabled value="1" />
+                                        </td>
+                                        <td>
+                                            <input asp-for="Q17" type="radio" disabled value="2" />
+                                        </td>
+                                        <td>
+                                            <input asp-for="Q17" type="radio" disabled value="3" />
+                                        </td>
+                                        <td>
+                                            <input asp-for="Q17" type="radio" disabled value="4" />
+                                        </td>
+                                        <td>
+                                            <input asp-for="Q17" type="radio" disabled value="5" />
+                                        </td>
+                                        <td class="score">0</td>
+                                    </tr>
+                                    <tr>
+                                        <td>18</td>
+                                        <td> ارتقاء فرهنگ سازمانی</td>
+                                        <td class="Coefficient">1</td>
+                                        <td>
+                                            <input asp-for="Q18" type="radio" disabled value="1" />
+                                        </td>
+                                        <td>
+                                            <input asp-for="Q18" type="radio" disabled value="2" />
+                                        </td>
+                                        <td>
+                                            <input asp-for="Q18" type="radio" disabled value="3" />
+                                        </td>
+                                        <td>
+                                            <input asp-for="Q18" type="radio" disabled value="4" />
+                                        </td>
+                                        <td>
+                                            <input asp-for="Q18" type="radio" disabled value="5" />
+                                        </td>
+                                        <td class="score">0</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">مجموع ضرایب معیار های چهارگانه</td>
+                                        <td>20</td>
+                                        <td colspan="5">جمع امتیازات کیفی سقف 100</td>
+                                        <td id="totalScore"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col-md-12 hidden Agree">
+                        <div class="row">
+                            <div class="callout callout-info">
+                                <h4>توجه</h4>
+
+                                <p>مسئوليت دقت و صحت ارقام اعلام شده و تبعات ناشی از آن متوجه ارزياب/ ارزيابان می باشد.</p>
+                            </div>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="col-md-12 disAgree">
+                        <div class="row">
+                            <div class="form-group">
+                                <label>دلیل رد پیشنهاد</label>
+                                <textarea readonly asp-for="RejectReason" class="form-control" style="resize:none"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                }
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="box">
+                                    <div class="box-header with-border">
+                                        <h3 class="box-title">کیفیت پیشنهاد</h3>
+                                        <div class="box-tools pull-right"></div>
+                                    </div>
+                                    <div class="box-body">
+                                        <div class="form-group">
+                                            <div class="radio">
+                                                <label>
+                                                    <input type="radio" disabled asp-for="Quality" id="qualityOfProposal1" value="0">
+                                                    عالی
+                                                </label>
+                                            </div>
+                                            <div class="radio">
+                                                <label>
+                                                    <input type="radio" disabled asp-for="Quality" id="qualityOfProposal2" value="1">
+                                                    خیلی خوب
+                                                </label>
+                                            </div>
+                                            <div class="radio">
+                                                <label>
+                                                    <input type="radio" disabled asp-for="Quality" id="qualityOfProposal3" value="2">
+                                                    خوب
+                                                </label>
+                                            </div>
+                                            <div class="radio">
+                                                <label>
+                                                    <input type="radio" disabled asp-for="Quality" id="qualityOfProposal4" value="3">
+                                                    متوسط
+                                                </label>
+                                            </div>
+                                            <div class="radio">
+                                                <label>
+                                                    <input type="radio" disabled asp-for="Quality" id="qualityOfProposal5" value="4">
+                                                    ضعیف
+                                                </label>
+                                            </div>
+                                            <div class="radio">
+                                                <label>
+                                                    <input type="radio" disabled asp-for="Quality" id="qualityOfProposal6" value="5">
+                                                    خیلی ضعیف
+                                                </label>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>ساعت کار کارشناسی شده</label>
+                                                <input readonly asp-for="HrWork" type="number" class="form-control" placeholder="عدد بر حسب ساعت">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.box -->
+
+    </section>
+    <!-- /.content -->
+</div>
+<script>
+    new WOW().init();
+    document.addEventListener('DOMContentLoaded', () => {
+        let radios = document.getElementById('example2').querySelectorAll('input[type="radio"]');
+        for (var radio of radios) {
+            if (radio.checked) {
+                let parrent = radio.parentElement.parentElement;
+                let coefficient = parseFloat(parrent.getElementsByClassName('Coefficient')[0].innerHTML);
+                let score = parrent.getElementsByClassName('score')[0];
+                score.innerHTML = parseFloat(coefficient * radio.value);
+            }
+        }
+        calculateTotlaScore();
+
+        function calculateTotlaScore() {
+            let scores = document.getElementById('example2').getElementsByClassName('score');
+            let sum = 0;
+            for (var i = 0; i < scores.length; i++) {
+                sum += parseFloat(scores[i].innerHTML);
+            }
+            document.getElementById('totalScore').innerHTML = sum;
+        }
+    })
+</script>

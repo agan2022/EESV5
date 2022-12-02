@@ -1,0 +1,129 @@
+﻿@inject IUnitOfWork _uw
+@{
+    var committee = _uw.CommitteeRepository.Get(c => c.ID == (int)ViewData["id"], include: s => s
+                                                      .Include(c => c.Members).ThenInclude(u=>u.User).ThenInclude(u => u.Office)
+                                                      .Include(c => c.Secretary).ThenInclude(u => u.Office))
+                                                      .Select(c => new { Members = c.Members, Secretary = c.Secretary, Name = c.Name,ID=c.ID })
+                                                      .SingleOrDefault();
+    ViewData["Title"] = "لسیت اعضای کارگروه";
+    ViewData["page"] = "WGList";
+    Layout = "Layout";
+}
+<!-- DataTables -->
+<link rel="stylesheet" href="~/dist/css/animate.css">
+<script src="~/dist/js/wow.min.js"></script>
+<link rel="stylesheet" href="/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1 class="wow animate__animated animate__lightSpeedInRight">
+            لیست اعضای کارگروه @committee.Name
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="/Home/Index"><i class="fas fa-home"></i> خانه</a></li>
+            <li><a href="/Secretary/Committee/index">مدیریت کارگروه ها</a></li>
+            <li class="active">لیست اعضای کارگروه</li>
+        </ol>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="box pad wow animate__animated animate__zoomInDown" data-wow-delay=".3s">
+            <div class="box-body table-responsive no-padding">
+                <table id="example2" class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>نام</th>
+                            <th>نام خانوادگی</th>
+                            <th>شماره پرسنلی</th>
+                            <th>نام اداره</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (@committee.Secretary != null)
+                        {
+                            <tr>
+                                <td>رئیس کارگروه</td>
+                                <td>@committee.Secretary.FirstName</td>
+                                <td>@committee.Secretary.LastName</td>
+                                <td>@committee.Secretary.Username</td>
+                                <td>@committee.Secretary.Office.Name</td>
+                                <td>
+                                </td>
+                            </tr>
+                        }
+                        @foreach (var user in committee.Members)
+                        {
+                            <tr>
+                                <td></td>
+                                <td>@user.User.FirstName</td>
+                                <td>@user.User.LastName</td>
+                                <td>@user.User.Username</td>
+                                <td>@user.User.Office.Name</td>
+                                <td>
+                                    <a class="btn btn-danger" href="/Secretary/UserCommittee/Delete?id=@user.ID">حذف</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <div style="direction:ltr">
+                    <a href="/Secretary/Committee/AddMember?id=@committee.ID" class="btn btn-success">افزودن عضو جدید به این کارگروه</a>
+                </div>
+
+            </div>
+        </div>
+    </section>
+    <!-- /.content -->
+</div>
+<!-- DataTables -->
+<script src="/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+<script>
+    new WOW().init();
+    $(function () {
+        $('#example2').DataTable({
+            'paging': true,
+            'lengthChange': true,
+            'searching': true,
+            'ordering': true,
+            'info': true,
+            'autoWidth': false,
+            "order": [[3, 'desc']],
+            'lengthMenu': [[5, 10, 25, 50, -1], [5, 10, 25, 50, "همه"]],
+            'language': {
+                'zeroRecords': 'رکوردی برای نمایش وجود ندارد',
+                'lengthMenu': 'نمایش _MENU_ رکورد در یک صفحه',
+                'search': 'جستجو در تمام ستون ها : ',
+                'info': 'تعداد کل رکوردها :   _TOTAL_',
+                'infoFiltered': '',
+                "infoEmpty": '',
+                "paginate": {
+                    "first": "اولین",
+                    "last": "آخرین",
+                    "next": "بعدی",
+                    "previous": "قبلی"
+                },
+            }
+        })
+    })
+</script>
+@*تایید برای حذف کارگروه*@
+<script>
+    function confirmDeleteUser(user) {
+        let isConfirmed = confirm("آیا از حذف " + user + " مطمئن هستید؟");
+        if (isConfirmed) {
+            window.location.href = '/Secretary/WorkGroupManagement/DeleteMember/' + user+'/'+'';
+        }
+    }
+</script>
+
+
+@*تغییر دبیر کارگروه*@
+<script>
+    function dabirSelected(element) {
+        window.location.href = "/Secretary/WorkGroupManagement/ChangeSecretary/"+''+"/"+element.value;
+    }
+</script>

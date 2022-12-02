@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\EESV2.props" />
+</Project>

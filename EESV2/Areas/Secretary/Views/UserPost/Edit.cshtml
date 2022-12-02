@@ -1,0 +1,55 @@
+﻿@model EditUserPostEditModel
+@inject IUnitOfWork _uw
+@{
+    ViewData["page"] = "UPEdit";
+    ViewData["Title"] = "ویرایش سمت";
+    Layout = "Layout";
+}
+<link rel="stylesheet" href="~/dist/css/animate.css">
+<script src="~/dist/js/wow.min.js"></script>
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1 class="wow animate__animated animate__lightSpeedInRight">
+            ویرایش سمت
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="/Home/Index"><i class="fas fa-home"></i> خانه</a></li>
+            <li><a href="/Secretary/UserPost/UserPosts">مدیریت سمت ها</a></li>
+            <li><a href="#">ویرایش کارگروه</a></li>
+        </ol>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="box wow animate__animated animate__zoomInDown" data-wow-delay=".3s">
+            <div class="box-header">
+                <h3 class="box-title">فرم مشخصات سمت</h3>
+            </div>
+            <div class="box-body">
+                <div class="row">
+                    <div asp-validation-summary="All" class="text-danger"></div>
+                    <form asp-area="Secretary" asp-controller="UserPost" asp-action="Edit" method="post">
+                        <input type="hidden" asp-for="ID"/>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label asp-for="Title" class="control-label">عنوان1</label>
+                                <input required oninput="this.setCustomValidity('')" oninvalid="this.setCustomValidity('پر کردن این فیلد الزامی است.')" asp-for="Title" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <input style="display:block;width:100px;margin:0 auto 0 auto" type="submit" value="ذخیره" class="btn btn-success" />
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- /.content -->
+</div>
+<script>
+    new WOW().init();
+</script>

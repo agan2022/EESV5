@@ -1,0 +1,224 @@
+﻿@model LoginViewModel
+@inject IUnitOfWork _uw
+@inject IRankCalculator _rankCalculator;
+@{
+    List<Notification> notifications = _uw.NotificationRepository.Get(n=>n.IsShow).ToList();
+    int countTotalProposals= _uw.ProposalRepository.Get().Count();
+    int countApprovedProposals = _uw.ProposalRepository.Get(p => p.StatusID == 2 || p.StatusID == 5 || p.StatusID == 9).Count();
+    int countExecutedProposals = _uw.ProposalRepository.Get(p => p.StatusID == 9).Count();
+    var TopUsers = _rankCalculator.CalculateRank().Take(5);
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>سامانه نظام مشارکت منطقه 1 </title>
+    <link rel="stylesheet" href="~/dist/css/style.css">
+    <link rel="stylesheet" href="~/dist/css/all.min.css">
+    <link rel="stylesheet" href="~/dist/css/animate.css">
+    <link rel="stylesheet" href="~/dist/css/responsive.css">
+    <script src="~/dist/js/jquery.waypoints.min.js"></script>
+    
+
+</head>
+
+<body>
+    <!-- slider//// -->
+    <section class="slider">
+        <div class="slideritem">
+
+            <!-- ///////// -->
+            <div class="item">
+                <div class="picture"
+                     style="background: url(); background-repeat: no-repeat; background-size: cover; background-position: center;">
+                </div>
+                <div class="caption">
+                    <h1>پورتال نظام مشارکت و سیستم مدیریت یکپارچه</h1>
+                    <h2>منطبق بر آیین نامه نظام مشارکت</h2>
+                    <h2><a href="~/pdfslide/aeenname.pdf">آیین نامه نظام مشارکت </a> </h2>
+                    <h2><a href="~/pdfslide/22420-استاندارد مدیریت نظام آراستگی.pdf"> استاندارد مدیریت نظام آراستگی</a></h2>
+
+
+                </div>
+            </div>
+            <!-- /////counter -->
+            <div class="item ">
+                <div class="picture"
+                     style="background: url(); background-repeat: no-repeat; background-size: cover; background-position: center;">
+                </div>
+                <div class="caption">
+                    <h1>آمار پیشنهادات   </h1>
+                    <div class="container">
+                        <div class="counter-box">
+                            <div class="part">
+                                <i class="wow animate__animated animate__slideInDown fas fa-archive"></i>
+                                <h1>مجموع پیشنهادات</h1>
+                                <div class="counter"> @countTotalProposals</div>
+                            </div>
+
+                            <div class="part">
+                                <i class=" animate__animated animate__slideInDown fas fa-clipboard-check"></i>
+                                <h1>پیشنهادات تصویب شده</h1>
+                                <div class="counter">@countApprovedProposals</div>
+                            </div>
+                            <div class="part">
+                                <i class=" animate__animated animate__slideInDown fas fa-cogs"></i>
+                                <h1>پیشنهادات اجرایی </h1>
+                                <div class="counter">@countExecutedProposals</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- ///////// -->
+            <div class="item active">
+                <div class="picture"
+                     style="background: url(); background-repeat: no-repeat; background-size: cover; background-position: center;">
+                </div>
+                <div class="caption">
+                    <h1>پیشنهاد دهندگان برتر </h1>
+                    <div class="pictureid">
+                        @foreach (var user in TopUsers)
+                        {
+            <div class="picture-item animate__animated animate__slideInDown">
+                <img onerror="this.onerror=null; this.src='/dist/img/user.png'" src="/User/GetPersonnelPhoto?id=@user.ID" alt="no photo" style="width:100px;height:100px">
+                <h2>رتبه : @user.Rank</h2>
+                <h3>@user.FirstName @user.LastName</h3>
+                <h3>اداره @user.Office</h3>
+                <h3>امتیاز :@user.Score</h3>
+            </div>}
+                    </div>
+                </div>
+            </div>
+            <!-- /// -->
+            <div class="item">
+                <div class="picture"
+                     style="background: url(); background-repeat: no-repeat; background-size: cover; background-position: center;">
+                </div>
+                <div class="caption">
+                    <h1>اطلاعیه </h1>
+                    <h2><a href="~/pdfslide/رشد پیشنهادات.pdf"> رشد پیشنهادات </a></h2>
+                    <div class="container ">
+                        <div class="counter-box">
+                            @foreach (var notification in notifications)
+                            {
+                <div class="part etela2">
+                    <i class="wow animate__animated animate__slideInDown fas fa-archive"></i>
+                    <h1>@notification.Title</h1>
+                    <h1>@Html.Raw(notification.Text)</h1>
+                    <h1>@notification.PublishedDateTime</h1>
+                    <div class="counter"></div>
+                </div>}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /// -->
+            <div class="item">
+                <div class="picture"
+                     style="background: url(); background-repeat: no-repeat; background-size: cover; background-position: center;">
+                </div>
+                <div class="caption">
+                    <h1>گواهی نامه و تندیس های دریافتی منطقه</h1>
+                    <h2><a href="~/pdfslide/5S.jpg"> 5S </a></h2>
+                    <h2><a href="~/pdfslide/EHTEMAM.JPG"> گواهی اهتمام به تعالی نظام مشارکت </a></h2>
+                    <h2><a href="~/pdfslide/BAHREVARII.JPG"> گواهی جایزه ملی بهره وری </a></h2>
+                    <h2><a href="~/pdfslide/ISO 9001 - 2008.jpg">ISO 9001 </a> </h2>
+                    <h2><a href="~/pdfslide/ISO 14001 - 2004.jpg">ISO 14001 </a> </h2>
+                    <h2><a href="~/pdfslide/ISO 500001 - 2011.jpg">ISO 50001 </a> </h2>
+                    <h2><a href="~/pdfslide/OHSAS 18001 - 2007.jpg">OHSAS 18001 </a> </h2>
+                </div>
+            </div>
+            <!-- /// -->
+            <div class="item">
+                <div class="picture"
+                     style="background: url(); background-repeat: no-repeat; background-size: cover; background-position: center;">
+                </div>
+                <div class="caption">
+                    <h1>ارکان جهت ساز منطقه</h1>
+                    <h2><a href="~/pdfslide/نقشه استراتژی  انتقال گاز- 01.ppsx"> استراتژی شرکت ملی گاز و شرکت انتقال گاز</a></h2>
+                    <h2><a href="~/pdfslide/map & OP Transmission(94.2.30).pdf">استقرار نظام مدیریت استراتژیک </a> </h2>
+                    <h2><a href="~/pdfslide/خط مشی  شرکت انتقال گاز  1401 .gif">خط مشی شرکت انتقال گاز </a> </h2>
+                    <h2><a href="~/pdfslide/KHATE MASHY.jpg">خط مشی نظام مدیریت یکپارچه </a> </h2>
+                    <h2><a href="~/pdfslide/KHATEHSE&.gif">خط مشی نظام مدیریت کیفیت،بهداشت،ایمنی،محیط زیست و انرژی </a> </h2>
+
+                </div>
+            </div>
+
+        </div>
+
+        <div class="controls">
+            <div class="next"> <i class="fas fa-chevron-circle-right"></i></div>
+            <div class="prev"> <i class="fas fa-chevron-circle-left"></i></div>
+        </div>
+
+        <div class="progress"></div>
+    </section>
+
+    <!-- //main/// -->
+    <main>
+        <div class="form_slide">
+            <h2 id="company"> سامانه نظام مشارکت عملیات انتقال گاز منطقه یک</h2>
+            <form method="post" asp-controller="Account" asp-action="Login">
+                <div class="form_item wow animate__animated animate__zoomIn" data-wow-delay=".3s">
+                    <i class="fas fa-user"></i>
+                    <input asp-for="UserName" class="form-control" type="number" placeholder="شماره پرسنلی">
+                </div>
+                <span asp-validation-for="UserName" class="text-danger" style="font-weight:bold;color:red"></span>
+                <div class="form_item wow animate__animated animate__zoomIn" data-wow-delay=".5s">
+                    <i class="fas fa-lock"></i>
+                    <input asp-for="Password" class="form-control" type="password" placeholder="رمز عبور">
+                </div>
+                <span asp-validation-for="Password" class="text-danger" style="font-weight:bold;color:red"></span>
+                <span asp-validation-for="ErrorMessage"></span>
+                <div class="form_item wow animate__animated animate__zoomIn" data-wow-delay=".8s">
+                    <input type="submit" value="ورود">
+                </div>
+            </form>
+
+            <h3 id="demo"> </h3>
+            <div class="content">
+                <h3>کاربر گرامی</h3>
+                <p>در صورت بروز هرگونه مشکل جهت ورود به سامانه با دبیرخانه نظام مشارکت در ارتباط باشید.</p>
+            </div>
+            <div id="errors" class="callout callout-danger hidden">
+
+                <p></p>
+            </div>
+        </div>
+    </main>
+
+    <!-- //footer/// -->
+    <footer>
+        <div class="copyright">
+            <p>شرکت عملیات انتقال گاز منطقه یک. اداره ارتباطات و فناوری اطلاعات</p>
+        </div>
+    </footer>
+
+
+
+    <script src="~/dist/js/jquery-3.5.1.js"></script>
+    <script src="~/dist/js/jquery.counterup.min.js"></script>
+    <script src="~/dist/js/jquery.waypoints.min.js"></script>
+    <script src="~/dist/js/all.min.js"></script>
+    <script src="~/dist/js/myslide.js"></script>
+    <script src="~/dist/js/wow.min.js"></script>
+    <script src="~/dist/js/etebar.js"></script>
+    <script src="~/dist/js/jquery.counterup.min.js"></script>
+
+    <script src="~/plugins/dist/jquery.validate.min.js"></script>
+    <script>
+            jQuery(document).ready(function ($) {
+                $('.counter').counterUp({
+                    delay: 0.5,
+                    time: 1000
+                });
+            });
+    </script>
+</body>
+
+</html>

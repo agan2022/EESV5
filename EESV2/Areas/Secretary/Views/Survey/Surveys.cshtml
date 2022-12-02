@@ -1,0 +1,97 @@
+﻿@inject IUnitOfWork _uw
+@{
+    List<Survey> surveys = _uw.SurveyRepository.Get(include: s => s.Include(s => s.User).ThenInclude(u => u.Office)).ToList();
+    ViewData["page"] = "SRV";
+    ViewData["Title"] = "مدیریت نظرسنجی ها";
+    Layout = "Layout";
+}
+<link rel="stylesheet" href="~/dist/css/animate.css">
+<script src="~/dist/js/wow.min.js"></script>
+<!-- DataTables -->
+<link rel="stylesheet" href="../../bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1 class="wow animate__animated animate__lightSpeedInRight">
+            نظرسنجی ها
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="/Home/Index"><i class="fas fa-home"></i> خانه</a></li>
+            <li><a href="#">مدیریت نظرسنجی ها</a></li>
+        </ol>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="box wow animate__animated animate__zoomInDown" data-wow-delay=".3s">
+            <div class="box-header">
+                <h3 class="box-title">لیست نظرسنجی ها</h3>
+            </div>
+            <div class="box-body table-responsive no-padding">
+                <table id="example2" class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>تاریخ ثبت</th>
+                            <th>نام و نام خانوادگی ثبت کننده</th>
+                            <th>شماره پرسنلی</th>
+                            <th>نام اداره</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var survey in surveys)
+                        {
+                            <tr>
+                                <td>@survey.Date</td>
+                                <td>@survey.User.FirstName @survey.User.LastName</td>
+                                <td>@survey.User.Username</td>
+                                <td>@survey.User.Office.Name</td>
+                                <td>
+                                    @(survey.IsSeenByAdmin?"مشاهده شده":"مشاهده نشده")
+                                </td>
+                                <td>
+                                    <a class="btn btn-danger" href="/Secretary/Survey/Details?id=@survey.ID">جزئیات</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+    </section>
+    <!-- /.content -->
+</div>
+<!-- DataTables -->
+<script src="/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+<script>
+    new WOW().init();
+    $(function () {
+        $('#example2').DataTable({
+            'paging': true,
+            'lengthChange': true,
+            'searching': true,
+            'ordering': true,
+            "order": [[0, "desc"]],
+            'info': true,
+            'autoWidth': false,
+            'lengthMenu': [[5, 10, 25, 50, -1], [5, 10, 25, 50, "همه"]],
+            'language': {
+                'zeroRecords': 'رکوردی برای نمایش وجود ندارد',
+                'lengthMenu': 'نمایش _MENU_ رکورد در یک صفحه',
+                'search': 'جستجو در تمام ستون ها : ',
+                'info': 'تعداد کل رکوردها :   _TOTAL_',
+                'infoFiltered': '',
+                "infoEmpty": '',
+                "paginate": {
+                    "first": "اولین",
+                    "last": "آخرین",
+                    "next": "بعدی",
+                    "previous": "قبلی"
+                },
+            }
+        })
+    })
+</script>

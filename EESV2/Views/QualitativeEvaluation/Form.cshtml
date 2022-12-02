@@ -1,0 +1,364 @@
+﻿@model CreateQualitativeEvaluationFormViewModel
+@inject IUnitOfWork _uw
+@{
+    var Referral = _uw.ReferralRepository.Get(r=>r.ID==(int)ViewData["ReferralID"])
+                                                    .Select(r=>new
+                                                    {
+                                                        r.ID,
+                                                        r.ProposalID
+                                                    })
+                                                    .SingleOrDefault();
+    int ProposalID;
+    int ReferralID;
+    if (Model==null)
+    {
+        ProposalID = Referral.ProposalID;
+        ReferralID = Referral.ID;
+    }
+    else
+    {
+        ProposalID = (int)Model.ProposalID;
+        ReferralID = (int)Model.ReferralID;
+    }
+
+
+    ViewData["page"] = "Inbox";
+    ViewData["Title"] = "ارزیابی";
+    Layout = "Layout";
+}
+
+<link rel="stylesheet" href="~/dist/css/animate.css">
+<script src="~/dist/js/wow.min.js"></script>
+<form id="EvaluatingQualitativeForm" method="post" action="/QualitativeEvaluation/Form/" class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <input asp-for="ProposalID" value="@ProposalID" style="display:none" />
+    <input asp-for="ReferralID" value="@ReferralID" style="display:none" />
+    <section class="content-header">
+        <h1 class="wow animate__animated animate__lightSpeedInRight">
+            فرم ارزیابی کیفی
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="/Home/Index"><i class="fas fa-home"></i> خانه</a></li>
+            <li><a href="#">صندوق ورودی</a></li>
+            <li><a href="#">فرم ارزیابی کیفی</a></li>
+        </ol>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+
+        <!-- Default box -->
+        <div class="box wow animate__animated animate__zoomInDown" data-wow-delay=".3s">
+            <div class="box-header with-border">
+                <h3 class="box-title">جدول ارزیابی میزان کارایی و اثر بخشی پیشنهاد @ProposalID<a target="_blank" class="btn btn-lg btn-link" href="/Proposal/Review?proposalID=@ProposalID">مشاهده پیشنهاد</a></h3>
+
+                <div class="box-tools pull-right"></div>
+            </div>
+            <div class="box-body">
+                <div class="col-lg-12">
+                    <div class="form-group">
+                        <div class="radio">
+                            <label>
+                                <input onchange="AgreeProposal(this)" type="radio" asp-for="PishOk" id="isConfirmed1" value="true">
+                                پیشنهاد مورد تأیید می باشد.
+                            </label>
+                        </div>
+                        <div class="radio">
+                            <label title="در صورت رد پیشنهاد تمامی امتیازات برابر صفر قرار داده خواهد شد." style="color:red">
+                                <input onchange="disAgreeProposal(this)" type="radio" asp-for="PishOk" id="isConfirmed2" value="false">
+                                پیشنهاد مورد تأیید نیست.
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 hidden disAgree">
+                    <div class="row">
+                        <div class="form-group">
+                            <label>دلیل رد پیشنهاد</label>
+                            <textarea asp-for="RejectReason" class="form-control" style="resize:none"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 hidden Agree">
+                    <div class="table-responsive no-padding">
+                        <table id="example2" class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>ردیف</th>
+                                    <th>عوامل ارزیابی</th>
+                                    <th>حداکثر امتیاز</th>
+                                    <th>امتیاز اکتسابی پیشنهاد بر اساس معیارهای ارزیابی و حداکثر امتیاز</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>آیا اجرای پیشنهاد باعث بهبود عملکرد یا افزایش راندمان تولید(بهبود بهره وری، افزایش زمان آماده بکاری کارکنان، کاهش زمان تولید) شده است؟</td>
+                                    <td>60</td>
+                                    <td>
+                                        <input onchange="changeSum()" min="0" max="60" asp-for="K1" class="form-control" type="number" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>آیا اجرای پیشنهاد کیفیت فرایند ها را افزایش می دهد؟(تثبیت کیفیت محصول، خدمات به مشتری، اصلاح جنبه های فنی محصول)  </td>
+                                    <td>60</td>
+                                    <td>
+                                        <input onchange="changeSum()" min="0" max="60" asp-for="K2" class="form-control" type="number" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td>
+                                        آیا اجرای پیشنهاد روش های کاری کارکنان را اصلاح و بهبود بخشیده است ودرانجام کارها به صورت گروهی تأثیر مثبت داشته است؟
+                                    </td>
+                                    <td>60</td>
+                                    <td>
+                                        <input onchange="changeSum()" min="0" max="60" asp-for="K3" class="form-control" type="number" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>4</td>
+                                    <td>
+                                        آیا اجرای پیشنهاد باعث بهسازی واصلاح عملکرد تجهیزات وماشین آلات یا بازسازی قطعات
+                                        وابزارآلات شده است؟
+                                    </td>
+                                    <td>60</td>
+                                    <td>
+                                        <input onchange="changeSum()" min="0" max="60" asp-for="K4" class="form-control" type="number" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>5</td>
+                                    <td>
+                                        آیا اجرای پیشنهاد باعث کاهش ضایعات، مواد مصرفی قطعات یدکی، ملزومات اداری و سایر
+                                        منابع وعوامل تولید و ارائه خدمات محصول سازمان نموده است؟
+                                    </td>
+                                    <td>120</td>
+                                    <td>
+                                        <input onchange="changeSum()" min="0" max="120" asp-for="K5" class="form-control" type="number" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>6</td>
+                                    <td>
+                                        آیا اجرای پیشنهاد باعث افزایش ایمنی کارکنان، کاهش آلودگی محیط زیست (گردوغبار ،
+                                        صوتی، تشعشعی)شده است؟
+                                    </td>
+                                    <td>90</td>
+                                    <td>
+                                        <input onchange="changeSum()" min="0" max="90" asp-for="K6" class="form-control" type="number" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>7</td>
+                                    <td>
+                                        میزان تلاش پیشنهاد دهنده در پیاده سازی (تهیه دستورالعمل ها، محاسبات فنی، نقشه های
+                                        اجرایی واجرای عملی) طرح پیشنهادی چقدر بوده است؟
+                                    </td>
+                                    <td>120</td>
+                                    <td>
+                                        <input onchange="changeSum()" min="0" max="120" asp-for="K7" class="form-control" type="number" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>8</td>
+                                    <td>
+                                        امتیاز خاص پیشنهاد دهندگان براساس رده های کاری(مدیران ارشد 1، مدیران میانی 2، سرپرستان 3، کارشناسان 4، کارکنان 5)،
+                                    </td>
+                                    <td>30</td>
+                                    <td>
+                                        <input onchange="changeSum()" min="0" max="30" asp-for="K8" class="form-control" type="number" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>9</td>
+                                    <td>
+                                        مجموع
+                                    </td>
+                                    <td>600</td>
+                                    <td>
+                                        <input onchange="changeSum()" id="sum" disabled class="form-control" type="text" />
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-md-12 hidden Agree">
+                    <div class="row">
+                        <div class="callout callout-info">
+                            <h4>توجه</h4>
+
+                            <p>مسئوليت دقت و صحت ارقام اعلام شده و تبعات ناشی از آن متوجه ارزياب/ ارزيابان می باشد.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="box">
+                                    <div class="box-header with-border">
+                                        <h3 class="box-title">کیفیت پیشنهاد</h3>
+                                        <div class="box-tools pull-right"></div>
+                                    </div>
+                                    <div class="box-body">
+                                        <div class="form-group">
+                                            <div class="radio">
+                                                <label>
+                                                    <input type="radio" asp-for="Quality" id="qualityOfProposal1" value="0">
+                                                    عالی
+                                                </label>
+                                            </div>
+                                            <div class="radio">
+                                                <label>
+                                                    <input type="radio" asp-for="Quality" id="qualityOfProposal2" value="1">
+                                                    خیلی خوب
+                                                </label>
+                                            </div>
+                                            <div class="radio">
+                                                <label>
+                                                    <input type="radio" asp-for="Quality" id="qualityOfProposal3" value="2">
+                                                    خوب
+                                                </label>
+                                            </div>
+                                            <div class="radio">
+                                                <label>
+                                                    <input type="radio" asp-for="Quality" id="qualityOfProposal4" value="3">
+                                                    متوسط
+                                                </label>
+                                            </div>
+                                            <div class="radio">
+                                                <label>
+                                                    <input type="radio" asp-for="Quality" id="qualityOfProposal5" value="4">
+                                                    ضعیف
+                                                </label>
+                                            </div>
+                                            <div class="radio">
+                                                <label>
+                                                    <input type="radio" asp-for="Quality" id="qualityOfProposal6" value="5">
+                                                    خیلی ضعیف
+                                                </label>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>ساعت کار کارشناسی شده</label>
+                                                <input asp-for="HrWork" type="number" class="form-control" placeholder="عدد بر حسب ساعت">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <button class="btn btn-success">تأیید و ارسال</button>
+            </div>
+        </div>
+        <!-- /.box -->
+
+    </section>
+    <!-- /.content -->
+</form>
+<script>
+    @if (Model!=null)
+    {
+        if ((bool)Model.PishOk)
+        {
+            <text>
+                AGR()
+            </text>
+        }
+        else
+        {
+            <text>
+                DAGR()
+            </text>
+        }
+    }
+    function AgreeProposal(e) {
+        if (e.checked) {
+            AGR();
+        }
+    }
+    function disAgreeProposal(e) {
+        if (e.checked) {
+            DAGR();
+        }
+    }
+
+    function AGR() {
+        let AgreeElements = document.getElementsByClassName("Agree");
+        for (var i = 0; i < AgreeElements.length; i++) {
+            AgreeElements[i].classList.remove("hidden");
+        }
+        let disAgreeElements = document.getElementsByClassName("disAgree");
+        for (var i = 0; i < disAgreeElements.length; i++) {
+            disAgreeElements[i].classList.add("hidden");
+        }
+    }
+
+    function DAGR() {
+        let disAgreeElements = document.getElementsByClassName("disAgree");
+        for (var i = 0; i < disAgreeElements.length; i++) {
+            disAgreeElements[i].classList.remove("hidden");
+        }
+        let AgreeElements = document.getElementsByClassName("Agree");
+        for (var i = 0; i < AgreeElements.length; i++) {
+            AgreeElements[i].classList.add("hidden");
+        }
+    }
+</script>
+<script>
+    document.getElementById("EvaluatingQualitativeForm").addEventListener('submit', (e) => {
+        e.preventDefault();
+        if (e.target.PishOk.value == "") {
+            alert(" پیشنهاد را تأیید یا رد کنید.");
+            return;
+        }
+        if (e.target.PishOk.value == 'false' && e.target.RejectReason.value == "") {
+            alert("در صورت رد پیشنهاد حتما باید دلیل ذکر شود.");
+            return;
+        }
+        if (e.target.Quality.value == "") {
+            alert(" کیفیت پیشنهاد را مشخص کنید.");
+            return;
+        }
+        if (e.target.HrWork.value == "") {
+            alert(" ساعات کار کارشناسی شده را مشخص کنید.");
+            return;
+        }
+
+        if (e.target.PishOk.value == "true") {
+            if (((e.target.K1.value) < 0 || (e.target.K1.value) > 60 || e.target.K1.value == "")
+                || ((e.target.K2.value) < 0 || (e.target.K2.value) > 60 || e.target.K2.value == "")
+                || ((e.target.K3.value) < 0 || (e.target.K3.value) > 60 || e.target.K3.value == "")
+                || ((e.target.K4.value) < 0 || (e.target.K4.value) > 60 || e.target.K4.value == "")
+                || ((e.target.K5.value) < 0 || (e.target.K5.value) > 120 || e.target.K5.value == "")
+                || ((e.target.K6.value) < 0 || (e.target.K6.value) > 90 || e.target.K6.value == "")
+                || ((e.target.K7.value) < 0 || (e.target.K7.value) > 120 || e.target.K7.value == "")
+                || ((e.target.K8.value) < 0 || (e.target.K8.value) > 30 || e.target.K8.value == "")
+            ) {
+                alert("یک یا چند مورد از امتیازات به درستی وارد نشده است.");
+                return;
+            }
+        }
+        e.target.submit();
+    });
+</script>
+<script>
+
+    new WOW().init();
+    function changeSum() {
+        let form = document.getElementById('EvaluatingQualitativeForm');
+        document.getElementById('sum').value = parseInt(form.K1.value == "" ? 0 : form.K1.value) +
+            parseInt(form.K2.value == "" ? 0 : form.K2.value) +
+            parseInt(form.K3.value == "" ? 0 : form.K3.value) +
+            parseInt(form.K4.value == "" ? 0 : form.K4.value) +
+            parseInt(form.K5.value == "" ? 0 : form.K5.value) +
+            parseInt(form.K6.value == "" ? 0 : form.K6.value) +
+            parseInt(form.K7.value == "" ? 0 : form.K7.value) +
+            parseInt(form.K8.value == "" ? 0 : form.K8.value);
+    }
+</script>

@@ -1,0 +1,264 @@
+﻿@model EditUserEditModel
+@inject IUnitOfWork uw
+@{
+    List<Office> Offices = uw.OfficeRepository.Get().ToList();
+    List<PortalMembershipType> portalMembershipTypes = uw.PortalMembershipTypeRepository.Get().ToList();
+    List<EmploymentType> employmentTypes = uw.EmploymentTypeRepository.Get().ToList();
+    List<UserPost> userPosts = uw.UserPostRepository.Get().ToList();
+    List<UserStatus> userStatuses = uw.UserStatusRepository.Get().ToList();
+    ViewData["page"] = "EUSR";
+    ViewData["Title"] = "ویرایش کاربر";
+    Layout = "Layout";
+    //List<TblManagment> Units = (List<TblManagment>)ViewData["Units"];
+}
+<!--TreeView Css-->
+<style type="text/css">
+    /* Remove default bullets */
+    #myUL {
+        direction: ltr;
+        list-style-type: none;
+    }
+
+        #myUL ul {
+            direction: ltr;
+            list-style-type: none;
+        }
+    /* Remove margins and padding from the parent ul */
+    #myUL {
+        margin: 0;
+        padding: 0;
+    }
+
+        #myUL li {
+            padding-bottom: 10px;
+            display: block;
+            margin: 0;
+        }
+        /* Style the caret/arrow */
+        #myUL .caret1 {
+            cursor: pointer;
+            user-select: none; /* Prevent text selection */
+        }
+
+            /* Create the caret/arrow with a unicode, and style it */
+            #myUL .caret1::before {
+                content: "\25B6";
+                color: black;
+                display: inline-block;
+                margin-right: 6px;
+            }
+
+        /* Rotate the caret/arrow icon when clicked on (using JavaScript) */
+        #myUL .caret-down::before {
+            transform: rotate(90deg);
+        }
+
+        /* Hide the nested list */
+        #myUL .nested {
+            display: none;
+        }
+
+        /* Show the nested list when the user clicks on the caret/arrow (with JavaScript) */
+        #myUL .active {
+            padding-top: 10px;
+            display: block;
+        }
+</style>
+<link rel="stylesheet" href="~/dist/css/animate.css">
+<link rel="stylesheet" href="~/plugins/select2/css/select2.min.css">
+<script src="~/dist/js/wow.min.js"></script>
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1 class="wow animate__animated animate__lightSpeedInRight">
+            ویرایش کاربر 
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="/Home/Index"><i class="fas fa-home"></i> خانه</a></li>
+            <li><a href="/Secretary/User/Users">مدیریت کاربران</a></li>
+            <li class="active">ویرایش کاربر</li>
+        </ol>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="box wow animate__animated animate__zoomInDown" data-wow-delay=".3s">
+            <div class="box-header">
+                <h3 class="box-title">فرم ویرایش کاربر</h3>
+            </div>
+            <div class="box-body">
+                <div class="row">
+                    <form enctype="multipart/form-data" action="/Secretary/User/Edit" method="post">
+                        <input hidden asp-for="ID" />
+                        <div class="col-md-6">
+                            <div asp-validation-summary="All" class="text-danger"></div>
+                            <div class="form-group">
+                                <label class="control-label">شماره پرسنلی</label>
+                                <input asp-for="Username" class="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">رمز عبور</label>
+                                <input asp-for="Password" type="password" class="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">نام</label>
+                                <input asp-for="FirstName" class="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">نام خانوادگی</label>
+                                <input asp-for="LastName" class="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">نام اداره</label>
+                                <select dir="rtl" style="padding-top:0px;padding-bottom:0px" asp-for="OfficeID" class="form-control select2">
+                                    <option value="-1">یکی را انتخاب کنید</option>
+                                    @foreach (Office office in Offices)
+                                    {
+                                        <option value="@office.ID">@office.Name</option>
+                                    }
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">نوع استخدامی</label>
+                                <select dir="rtl" style="padding-top:0px;padding-bottom:0px" asp-for="EmploymentTypeID" class="form-control select2">
+                                    @foreach (EmploymentType employmentType in employmentTypes)
+                                    {
+                                        <option value="@employmentType.ID">@employmentType.Title</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label">تلفن خانه</label>
+                                <input asp-for="HomePhone" class="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">موبایل</label>
+                                <input asp-for="Mobile" class="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">آدرس خانه</label>
+                                <input asp-for="AddressHome" class="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">تلفن محل کار</label>
+                                <input asp-for="WorkPhone" class="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-2">تصویر</label>
+                                <img style="width:100px;" onerror="this.onerror = null; this.src = '/dist/img/boxed-bg.png'" src="/User/GetPersonnelPhoto?id=@Model.ID" />
+                                <select name="PictureState" onchange="PictureStateChanged(this)" style="margin-top:10px;padding-top:0px;padding-bottom:0px" class="form-control">
+                                    <option value="1">تصویر فعلی</option>
+                                    <option value="2">حذف تصویر</option>
+                                    <option value="3">آپلود تصویر جدید</option>
+                                </select>
+                                <input style="display:none" asp-for="Pic" type="file" class="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">سمت</label>
+                                <select dir="rtl" style="padding-top:0px;padding-bottom:0px" asp-for="PostID" class="form-control select2">
+                                    @foreach (UserPost userPost in userPosts)
+                                    {
+                                        <option value="@userPost.ID">@userPost.Title</option>
+                                    }
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">نوع عضویت در پرتال</label>
+                                <select dir="rtl" style="padding-top:0px;padding-bottom:0px" asp-for="PortalMembershipTypeID" class="form-control select2">
+                                    @foreach (PortalMembershipType portalMembershipType in portalMembershipTypes)
+                                    {
+                                        <option value="@portalMembershipType.ID">@portalMembershipType.Title</option>
+                                    }
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">وضعیت</label>
+                                <select dir="rtl" style="padding-top:0px;padding-bottom:0px" asp-for="StatusID" class="form-control select2">
+                                    @foreach (UserStatus userStatus in userStatuses)
+                                    {
+                                        <option value="@userStatus.ID">@userStatus.Title</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div dir="ltr" class="form-group">
+                                <input style="width:200px" type="submit" value="ثبت" class="btn btn-success" />
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- /.content -->
+</div>
+<!--TreeView-->
+<script src="~/plugins/select2/js/select2.min.js"></script>
+<script>
+    function PictureStateChanged(element) {
+        if (element.value == 3) {
+            document.getElementById("Pic").click();
+            element.children[0].setAttribute('selected', 'selected');
+            element.children[0].removeAttribute("selected");
+        }
+    }
+</script>
+@*<script>
+        new WOW().init();
+        document.addEventListener("DOMContentLoaded", () => {
+            let Semats = @(Html.Raw(Json.Serialize(Offices)));
+            for (var j = 0; j < Semats.length; j++) {
+
+                if (Semats[j].parrentOfficeID != null) {
+
+                    let parrent = document.getElementById(Semats[j].parrentOfficeID);
+                    if (parrent.children.length == 1) {
+                        let item = `                                <span class="caret1">${parrent.innerText}</span>
+                                                                        <ul class="nested">
+                                                                            <li id='${Semats[j].id}'>
+                                                                                <lable>
+                                                                                    <input name='UnitId' type="radio" value='${Semats[j].id}' />
+                                                                                    ${Semats[j].name}
+                                                                                </lable>
+                                                                            </li >
+                                                                        </ul>`
+                        parrent.innerHTML = item;
+                    }
+                    else {
+                        let ulofparrent = parrent.getElementsByTagName('ul')[0];
+                        let item = document.createElement("li");
+                        item.setAttribute('id', Semats[j].id);
+                        item.innerHTML = `                                  <lable>
+                                                                                    <input name='UnitId' type="radio" value='${Semats[j].id}' />
+                                                                                    ${Semats[j].name}
+                                                                                </lable>`;
+                        ulofparrent.appendChild(item);
+                    }
+                }
+                else {
+                    let item = `<li id='${Semats[j].id}'>
+                                        <lable>
+                                            <input name='UnitId' type="checkbox" value='${Semats[j].id}' />
+                                            ${Semats[j].name}
+                                        </lable>
+                                    </li >`;
+                    document.getElementById("myUL").innerHTML = item;
+                }
+            }
+            var toggler = document.getElementsByClassName("caret1");
+            var i;
+            for (i = 0; i < toggler.length; i++) {
+                toggler[i].addEventListener("click", function () {
+                    this.parentElement.querySelector(".nested").classList.toggle("active");
+                    this.classList.toggle("caret-down");
+                });
+            }
+        });
+    </script>*@
+
+
+

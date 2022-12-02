@@ -1,0 +1,187 @@
+﻿@model SecretaryEstimationCostFormEditModel
+@inject IUnitOfWork _uw 
+@{
+    List<ImpartStatus> impartStatuses = _uw.ImpartStatusRepository.Get().ToList() ;
+    Impart impart = _uw.ImpartRepository.Get(i => i.ID == Model.ID,include:s=>s
+                                                .Include(i=>i.Executor).ThenInclude(e=>e.Office)
+                                                .Include(i=>i.Hamkaran).ThenInclude(h=>h.User).ThenInclude(u => u.Office)
+                                                .Include(i=>i.Proposal))
+                                                .SingleOrDefault();
+    User Executor = impart.Executor;
+    List<UserImpart> Hamkaran = impart.Hamkaran;
+
+    ViewData["page"] = "EPNF";
+    ViewData["Title"] = "فرم ابلاغ اجرای پیشنهاد";
+    Layout = "Layout";
+}
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1 class="wow animate__animated animate__lightSpeedInRight">
+            فرم ابلاغ اجرای پیشنهاد
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="/Home/Index"><i class="fas fa-home"></i> خانه</a></li>
+            <li><a href="/Secretary/Impart/CreateImparts">فرم ابلاغ جدید</a></li>
+            <li class="active">فرم ابلاغ اجرای پیشنهاد</li>
+        </ol>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="box box-info">
+            <div class="box-header with-border">
+                <h3 class="box-title">
+                    فرم ابلاغ
+                    <a target="_blank" class="btn btn-lg btn-link" href="/Proposal/Review?ProposalID=@impart.ProposalID">مشاهده پیشنهاد</a>
+                </h3>
+            </div>
+            <!-- form start -->
+            <form method="post" asp-area="Secretary" asp-controller="Impart" asp-action="EstimationCostForm" id="estimationForm" class="form-horizontal">
+                <div class="box-body">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label style="text-align:right" class="col-sm-3 control-label">شماره ابلاغ :</label>
+
+                            <div class="col-sm-9">
+                                <label style="text-align:right" class="col-sm-3 control-label">@impart.ID</label>
+                                <input asp-for="ID" readonly class="form-control" style="display:none">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label style="text-align:right" class="col-sm-3 control-label">شماره پیشنهاد :</label>
+
+                            <div class="col-sm-9">
+                                <label style="text-align:right" class="col-sm-3 control-label">@impart.ProposalID</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label style="text-align:right" class="col-sm-3 control-label">عنوان پیشنهاد :</label>
+
+                            <div class="col-sm-9">
+                                <label style="text-align:right" class="col-sm-3 control-label">@impart.Proposal.SubjectPr</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label style="text-align:right" class="col-sm-3 control-label">واحد مجری :</label>
+
+                            <div class="col-sm-9">
+                                <label style="text-align:right" class="col-sm-3 control-label">@impart.Executor.Office.Name</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label style="text-align:right" class="col-sm-3 control-label">تاریخ ارسال :</label>
+
+                            <div class="col-sm-9">
+                                <label style="text-align:right" class="col-sm-3 control-label">@impart.Date</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label style="text-align:right" class="col-sm-4 control-label">تاریخ شروع اجرا :</label>
+
+                            <div class="col-sm-8">
+                                <label style="text-align:right" class="col-sm-3 control-label">@impart.StartDateExecute</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label style="text-align:right" class="col-sm-4 control-label">تاریخ پایان اجرا :</label>
+
+                            <div class="col-sm-8">
+                                <label style="text-align:right" class="col-sm-3 control-label">@impart.EndDateExecute</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label style="text-align:right" class="col-sm-4 control-label">هزینه اجرای پیشنهاد(ريال) :</label>
+
+                            <div class="col-sm-8">
+                                <label style="text-align:right" class="col-sm-3 control-label">@impart.Cost</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label style="text-align:right" class="col-sm-4 control-label">زمان لازم جهت اجرای پیشنهاد(روز) :</label>
+
+                            <div class="col-sm-8">
+                                <label style="text-align:right" class="col-sm-3 control-label">@impart.TimeToExecute</label>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="box">
+                                <div class="box-header">
+                                    <h3 class="box-title">همکاران مجری</h3>
+                                </div>
+                                <!-- /.box-header -->
+                                <div class="box-body table-responsive no-padding">
+                                    <table class="table table-hover table-bordered">
+                                        <tbody id="tblUserRecommender">
+                                            <tr>
+                                                <th>شماره پرسنلی</th>
+                                                <th>نام و نام خانوادگی</th>
+                                                <th>واحد</th>
+                                            </tr>
+                                            <tr>
+
+                                                <td>@Executor.Username</td>
+                                                <td>@Executor.FirstName @Executor.LastName</td>
+                                                <td>@Executor.Office.Name</td>
+                                            </tr>
+                                            @for (int i = 0; i < Hamkaran.Count; i++)
+                                            {
+
+                                                <tr>
+                                                    <td>@Hamkaran[i].User.Username</td>
+                                                    <td>@Hamkaran[i].User.FirstName @Hamkaran[i].User.LastName</td>
+                                                    <td>@Hamkaran[i].User.Office.Name</td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <!-- /.box-body -->
+                            </div>
+                            <!-- /.box -->
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-md-12">
+                            <label>شرح برنامه اجرایی</label>
+
+                            <div class="col-lg-12">
+                                @(new Microsoft.AspNetCore.Html.HtmlString(impart.DescriptionExecute))
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-md-12">
+                            <label>وضعیت</label>
+                            @foreach (var status in impartStatuses)
+                            {
+                                <div class="col-md-12">
+                                    <label>
+                                        <input asp-for="ImpartStatusID" value="@status.ID" style="position:relative;top:3px" type="radio" />
+                                        @status.Title
+                                    </label>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <input type="submit" class="btn btn-success" style="width:300px;display:block;margin:0 auto 0 auto" value="ثبت تغییرات" />
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+    <!-- /.content -->
+</div>
+
+
+
+
+

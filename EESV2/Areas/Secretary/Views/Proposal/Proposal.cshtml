@@ -1,0 +1,541 @@
+﻿@model EditProposalEditModel
+@inject EESV2.DAL.Services.IProposalRepository _proposalRepository
+@inject IUnitOfWork uw
+@{
+    string AttachedFileName =await _proposalRepository.GetAttachedFileName(Model.ID);
+    Proposal proposal = uw.ProposalRepository.Get(p=>p.ID==Model.ID,include:s=>s.
+                                                Include(p=>p.Registrar).ThenInclude(r=>r.Office)
+                                                .Include(p=>p.HelpersToRegistrar).ThenInclude(h=>h.User).ThenInclude(u=>u.Office))
+                                                .SingleOrDefault();
+
+
+    ViewData["page"] = "DSP";
+    ViewData["Title"] = "جزئیات پیشنهاد";
+    Layout = "Layout";
+}
+<!-- bootstrap wysihtml5 - text editor -->
+<link rel="stylesheet" href="~/dist/css/animate.css">
+<script src="~/dist/js/wow.min.js"></script>
+<link rel="stylesheet" href="~/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
+<div class="content-wrapper" style="min-height: 915.8px;">
+    <section class="content-header">
+        <h1 class="wow animate__animated animate__lightSpeedInRight">
+            جزئیات پیشنهاد شماره @Model.ID
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="/Home/Index"><i class="fas fa-home"></i> خانه</a></li>
+            <li><a href="#">مدیریت نظام مشارکت</a></li>
+            <li class="active">جزئیات پیشنهاد</li>
+        </ol>
+    </section>
+
+    <section class="content  wow animate__animated animate__zoomInDown" data-wow-delay=".3s">
+        <form id="form1" method="post" action="/Secretary/Proposal/Proposal" class="box">
+            <input asp-for="ID" style="display:none" />
+
+            <div class="box-body">
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="form-group">
+                            <label class="control-label">عنوان پیشنهاد</label>
+                            <input asp-for="SubjectPr" type="text" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>کد بذر</label>
+                            <input asp-for="CodeBazr" type="text" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>شرح وضعیت موجود</label>
+                            <div>
+                                <textarea name="CurrentDescPr" id="CurrentDescPr" style="width: 100%; height: 100px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;">
+                                @(new Microsoft.AspNetCore.Html.HtmlString(Model.CurrentDescPr))
+                                </textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>شرح پیشنهاد جدید</label>
+                            <div>
+                                <textarea name="NewDesPr" id="NewDesPr" style="width: 100%; height: 100px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;">
+                                @(new Microsoft.AspNetCore.Html.HtmlString(Model.NewDesPr))
+                                </textarea>
+                            </div>
+                        </div>
+                        <div class="box">
+                            <!-- /.box-header -->
+                            <div class="box-body table-responsive no-padding">
+                                <table class="table table-bordered">
+                                    <tbody>
+                                        <tr>
+                                            <th></th>
+                                            <th>هزینه های اجرایی پیشنهاد(ريال)</th>
+                                            <th>ثمره/درآمد اقتصادی پیشنهاد(ريال)</th>
+                                            <th>صرفه جویی/سود(ريال)(درآمد منهای هزینه)</th>
+                                        </tr>
+                                        <tr>
+                                            <td>روزانه</td>
+                                            <td>
+                                                <input asp-for="EjraDaily" type="text" class="form-control" />
+                                            </td>
+                                            <td>
+                                                <input asp-for="GetDaily" type="text" class="form-control" />
+                                            </td>
+                                            <td>
+                                                <input asp-for="SarfeDaily" type="text" class="form-control" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>ماهانه</td>
+                                            <td>
+                                                <input asp-for="EjraMonthly" type="text" class="form-control" />
+                                            </td>
+                                            <td>
+                                                <input asp-for="GetMonthly" type="text" class="form-control" />
+                                            </td>
+                                            <td>
+                                                <input asp-for="SarfeMonthly" type="text" class="form-control" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>سالانه</td>
+                                            <td>
+                                                <input asp-for="EjraYear" type="text" class="form-control" />
+                                            </td>
+                                            <td>
+                                                <input asp-for="GetYear" type="text" class="form-control" />
+                                            </td>
+                                            <td>
+                                                <input asp-for="SarfeYear" type="text" class="form-control" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>پنج ساله</td>
+                                            <td>
+                                                <input asp-for="Ejra5Year" type="text" class="form-control" />
+                                            </td>
+                                            <td>
+                                                <input asp-for="Get5Year" type="text" class="form-control" />
+                                            </td>
+                                            <td>
+                                                <input asp-for="Sarfe5Year" type="text" class="form-control" />
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- /.box-body -->
+                        </div>
+                        <div class="box">
+                            <!-- /.box-header -->
+                            <div class="box-header">
+                                <h3 style="text-align:center">نتایج حاصل از پیشنهاد</h3>
+                            </div>
+                            <div class="box-body table-responsive no-padding">
+                                <table class="table table-bordered">
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input @((bool)Model.Ch01 ? "checked" : "") name="Ch01" type="checkbox" value="true"> صرفه جویی در مصرف انرژی
+                                                    </label>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input @((bool)Model.Ch14 ? "checked" : "") name="Ch14" type="checkbox" value="true"> بهبود انگیزه های شغلی
+                                                    </label>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input @((bool)Model.Ch27 ? "checked" : "") name="Ch27" type="checkbox" value="true"> افزایش بازده تجهیزات
+                                                    </label>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input @((bool)Model.Ch02 ? "checked" : "") name="Ch02" type="checkbox" value="true"> صرفه جویی در مصرف مواد
+                                                    </label>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input @((bool)Model.Ch15 ? "checked" : "") name="Ch15" type="checkbox" value="true"> بهبود روش های فروش و صادرات
+                                                    </label>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input @((bool)Model.Ch28 ? "checked" : "") name="Ch28" type="checkbox" value="true"> افزایش درآمد
+                                                    </label>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input @((bool)Model.Ch03 ? "checked" : "") name="Ch03" type="checkbox" value="true"> صرفه جویی در هزینه ها
+                                                    </label>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input @((bool)Model.Ch16 ? "checked" : "") name="Ch16" type="checkbox" value="true"> بهبود دسته بندی محصولات
+                                                    </label>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input @((bool)Model.Ch29 ? "checked" : "") name="Ch29" type="checkbox" value="true"> افزایش تولید
+                                                    </label>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input @((bool)Model.Ch04 ? "checked" : "") name="Ch04" type="checkbox" value="true"> صرفه جویی در وقت
+                                                    </label>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input @((bool)Model.Ch17 ? "checked" : "") name="Ch17" type="checkbox" value="true"> بهبود روند توسعه
+                                                    </label>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input @((bool)Model.Ch30 ? "checked" : "") name="Ch30" type="checkbox" value="true"> افزایش روحیه جمعی
+                                                    </label>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input @((bool)Model.Ch05 ? "checked" : "") name="Ch05" type="checkbox" value="true"> کاهش هزینه های تعمیرات و نگهداری
+                                                    </label>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input @((bool)Model.Ch18 ? "checked" : "") name="Ch18" type="checkbox" value="true"> بهبود شرایط فیزیکی محیط کار
+                                                    </label>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input @((bool)Model.Ch31 ? "checked" : "") name="Ch31" type="checkbox" value="true"> افزایش کارائی کارکنان
+                                                    </label>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input @((bool)Model.Ch06 ? "checked" : "") name="Ch06" type="checkbox" value="true"> کاهش ضایعات
+                                                    </label>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input @((bool)Model.Ch19 ? "checked" : "") name="Ch19" type="checkbox" value="true"> بهبود ایمنی
+                                                    </label>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input @((bool)Model.Ch32 ? "checked" : "") name="Ch32" type="checkbox" value="true"> گسترش فعالیت ها
+                                                    </label>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input @((bool)Model.Ch07 ? "checked" : "") name="Ch07" type="checkbox" value="true"> بهبود کیفیت
+                                                    </label>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input @((bool)Model.Ch20 ? "checked" : "") name="Ch20" type="checkbox" value="true"> بهبود ارتباطات و روابط عمومی
+                                                    </label>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input @((bool)Model.Ch33 ? "checked" : "") name="Ch33" type="checkbox" value="true"> ایجاد درآمد
+                                                    </label>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input @((bool)Model.Ch08 ? "checked" : "") name="Ch08" type="checkbox" value="true"> بهبود روش های بازاریابی
+                                                    </label>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input @((bool)Model.Ch21 ? "checked" : "") name="Ch21" type="checkbox" value="true"> اصلاح روش های اداری
+                                                    </label>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input @((bool)Model.Ch34 ? "checked" : "") name="Ch34" type="checkbox" value="true"> ایجاد طرح تحقیقاتی جدید
+                                                    </label>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input @((bool)Model.Ch09 ? "checked" : "") name="Ch09" type="checkbox" value="true"> بهبود امنیت شغلی کارکنان
+                                                    </label>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input @((bool)Model.Ch22 ? "checked" : "") name="Ch22" type="checkbox" value="true"> اصلاح روش های آموزشی
+                                                    </label>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input @((bool)Model.Ch35 ? "checked" : "") name="Ch35" type="checkbox" value="true"> چند پیشه کردن
+                                                    </label>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input @((bool)Model.Ch10 ? "checked" : "") name="Ch10" type="checkbox" value="true"> بهبود فعالیت های تبلیغاتی
+                                                    </label>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input @((bool)Model.Ch23 ? "checked" : "") name="Ch23" type="checkbox" value="true"> اصلاح روش های مالی
+                                                    </label>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input @((bool)Model.Ch36 ? "checked" : "") name="Ch36" type="checkbox" value="true"> بهسازی نیروی انسانی
+                                                    </label>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input @((bool)Model.Ch11 ? "checked" : "") name="Ch11" type="checkbox" value="true"> بهبود روش های مهندسی
+                                                    </label>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input @((bool)Model.Ch24 ? "checked" : "") name="Ch24" type="checkbox" value="true"> اصلاح روش های تولید
+                                                    </label>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input @((bool)Model.Ch37 ? "checked" : "") name="Ch37" type="checkbox" value="true"> استفاده بهینه از نیروی انسانی
+                                                    </label>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input @((bool)Model.Ch12 ? "checked" : "") name="Ch12" type="checkbox" value="true"> بهبود رفاه کارکنان
+                                                    </label>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input @((bool)Model.Ch25 ? "checked" : "") name="Ch25" type="checkbox" value="true"> اصلاح ساختار تشکیلاتی
+                                                    </label>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input @((bool)Model.Ch13 ? "checked" : "") name="Ch13" type="checkbox" value="true"> بهبود ارتباط شغلی
+                                                    </label>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input @((bool)Model.Ch26 ? "checked" : "") name="Ch26" type="checkbox" value="true"> افزایش ایمان و اعتماد گروهی
+                                                    </label>
+                                                </div>
+                                            </td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- /.box-body -->
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="box">
+                                    <div class="box-header">
+                                        <h3 class="box-title">افراد پیشنهاد دهنده</h3>
+                                    </div>
+                                    <!-- /.box-header -->
+                                    <div class="box-body table-responsive no-padding">
+                                        <table class="table table-hover table-bordered">
+                                            <tbody id="tblUserRecommender">
+                                                <tr>
+                                                    <th></th>
+                                                    <th>شماره پرسنلی</th>
+                                                    <th>نام و نام خانوادگی</th>
+                                                    <th>اداره</th>
+                                                    <th>درصد مشارکت</th>
+                                                </tr>
+                                                <tr style="color:lime;font-weight:800">
+                                                    <td></td>
+                                                    <td>@proposal.Registrar.Username</td>
+                                                    <td>@proposal.Registrar.FirstName @proposal.Registrar.LastName</td>
+                                                    <td>@proposal.Registrar.Office.Name</td>
+                                                    <td>@proposal.RegistrarParticipatePercent</td>
+                                                </tr>
+                                                @foreach (var item in proposal.HelpersToRegistrar)
+                                                {
+                                            <tr>
+                                                <td></td>
+                                                <td>@item.User.Username</td>
+                                                <td>@item.User.FirstName @item.User.LastName</td>
+                                                <td>@item.User.Office.Name</td>
+                                                <td>@item.Percent</td>
+                                            </tr>
+                                                }
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <!-- /.box-body -->
+                                </div>
+                                <!-- /.box -->
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-1" for="exampleInputFile">فایل ضمیمه</label>
+                            @if (!String.IsNullOrEmpty(AttachedFileName))
+                            {
+                                <a style="text-decoration:underline" href="/Proposal/DownloadFile?proposalId=@proposal.ID">دارد</a>
+                            }
+                            else
+                            {
+                                <span style="color:red">ندارد</span>
+                            }
+                        </div>
+                        <div class="box-footer">
+                            <div style="display:block;width:400px;margin: 0 auto 0 auto">
+                                <div onclick="ApplyChanges()" class="btn btn-danger">
+                                    اعمال تغییرات
+                                </div>
+                                <a href="/Secretary/Refrral/Create?ProposalID=@Model.ID" class="btn btn-success">
+                                    بازگشت به صفحه قبل
+                                </a>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+    </section>
+</div>
+<!-- CK Editor -->
+<script src="~/bower_components/ckeditor/ckeditor.js"></script>
+<!-- Bootstrap WYSIHTML5 -->
+<!--<script src="~/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>-->
+<!-- TinyMCE Editor -->
+<script src="~/bower_components/tinymce/tinymce.min.js"></script>
+<script>
+    new WOW().init();
+    tinymce.init({
+        selector: 'textarea#CurrentDescPr',
+        plugins: 'advlist autolink link lists preview table code pagebreak',
+        menubar: false,
+        language: 'fa',
+        height: 100,
+        relative_urls: false,
+        toolbar: 'undo redo | removeformat preview code | fontsizeselect bullist numlist | alignleft aligncenter alignright alignjustify | bold italic | pagebreak table link',
+    });
+    tinymce.init({
+        selector: 'textarea#NewDesPr',
+        plugins: 'advlist autolink link lists preview table code pagebreak',
+        menubar: false,
+        language: 'fa',
+        height: 100,
+        relative_urls: false,
+        toolbar: 'undo redo | removeformat preview code | fontsizeselect bullist numlist | alignleft aligncenter alignright alignjustify | bold italic | pagebreak table link',
+    });
+    $(function () {
+        // Replace the <textarea id="editor1"> with a CKEditor
+        // instance, using default configuration.
+        CKEDITOR.replace('editor1')
+        //bootstrap WYSIHTML5 - text editor
+        $('.textarea').wysihtml5()
+    })
+</script>
+<!--هندل کلیک روی دکمه اعمال تغییرات-->
+<script>
+    function ApplyChanges() {
+        let result = confirm("آیا از ثبت تغییرات جدید مطمئن هستید؟ تغییرات قبل قابل بازیابی نخواهند بود.");
+        if (result) {
+            document.getElementById("form1").submit();
+        }
+    }
+</script>

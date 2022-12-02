@@ -1,0 +1,115 @@
+﻿@inject IUnitOfWork _uw
+@{
+
+    List<User> users = _uw.UserRepository.Get(include:s=>s
+                                                .Include(u=>u.Office)
+                                                .Include(u => u.Post)
+                                                .Include(u => u.EmploymentType)
+                                                .Include(u => u.PortalMembershipType)
+                                                .Include(u => u.Status))
+                                                .ToList();
+    ViewData["page"] = "USRS";
+    ViewData["Title"] = "مدیریت کاربران";
+    Layout = "Layout";
+}
+<!-- DataTables -->
+<link rel="stylesheet" href="~/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+
+<link rel="stylesheet" href="~/dist/css/animate.css">
+<script src="~/dist/js/wow.min.js"></script>
+
+<div class="content-wrapper" style="min-height: 915.8px;">
+    <section class="content-header">
+        <h1 class="wow animate__animated animate__lightSpeedInRight">
+            مدیریت کاربران
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="/Home/Index"><i class="fas fa-home"></i> خانه</a></li>
+            <li class="active">مدیریت کاربران</li>
+        </ol>
+    </section>
+
+    <section class="content wow animate__animated animate__zoomInDown" data-wow-delay=".3s">
+        <div class="box">
+            <div class="box-body table-responsive pad">
+                <table id="DataTable1" class="table table-bordered table-hover data-table dataTable">
+                    <thead>
+                        <tr>
+                            <th>نام</th>
+                            <th>نام خانوادگی</th>
+                            <th>شماره پرسنلی</th>
+                            <th>نام اداره</th>
+                            <th>سمت</th>
+                            <th>وضعیت</th>
+                            <th>نوع استخدامی</th>
+                            <th>نوع عضویت در پرتال</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var user in users)
+                        {
+                            <tr>
+                                <td>@user.FirstName</td>
+                                <td>@user.LastName</td>
+                                <td>@user.Username</td>
+                                <td>@user.Office.Name</td>
+                                <td>@*@user.Post.Title*@</td>
+                                <td>@user.Status.Title</td>
+                                <td>@user.EmploymentType.Title</td>
+                                <td>@user.PortalMembershipType.Title</td>
+                                <td>
+                                    <a class="btn btn-primary" href="/Secretary/User/Details?id=@user.ID">جزئیات</a>
+                                </td>
+                                <td>
+                                    <a class="btn btn-info" href="/Secretary/User/Edit?id=@user.ID">ویرایش</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <div style="direction:ltr">
+                    <a href="/Secretary/User/Create" class="btn btn-success">کاربر جدید</a>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+
+<!-- DataTables -->
+<script src="~/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="~/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+<script>
+    $(function () {
+        $('#DataTable1').DataTable({
+            'paging': true,
+            'lengthChange': true,
+            'searching': true,
+            'ordering': true,
+            'info': true,
+            'autoWidth': false,
+            "order": [[0, 'desc']],
+            'lengthMenu': [[10, 25, 50, -1], [10, 25, 50, "همه"]],
+            'language': {
+                'zeroRecords': 'رکوردی برای نمایش وجود ندارد',
+                'lengthMenu': 'نمایش _MENU_ رکورد در یک صفحه',
+                'search': 'جستجو در تمام ستون ها : ',
+                'info': 'تعداد کل رکورد ها :   _TOTAL_',
+                'infoFiltered': '',
+                "infoEmpty": '',
+                "paginate": {
+                    "first": "اولین",
+                    "last": "آخرین",
+                    "next": "بعدی",
+                    "previous": "قبلی"
+                },
+            }
+        })
+    })
+</script>
+
+
+
+

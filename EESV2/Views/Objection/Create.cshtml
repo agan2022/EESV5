@@ -1,0 +1,146 @@
+﻿@model NewObjectionViewModel
+@inject IUnitOfWork _uw
+@{
+    Proposal proposal = _uw.ProposalRepository.Get(p => p.ID == (int)ViewData["proposalID"] && p.Registrar.Username == User.Identity.Name, include: s => s
+                                                      .Include(p => p.Objections)).SingleOrDefault();
+    int proposalID ;
+    if (Model!=null)
+    {
+        proposalID = (int)Model.ProposalID;
+    }
+    else
+    {
+
+        proposalID = proposal.ID;
+    }
+    ViewData["page"] = "DSP";
+    ViewData["Title"] = "اعتراض به نتیجه پیشنهاد";
+    Layout = "Layout";
+}
+
+<link rel="stylesheet" href="~/dist/css/animate.css">
+<script src="~/dist/js/wow.min.js"></script>
+<!-- DataTables -->
+<link rel="stylesheet" href="~/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+
+<!-- bootstrap wysihtml5 - text editor -->
+<link rel="stylesheet" href="~/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
+
+<div class="content-wrapper" style="min-height: 915.8px;">
+    <section class="content-header">
+        <h1 class="wow animate__animated animate__lightSpeedInRight">
+            اعتراض به نتیجه پیشنهاد
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="/Home/Index"><i class="fas fa-home"></i> خانه</a></li>
+            <li><a href="/Proposal/Sent">پیشنهادات ارسال شده شما</a></li>
+            <li class="active">اعتراض به نتیجه پیشنهاد</li>
+        </ol>
+    </section>
+
+    <section class="content wow animate__animated animate__zoomInDown" data-wow-delay=".3s">
+        <div class="box">
+            <input asp-for="ProposalID" hidden value="@proposalID" />
+            <div class="box-header">
+                <h4>دلایل رد پیشنهاد</h4>
+
+            </div>
+            <div class="box-body">
+                <div style="padding:0 40px 10px 40px">
+                    @Html.Raw(proposal.DesDabir)
+                </div>
+            </div>
+        </div>
+        <form method="post" action="/Objection/Create" class="box">
+            <input asp-for="ProposalID" hidden value="@proposalID" />
+            <div class="box-header">
+                <h4>اعتراض</h4>
+                <div class="text-danger" asp-validation-summary="All"></div>
+            </div>
+            <div class="box-body">
+                <textarea asp-for="Reasons" style="width: 100%; height: 100px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
+                <div style="direction:ltr;margin-top:10px">
+                    @if (proposal.Objections.Count == 0)
+                    {
+                        <input type="submit" value="ثبت اعتراض" class="btn btn-success" />
+                    }
+                    else
+                    {
+                        <input disabled type="submit" value="ثبت اعتراض" class="btn btn-secondary" />
+                    }
+                </div>
+            </div>
+        </form>
+        @if (proposal.Objections.Count != 0)
+        {
+            <div class="box">
+                <div class="box-body table-responsive pad">
+                    <table id="DataTable1" class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>تاریخ</th>
+                                <th>ساعت</th>
+                                <th>کد اعتراض</th>
+                                <th>کد پیشنهاد</th>
+                                <th>دلایل</th>
+                                <th>پاسخ</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var Objection in proposal.Objections)
+                            {
+                                <tr>
+                                    <td>@Objection.Date</td>
+                                    <td>@Objection.Time</td>
+                                    <td>@Objection.ID</td>
+                                    <td>
+                                        @Objection.ProposalID
+                                    </td>
+                                    <td>@Html.Raw(Objection.Reasons)</td>
+                                    <td>
+                                        @Html.Raw(@Objection.Result)
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+
+                    </table>
+                </div>
+            </div>
+        }
+
+
+    </section>
+</div>
+
+
+<!-- CK Editor -->
+<script src="~/bower_components/ckeditor/ckeditor.js"></script>
+<!-- Bootstrap WYSIHTML5 -->
+<!--<script src="~/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>-->
+<!-- TinyMCE Editor -->
+<script src="~/bower_components/tinymce/tinymce.min.js"></script>
+<script>
+
+    new WOW().init();
+    tinymce.init({
+        selector: 'textarea#Reasons',
+        plugins: 'advlist autolink link lists preview table code pagebreak',
+        menubar: false,
+        language: 'fa',
+        height: 100,
+        relative_urls: false,
+        toolbar: 'undo redo | removeformat preview code | fontsizeselect bullist numlist | alignleft aligncenter alignright alignjustify | bold italic | pagebreak table link',
+    });
+    $(function () {
+        // Replace the <textarea id="editor1"> with a CKEditor
+        // instance, using default configuration.
+        CKEDITOR.replace('editor1')
+        //bootstrap WYSIHTML5 - text editor
+        $('.textarea').wysihtml5()
+    })
+
+</script>
+
+
+

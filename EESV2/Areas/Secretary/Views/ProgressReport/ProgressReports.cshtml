@@ -1,0 +1,99 @@
+﻿@{
+
+
+    Impart impart = (Impart)ViewData["impart"];
+
+
+    ViewData["page"] = "";
+    ViewData["title"] = "جزئیات گزارش پیشرفت اجرای پیشنهاد";
+    Layout = "Layout";
+}
+<!-- DataTables -->
+<link rel="stylesheet" href="~/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+<link rel="stylesheet" href="~/dist/css/animate.css">
+<script src="~/dist/js/wow.min.js"></script>
+<div class="content-wrapper" style="min-height: 915.8px;">
+    <section class="content-header">
+        <h1 class="wow animate__animated animate__lightSpeedInRight">
+            ریز گزارشات ابلاغ شماره @impart.Proposal.ID پیشنهاد شماره
+            <a style="text-decoration:underline" target="_blank" href="#"></a>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fas fa-home"></i> خانه</a></li>
+            <li><a href="#">مدیریت نظام مشارکت</a></li>
+            <li><a href="#">پیگیری ابلاغ های اجرایی</a></li>
+        </ol>
+    </section>
+
+    <section class="content">
+
+        <div class="box wow animate__animated animate__zoomInDown" data-wow-delay=".3s">
+            <div class="box-body table-responsive no-padding">
+                <table id="example2" class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>تاریخ</th>
+                            <th>گزارش</th>
+                            <th>نواقص</th>
+                            <th>درصد پیشرفت</th>
+                            <th>فایل ضمیمه</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var report in impart.Reports)
+                        {
+                            <tr>
+                                <td>@report.Date</td>
+                                <td>@Html.Raw(report.Description)</td>
+                                <td>@Html.Raw(report.Defects)</td>
+                                <td>@report.Percentage</td>
+                                @if (String.IsNullOrEmpty(report.File))
+                                {
+                                    <td>ندارد</td>
+                                }
+                                else
+                                {
+                                    <td>
+                                        <a style="color:lime;font-weight:bold;text-decoration:underline" href="/Secretary/ProgressReport/GetAttachedFile?ReportID=@report.ID">دارد</a>
+                                    </td>
+                                }
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+</div>
+<!-- DataTables -->
+<script src="/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+<script>
+    new WOW().init();
+    $(function () {
+        $('#example2').DataTable({
+            'paging': true,
+            'lengthChange': true,
+            'searching': true,
+            'ordering': true,
+            'info': true,
+            'autoWidth': false,
+            "order": [[0, 'desc']],
+            'lengthMenu': [[15, 25, 50, -1], [15, 25, 50, "همه"]],
+            'language': {
+                'zeroRecords': 'رکوردی برای نمایش وجود ندارد',
+                'lengthMenu': 'نمایش _MENU_ رکورد در یک صفحه',
+                'search': 'جستجو در تمام ستون ها : ',
+                'info': 'تعداد کل رکوردها :   _TOTAL_',
+                'infoFiltered': '',
+                "infoEmpty": '',
+                "paginate": {
+                    "first": "اولین",
+                    "last": "آخرین",
+                    "next": "بعدی",
+                    "previous": "قبلی"
+                },
+            }
+        })
+    })
+</script>

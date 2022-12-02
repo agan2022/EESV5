@@ -1,0 +1,105 @@
+﻿@inject IUnitOfWork _uw
+@{
+    User user = _uw.UserRepository.Get(u => u.ID == (int)ViewData["id"], include: s => s
+                                          .Include(u => u.Status)
+                                          .Include(u => u.Office)
+                                          .Include(u => u.Post)
+                                          .Include(u => u.PortalMembershipType)
+                                          .Include(u => u.EmploymentType))
+                                         .SingleOrDefault();
+
+    ViewData["page"] = "DUSR";
+    ViewData["Title"] = "ویرایش کاربر";
+    Layout = "Layout";
+}
+<script src="~/dist/js/wow.min.js"></script>
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1 class="wow animate__animated animate__lightSpeedInRight">
+            جزئیات کاربر 
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="/Home/Index"><i class="fas fa-home"></i> خانه</a></li>
+            <li><a href="/Secretary/User/Users">مدیریت کاربران</a></li>
+            <li class="active">جزئیات کاربر </li>
+        </ol>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="box wow animate__animated animate__zoomInDown" data-wow-delay=".3s">
+            <div class="box-header">
+                <h3 class="box-title">فرم جزئیات کاربر</h3>
+            </div>
+            <div class="box-body">
+                <div class="row">
+                    <div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label">شماره پرسنلی</label>
+                                <label class="form-control">@user.Username</label>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">نام</label>
+                                <label class="form-control">@user.FirstName</label>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">نام خانوادگی</label>
+                                <label class="form-control">@user.LastName</label>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">نام اداره</label>
+                                <label class="form-control">@user.Office.Name</label>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">نوع استخدامی</label>
+                                <label class="form-control">@user.EmploymentType.Title</label>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label">تلفن خانه</label>
+                                <label class="form-control">@user.HomePhone</label>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">موبایل</label>
+                                <label class="form-control">@user.Mobile</label>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">آدرس خانه</label>
+                                <label class="form-control">@user.HomePhone</label>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">تلفن محل کار</label>
+                                <label class="form-control">@user.WorkPhone</label>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-2">تصویر</label>
+                                <img style="width:100px;" onerror="this.onerror = null; this.src = '/dist/img/boxed-bg.png'" src="/User/GetPersonnelPhoto?id=@user.ID" />
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">سمت</label>
+                                <label class="form-control">@user.Post.Title</label>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">نوع عضویت در پرتال</label>
+                                <label class="form-control">@user.PortalMembershipType.Title</label>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">وضعیت</label>
+                                <label class="form-control">@user.Status.Title</label>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- /.content -->
+</div>
+
+
+
+

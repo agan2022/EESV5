@@ -1,0 +1,126 @@
+﻿@inject IUnitOfWork _uw
+@{
+    ViewData["page"] = "Inbox";
+    ViewData["Title"] = "صندوق ورودی";
+    Layout = "Layout";
+
+    var referrals = _uw.ReferralRepository.Get(r => r.QualityEvaluation == null && r.QuantitativEvaluation == null && r.NewQualityEvaluation == null && r.StatusID != 3 && r.Reciver.Username == User.Identity.Name && r.EvaluationTypeID != null)
+                                                .Select(r=>new
+                                                {
+                                                    SenderFirstName=r.Sender.FirstName,
+                                                    SenderLastName=r.Sender.LastName,
+                                                    ProposalID=r.ProposalID,
+                                                    EvaluationTypeID=r.EvaluationTypeID,
+                                                    EvaluationTypeTitle = r.EvaluationType.Title,
+                                                    r.ID,
+                                                    r.MeetingNo,
+                                                    r.Date,
+                                                    r.Time,
+                                                    ProposalSubject=r.Proposal.SubjectPr,
+                                                    r.Description,
+                                                    r.StatusID
+                                                })
+                                                .ToList();
+}
+<!-- DataTables -->
+<link rel="stylesheet" href="~/dist/css/animate.css">
+<script src="~/dist/js/wow.min.js"></script>
+<link rel="stylesheet" href="../../bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1 class="wow animate__animated animate__lightSpeedInRight">
+            صندوق ورودی
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="/Home/Index"><i class="fas fa-home"></i> خانه</a></li>
+            <li class="active">صندوق ورودی</li>
+        </ol>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+
+        <div class="box wow animate__animated animate__zoomInDown" data-wow-delay=".6s" ">
+            <div class="box-header with-border">
+                <h3 class="box-title">پیشنهادات ارجاع داده شده به شما</h3>
+                <div class="box-tools pull-right"></div>
+            </div>
+            <div class="box-body table-responsive no-padding">
+                <table id="example2" class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>فرستنده</th>
+                            <th>کد پیشنهاد</th>
+                            <th>شماره جلسه</th>
+                            <th>تاریخ جلسه</th>
+                            <th>زمان جلسه</th>
+                            <th>عنوان پیشنهاد</th>
+                            <th>شرح ارجاع</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var referral in referrals)
+                        {
+                        <tr>
+                            <td>@referral.SenderFirstName @referral.SenderLastName</td>
+                            <td>@referral.ProposalID</td>
+                            <td>@referral.MeetingNo</td>
+                            <td>@referral.Date</td>
+                            <td>@referral.Time</td>
+                            <td>@referral.ProposalSubject</td>
+                            <td>@referral.Description</td>
+                            @if (referral.EvaluationTypeID == 1)
+                            {
+                                <td>
+                                    <a href="/QuantitativeEvaluation/Form?referralID=@referral.ID" title="پیشنهاد کمی:  به پیشنهادی گفته می شود که دارای سود و صرفه مستقیم اقتصادی باشد.">فرم @referral.EvaluationTypeTitle</a>
+                                </td>
+                            }
+                            else if (referral.EvaluationTypeID == 2)
+                            {
+                                <td>
+                                    <a href="/NewQualitativeEvaluation/Create?id=@referral.ID" title="پیشنهاد کیفی: به پیشنهادی گفته می شود که فاقد هرگونه سود و صرفه مستقیم اقتصادی بوده و تنها بر ارتقاء کیفیت موثر است.">فرم @referral.EvaluationTypeTitle</a>
+                                </td>
+                            }
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+</div>
+<!-- DataTables -->
+<script src="../../bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="../../bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+<script>
+
+    new WOW().init();
+    $(function () {
+        $('#example2').DataTable({
+            'paging': true,
+            'lengthChange': true,
+            'searching': true,
+            'ordering': true,
+            'info': true,
+            'autoWidth': false,
+            "order": [[3, "desc"]],
+            'lengthMenu': [[5, 10, 25, 50, -1], [5, 10, 25, 50, "همه"]],
+            'language': {
+                'zeroRecords': 'رکوردی برای نمایش وجود ندارد',
+                'lengthMenu': 'نمایش _MENU_ رکورد در یک صفحه',
+                'search': 'جستجو در تمام ستون ها : ',
+                'info': 'تعداد کل رکوردها :   _TOTAL_',
+                'infoFiltered': '',
+                "infoEmpty": '',
+                "paginate": {
+                    "first": "اولین",
+                    "last": "آخرین",
+                    "next": "بعدی",
+                    "previous": "قبلی"
+                },
+            }
+        })
+    })
+</script>

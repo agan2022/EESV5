@@ -1,0 +1,89 @@
+﻿@model EditNotificationEditModel
+@{
+    ViewData["page"] = "NFT";
+    ViewData["Title"] = "ایجاد اطلاعیه جدید";
+    Layout = "Layout";
+}
+
+<link rel="stylesheet" href="~/dist/css/animate.css">
+<script src="~/dist/js/wow.min.js"></script>
+
+<!-- bootstrap wysihtml5 - text editor -->
+<link rel="stylesheet" href="~/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
+
+<div class="content-wrapper" style="min-height: 915.8px;">
+    <section class="content-header">
+        <h1 class="wow animate__animated animate__lightSpeedInRight">
+            ویرایش اطلاعیه
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="/Home/Index"><i class="fas fa-home"></i> خانه</a></li>
+            <li class="active">اطلاعیه ها</li>
+            <li class="active">ویرایش اطلاعیه </li>
+        </ol>
+    </section>
+
+    <section class="content wow animate__animated animate__zoomInDown" data-wow-delay=".3s">
+        <form method="post" action="/Secretary/Notification/Edit" class="box">
+            <input hidden asp-for="ID" />
+            <div class="box-header">
+                <div class="text-danger" asp-validation-summary="All"></div>
+            </div>
+            <div class="box-body">
+                <div class="form-group">
+                    <label>عنوان</label>
+                    <input asp-for="Title" class="form-control" />
+                </div>
+
+                <div class="form-group">
+                    <label>متن اطلاعیه</label>
+                    <textarea asp-for="Text" style="width: 100%; height: 100px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="IsShow">در صفحه اصلی نمایش داده شود؟</label>
+                    <input checked asp-for="IsShow" type="checkbox" />
+                </div>
+
+                <div style="direction:ltr;margin-top:10px">
+                    <input type="submit" value="ثبت" class="btn btn-success" />
+                </div>
+
+            </div>
+        </form>
+
+
+
+    </section>
+</div>
+
+
+<!-- CK Editor -->
+<script src="~/bower_components/ckeditor/ckeditor.js"></script>
+<!-- Bootstrap WYSIHTML5 -->
+<!--<script src="~/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>-->
+<!-- TinyMCE Editor -->
+<script src="~/bower_components/tinymce/tinymce.min.js"></script>
+<script>
+
+    new WOW().init();
+    tinymce.init({
+        selector: 'textarea#Text',
+        plugins: 'advlist autolink link lists preview table code pagebreak',
+        menubar: false,
+        language: 'fa',
+        height: 100,
+        relative_urls: false,
+        toolbar: 'undo redo | removeformat preview code | fontsizeselect bullist numlist | alignleft aligncenter alignright alignjustify | bold italic | pagebreak table link',
+    });
+    $(function () {
+        // Replace the <textarea id="editor1"> with a CKEditor
+        // instance, using default configuration.
+        CKEDITOR.replace('editor1')
+        //bootstrap WYSIHTML5 - text editor
+        $('.textarea').wysihtml5()
+    })
+
+</script>
+
+
+

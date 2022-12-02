@@ -1,0 +1,274 @@
+﻿@model QuantitativEvaluation
+@{
+    ViewData["page"] = "Inbox";
+    ViewData["Title"] = "ارزیابی";
+    Layout = "Layout";
+}
+<link rel="stylesheet" href="~/dist/css/animate.css">
+<script src="~/dist/js/wow.min.js"></script>
+<div class="content-wrapper">
+
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1 class="wow animate__animated animate__lightSpeedInRight">
+            فرم ارزیابی کمی
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="/Home/Dashboard"><i class="fas fa-home"></i> خانه</a></li>
+            <li><a href="#">صندوق ورودی</a></li>
+            <li><a href="#">فرم ارزیابی کمی</a></li>
+        </ol>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+
+        <!-- Default box -->
+        <div class="box wow animate__animated animate__zoomInDown" data-wow-delay=".3s">
+            <div class="box-header with-border">
+                <h3 class="box-title">جدول ارزیابی میزان کارایی و اثر بخشی پیشنهاد @Model.Referral.ProposalID<a target="_blank" class="btn btn-lg btn-link" href="/Proposal/Review?proposalID=@Model.Referral.ProposalID">مشاهده پیشنهاد</a></h3>
+
+                <div class="box-tools pull-right"></div>
+            </div>
+            <div class="box-body">
+                <div class="col-md-12">
+                    <div class="row">
+                        <b>
+                            @Html.ValidationMessage("CustomError", new { @class = "text-danger" })
+                        </b>
+                    </div>
+                </div>
+                <div>
+                    <h4 style="width:100px;margin:0 auto 0 auto">باسمه تعالی</h4>
+                </div>
+                <div>ارزیاب محترم شورای همياری و مشاركت </div>
+                <div>با سلام</div>
+                <div>احتراماً عطف به صورتجلسه شماره ...................... مورخ &nbsp;&nbsp;&nbsp;&nbsp;/ &nbsp;&nbsp;/ &nbsp;&nbsp; 14 &nbsp; شورای همياری و مشاركت كاركنان، به پيوست تصوير برگ پيشنهاد به شماره ......................... با موضوع ......................................................................................................................... ارسال می گردد. </div>
+                <div>خواهشمند است پس از بررسی و ارزيابی فنی، اقتصادی، اجتماعی و انجام محاسبات لازم، اظهار نظر خود را براساس مندرجات ذيل تكميل و ارائه فرمائيد.</div>
+                <div>قبلاً از همكاری صميمانه جنابعالی و همكاران محترم در اظهار نظر دقيق و كارشناسی فوق كمال تشكر و امتنان را دارد. </div>
+                <div><b>خواهشمند است جهت ارزيابی دقيق به سئوالات ذيل به طور كامل و مشروح پاسخ دهيد: (لطفاً فقط با بله و خير پاسخ ندهيد)</b></div>
+
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <label>1. ميزان صحت محاسبات پيشنهاد دهنده: </label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="row">
+                            <label for="AccuracyOfCalculations0">صحیح</label>
+                            <input disabled required asp-for="Q1" type="radio" id="AccuracyOfCalculations0" value="0" />
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="row">
+                            <label for="AccuracyOfCalculations1">بیشتر از واقع</label>
+                            <input disabled required asp-for="Q1" type="radio" id="AccuracyOfCalculations1" value="1" />
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="row">
+                            <label for="AccuracyOfCalculations2">کمتر از واقع</label>
+                            <input disabled required asp-for="Q1" type="radio" id="AccuracyOfCalculations2" value="2" />
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>2. آيا پيشنهاد در بردارنده سود يا صرفه جويی براي سازمان/ شركت می باشد؟ توضيح دهيد.</label>
+                    @Html.Raw(Model.Q2)
+                </div>
+
+                <div class="form-group">
+                    <label>3. آيا اين پيشنهاد روش جديدی برای انجام كار/ سرعت در انجام كار و يا بهتر شدن امور ارائه می دهد؟ چگونه؟</label>
+                    @Html.Raw(Model.Q3)
+                </div>
+                <div class="form-group">
+                    <label>4. نقاط قوت پيشنهاد چه می باشد؟ لطفاً شرح دهيد:</label>
+                    @Html.Raw(Model.Q4)
+                </div>
+                <div class="form-group">
+                    <label>5. نقاط ضعف پيشنهاد چه می باشد؟ لطفاً شرح دهيد:</label>
+                    @Html.Raw(Model.Q5)
+                </div>
+                <div class="form-group">
+                    <label>6. مدت استفاده از پيشنهاد پس از اجرا چقدر خواهد بود؟</label>
+                    @Html.Raw(Model.Q6)
+                </div>
+                <div class="form-group">
+                    <label>7. زمان اجرای پيشنهاد (تخمينی/ قطعی) چه مدت پيش بينی می گردد؟</label>
+                    @Html.Raw(Model.Q7)
+                </div>
+                <div class="form-group">
+                    <label>8. آيا اين پيشنهاد قابليت اجرا دارد؟ چگونه؟</label>
+                    @Html.Raw(Model.Q8)
+                </div>
+                <div class="form-group">
+                    <label>9. در صورت منفی بودن پاسخ سؤال فوق آيا راه حل ديگری به نظر شما می رسد، لطفاً بيان نمائيد.</label>
+                    @Html.Raw(Model.Q9)
+                </div>
+                <div class="form-group">
+                    <label>10. لطفاً نتايج اقتصادی پيشنهاد به طور مشروح ارائه شود، ارزيابی پيشنهاد بدون محاسبه لازم از ارزش كافی برخوردار نمی باشد. </label>
+                    @Html.Raw(Model.Q10)
+                </div>
+                <div class="box">
+                    <!-- /.box-header -->
+                    <div class="box-body table-responsive no-padding">
+                        <table class="table table-bordered">
+                            <tbody>
+                                <tr>
+                                    <th></th>
+                                    <th>هزینه های اجرایی پیشنهاد(ريال)</th>
+                                    <th>ثمره/درآمد اقتصادی پیشنهاد(ريال)</th>
+                                    <th>صرفه جویی/سود(ريال)(درآمد منهای هزینه)</th>
+                                </tr>
+                                <tr>
+                                    <td>روزانه</td>
+                                    <td>
+                                        <input disabled required asp-for="ErjraDaily" type="text" class="form-control rialformat" />
+                                    </td>
+                                    <td>
+                                        <input disabled required asp-for="SamarDaily" type="text" class="form-control rialformat" />
+                                    </td>
+                                    <td>
+                                        <input disabled required asp-for="SarfeDaily" type="text" class="form-control rialformat" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>ماهانه</td>
+                                    <td>
+                                        <input disabled required asp-for="EjraMonth" type="text" class="form-control rialformat" />
+                                    </td>
+                                    <td>
+                                        <input disabled required asp-for="SamarMonth" type="text" class="form-control rialformat" />
+                                    </td>
+                                    <td>
+                                        <input disabled required asp-for="SarfeMonth" type="text" class="form-control rialformat" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>سالانه</td>
+                                    <td>
+                                        <input disabled required asp-for="EjraYear" type="text" class="form-control rialformat" />
+                                    </td>
+                                    <td>
+                                        <input disabled required asp-for="SamarYear" type="text" class="form-control rialformat" />
+                                    </td>
+                                    <td>
+                                        <input disabled required asp-for="SarfeYear" type="text" class="form-control rialformat" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>پنج ساله</td>
+                                    <td>
+                                        <input disabled required asp-for="Ejra5Year" type="text" class="form-control rialformat" />
+                                    </td>
+                                    <td>
+                                        <input disabled required asp-for="Sama5Year" type="text" class="form-control rialformat" />
+                                    </td>
+                                    <td>
+                                        <input disabled required asp-for="Sarfe5Year" type="text" class="form-control rialformat" />
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+                <div class="col-md-12">
+                    <div class="col-md-6">
+                        <div class="box">
+                            <div class="box-header with-border">
+                                <h3 class="box-title">کیفیت پیشنهاد</h3>
+                                <div class="box-tools pull-right"></div>
+                            </div>
+                            <div class="box-body">
+                                <div class="form-group">
+                                    <div class="radio">
+                                        <label>
+                                            <input disabled required asp-for="Quality" type="radio" id="QualityProposal0" value="0">
+                                            عالی
+                                        </label>
+                                    </div>
+                                    <div class="radio">
+                                        <label>
+                                            <input disabled required asp-for="Quality" type="radio" id="QualityProposal1" value="1">
+                                            خیلی خوب
+                                        </label>
+                                    </div>
+                                    <div class="radio">
+                                        <label>
+                                            <input disabled required asp-for="Quality" type="radio" id="QualityProposal2" value="2">
+                                            خوب
+                                        </label>
+                                    </div>
+                                    <div class="radio">
+                                        <label>
+                                            <input disabled required asp-for="Quality" type="radio" id="QualityProposal3" value="3">
+                                            متوسط
+                                        </label>
+                                    </div>
+                                    <div class="radio">
+                                        <label>
+                                            <input disabled required asp-for="Quality" type="radio" id="QualityProposal4" value="4">
+                                            ضعیف
+                                        </label>
+                                    </div>
+                                    <div class="radio">
+                                        <label>
+                                            <input disabled required asp-for="Quality" type="radio" id="QualityProposal5" value="5">
+                                            خیلی ضعیف
+                                        </label>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>ساعت کار کارشناسی شده</label>
+                                        <input disabled required asp-for="HrWork" type="number" class="form-control" placeholder="عدد بر حسب ساعت">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="box">
+                            <div class="box-header with-border">
+                                <h3 class="box-title">مبلغ نهایی سود/صرفه جویی پیشنهاد(به ريال) پس از محاسبات کامل برای مدت یک سال</h3>
+                                <div class="box-tools pull-right"></div>
+                            </div>
+                            <div class="box-body">
+                                <div class="form-group">
+                                    <label>به حروف</label>
+                                    <input disabled required asp-for="MablaghNahaiAlphabet" class="form-control" type="text" />
+                                </div>
+
+                                <div class="form-group">
+                                    <label>به عدد</label>
+                                    <input disabled required asp-for="MablaghNahaiNumber" class="form-control rialformat" type="text" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="form-group">
+                            <div class="radio">
+                                <label>
+                                    <input disabled required asp-for="PishOk" type="radio" id="IsProposalConfirmed1" value="true">
+                                    پیشنهاد مورد تأیید است.
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label title="در صورت رد پیشنهاد تمامی امتیازات برابر صفر قرار داده خواهد شد." style="color:red">
+                                    <input disabled required asp-for="PishOk" type="radio" id="IsProposalConfirmed0" value="false">
+                                    پیشنهاد مورد تأیید نیست.
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.box -->
+
+    </section>
+    <!-- /.content -->
+</div>

@@ -1,0 +1,15 @@
+﻿@{ 
+    ViewData["page"] = "MSG";
+    ViewData["Title"] = "موفقیت آمیز";
+    Layout = "Layout";
+}
+<div class="content-wrapper">
+    <section class="content">
+        <div class="alert alert-success alert-dismissible">
+            <button type="button" class="close pull-left" data-dismiss="alert" aria-hidden="true">×</button>
+            <h4><i class="icon fa fa-check"></i> توجه</h4>
+            پیشنهاد شما با موفقیت ثبت شد کد پیگیری شما : &nbsp;&nbsp;&nbsp;@((string)ViewData["Message"])
+        </div>
+    </section>
+    <!-- /.content -->
+</div>

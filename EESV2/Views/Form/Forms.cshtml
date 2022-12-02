@@ -1,0 +1,90 @@
+﻿@inject IUnitOfWork _uw;
+@{
+    List<Form> forms = _uw.FormRepository.Get().ToList() ;
+    ViewData["page"] = "GF";
+    ViewData["Title"] = "فرم ها";
+    Layout = "Layout";
+}
+<!-- DataTables -->
+<link rel="stylesheet" href="~/dist/css/animate.css">
+<script src="~/dist/js/wow.min.js"></script>
+<link rel="stylesheet" href="~/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1 class="wow animate__animated animate__lightSpeedInRight">
+            دریافت فرم ها
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="/Home/Index"><i class="fas fa-home"></i> خانه</a></li>
+            <li><a href="#">مدیریت یکپارچه</a></li>
+            <li class="active">دریافت فرم ها</li>
+        </ol>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="box wow animate__animated animate__zoomInDown" data-wow-delay=".3s">
+            <div class="box-header">
+                <h3 class="box-title">لیست فرم ها</h3>
+            </div>
+            <div class="box-body table-responsive no-padding">
+                <table id="example2" class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>فایل ضمیمه</th>
+                            <th>توضیحات</th>
+                            <th>عنوان مدرک</th>
+                            <th>کد فرم</th>
+                            <th>عنوان فرم</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (int i = 0; i < forms.Count; i++)
+                        {
+                            <tr>
+                                <td><a href="/Form/DownloadFrom?id=@forms[i].FormCode">دانلود</a></td>
+                                <td><a target="_blank" href="/Form/DeTails?id=@forms[i].FormCode">جزئیات</a></td>
+                                <td>@forms[i].DocumentName</td>
+                                <td>@forms[i].FormCode</td>
+                                <td>@forms[i].FormName</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+    <!-- /.content -->
+</div>
+<!-- DataTables -->
+<script src="/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+<script>
+    new WOW().init();
+    $(function () {
+        $('#example2').DataTable({
+            'paging': true,
+            'lengthChange': true,
+            'searching': true,
+            'ordering': true,
+            'info': true,
+            'autoWidth': false,
+            'lengthMenu': [[10, 25, 50, -1], [10, 25, 50, "همه"]],
+            'language': {
+                'zeroRecords': 'رکوردی برای نمایش وجود ندارد',
+                'lengthMenu': 'نمایش _MENU_ رکورد در یک صفحه',
+                'search': 'جستجو در تمام ستون ها : ',
+                'info': 'تعداد کل رکوردها :   _TOTAL_',
+                'infoFiltered': '',
+                "infoEmpty": '',
+                "paginate": {
+                    "first": "اولین",
+                    "last": "آخرین",
+                    "next": "بعدی",
+                    "previous": "قبلی"
+                },
+            }
+        })
+    })
+</script>

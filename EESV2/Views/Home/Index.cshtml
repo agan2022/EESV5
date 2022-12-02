@@ -1,0 +1,131 @@
+﻿@inject IRankCalculator _rankCalculator;
+@{
+    List<UserRankViewModel> userRankViewModels= _rankCalculator.CalculateRank();
+    UserRankViewModel userRank = userRankViewModels.SingleOrDefault(u=>u.PersonnelCode==User.Identity.Name);
+
+
+    ViewData["Title"] = "خانه";
+    ViewData["page"] = "HOME";
+    Layout = "Layout";
+}
+
+<!-- DataTables -->
+
+<link rel="stylesheet" href="~/dist/css/animate.css">
+<script src="~/dist/js/wow.min.js"></script>
+<link rel="stylesheet" href="~/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+<div class="content-wrapper" style="min-height: 915.8px;">
+    <section class="content-header">
+        <h1 class="wow animate__animated animate__lightSpeedInRight">
+            خانه
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="/Home/Index"><i class="fas fa-home"></i> خانه</a></li>
+            
+        </ol>
+    </section>
+
+    <section class="content">
+
+        <div class="box wow animate__animated animate__zoomInDown" data-wow-delay=".3s" data-wow-duration=".6s">
+            <div class="box-header with-border ">
+                <h3 style="padding:7px 0 7px 0" class="box-title col-md-4">رتبه بندی 10 پرسنل برتر پیشنهاد دهنده در سال</h3>
+        
+            </div>
+            <div class="box-body">
+                <div class="box-body table-responsive no-padding ">
+                    <table id="example2" class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>رتبه</th>
+                                <th>نام خانوادگی</th>
+                                <th>نام</th>
+                                <th>واحد</th>
+                                <th>تعداد پیشنهاد</th>
+                                <th>امتیاز</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach(var urVM in userRankViewModels.Where(u=>u.Rank<=10))
+                            {
+                            <tr>
+                                <td>@urVM.Rank</td>
+                                <td>@urVM.LastName</td>
+                                <td>@urVM.FirstName</td>
+                                <td>@urVM.Office</td>
+                                <td>@urVM.ProposalCount</td>
+                                <td style="direction:ltr;display:flex;justify-content:right">@urVM.Score</td>
+                            </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <div style="margin-top:10px" class="row">
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <div class="info-box wow animate__animated animate__zoomInDown" data-wow-delay=".3s">
+                            <span class="info-box-icon bg-red1 wow animate__animated animate__pulse" data-wow-iteration="32"><i class="fa fa-id-card "></i></span>
+
+                            <div class="info-box-content">
+                                <span class="info-box-text">امتیاز شما:</span>
+                                <span class="info-box-number wow animate__animated animate__bounceIn" data-wow-iteration="4">@userRank.Score</span>
+                            </div>
+                            <!-- /.info-box-content -->
+                        </div>
+                        <!-- /.info-box -->
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <div class="info-box  wow animate__animated animate__zoomInDown" data-wow-delay=".3s">
+                            <span class="info-box-icon bg-red2 wow animate__animated animate__pulse" data-wow-iteration="32"><i class="fa fa-balance-scale "></i></span>
+
+                            <div class="info-box-content">
+                                <span class="info-box-text">رتبه شما:</span>
+                                <span class="info-box-number wow animate__animated animate__bounceIn" data-wow-iteration="4">@userRank.Rank</span>
+                            </div>
+                            <!-- /.info-box-content -->
+                        </div>
+                        <!-- /.info-box -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+<!-- DataTables -->
+<script src="/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+<script>
+    new WOW().init();
+    $(function () {
+        $('#example2').DataTable({
+            'paging': true,
+            'lengthChange': true,
+            'searching': true,
+            'ordering': true,
+            'info': true,
+            'autoWidth': false,
+            "order": [[0, 'asc']],
+            'lengthMenu': [[5, 25, 50, -1], [5, 25, 50, "همه"]],
+            'language': {
+                'zeroRecords': 'رکوردی برای نمایش وجود ندارد',
+                'lengthMenu': 'نمایش _MENU_ رکورد در یک صفحه',
+                'search': 'جستجو در تمام ستون ها : ',
+                'info': 'تعداد کل رکوردها :   _TOTAL_',
+                'infoFiltered': '',
+                "infoEmpty": '',
+                "paginate": {
+                    "first": "اولین",
+                    "last": "آخرین",
+                    "next": "بعدی",
+                    "previous": "قبلی"
+                },
+            }
+        })
+    })
+</script>
+<script>
+    function YearChange(element) {
+        var url = new URL(window.location.href);
+        url.searchParams.set("Year", element.value)
+        window.location.href = url;
+    }
+</script>

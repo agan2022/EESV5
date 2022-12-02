@@ -1,0 +1,225 @@
+D:\Users\Lenovo\Document\Visual Dtudio 2019\Project\EESV2\AddDataToDB\bin\Debug\net5.0\EESV2.AddDataToDB.exe
+D:\Users\Lenovo\Document\Visual Dtudio 2019\Project\EESV2\AddDataToDB\bin\Debug\net5.0\EESV2.AddDataToDB.deps.json
+D:\Users\Lenovo\Document\Visual Dtudio 2019\Project\EESV2\AddDataToDB\bin\Debug\net5.0\EESV2.AddDataToDB.runtimeconfig.json
+D:\Users\Lenovo\Document\Visual Dtudio 2019\Project\EESV2\AddDataToDB\bin\Debug\net5.0\EESV2.AddDataToDB.runtimeconfig.dev.json
+D:\Users\Lenovo\Document\Visual Dtudio 2019\Project\EESV2\AddDataToDB\bin\Debug\net5.0\EESV2.AddDataToDB.dll
+D:\Users\Lenovo\Document\Visual Dtudio 2019\Project\EESV2\AddDataToDB\bin\Debug\net5.0\ref\EESV2.AddDataToDB.dll
+D:\Users\Lenovo\Document\Visual Dtudio 2019\Project\EESV2\AddDataToDB\bin\Debug\net5.0\EESV2.AddDataToDB.pdb
+D:\Users\Lenovo\Document\Visual Dtudio 2019\Project\EESV2\AddDataToDB\bin\Debug\net5.0\Humanizer.dll
+D:\Users\Lenovo\Document\Visual Dtudio 2019\Project\EESV2\AddDataToDB\bin\Debug\net5.0\Microsoft.Data.SqlClient.dll
+D:\Users\Lenovo\Document\Visual Dtudio 2019\Project\EESV2\AddDataToDB\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.dll
+D:\Users\Lenovo\Document\Visual Dtudio 2019\Project\EESV2\AddDataToDB\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+D:\Users\Lenovo\Document\Visual Dtudio 2019\Project\EESV2\AddDataToDB\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.Design.dll
+D:\Users\Lenovo\Document\Visual Dtudio 2019\Project\EESV2\AddDataToDB\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.Relational.dll
+D:\Users\Lenovo\Document\Visual Dtudio 2019\Project\EESV2\AddDataToDB\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.SqlServer.dll
+D:\Users\Lenovo\Document\Visual Dtudio 2019\Project\EESV2\AddDataToDB\bin\Debug\net5.0\Microsoft.Extensions.Caching.Abstractions.dll
+D:\Users\Lenovo\Document\Visual Dtudio 2019\Project\EESV2\AddDataToDB\bin\Debug\net5.0\Microsoft.Extensions.Caching.Memory.dll
+D:\Users\Lenovo\Document\Visual Dtudio 2019\Project\EESV2\AddDataToDB\bin\Debug\net5.0\Microsoft.Extensions.Configuration.Abstractions.dll
+D:\Users\Lenovo\Document\Visual Dtudio 2019\Project\EESV2\AddDataToDB\bin\Debug\net5.0\Microsoft.Extensions.DependencyInjection.dll
+D:\Users\Lenovo\Document\Visual Dtudio 2019\Project\EESV2\AddDataToDB\bin\Debug\net5.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+D:\Users\Lenovo\Document\Visual Dtudio 2019\Project\EESV2\AddDataToDB\bin\Debug\net5.0\Microsoft.Extensions.Logging.dll
+D:\Users\Lenovo\Document\Visual Dtudio 2019\Project\EESV2\AddDataToDB\bin\Debug\net5.0\Microsoft.Extensions.Logging.Abstractions.dll
+D:\Users\Lenovo\Document\Visual Dtudio 2019\Project\EESV2\AddDataToDB\bin\Debug\net5.0\Microsoft.Extensions.Options.dll
+D:\Users\Lenovo\Document\Visual Dtudio 2019\Project\EESV2\AddDataToDB\bin\Debug\net5.0\Microsoft.Extensions.Primitives.dll
+D:\Users\Lenovo\Document\Visual Dtudio 2019\Project\EESV2\AddDataToDB\bin\Debug\net5.0\Microsoft.Identity.Client.dll
+D:\Users\Lenovo\Document\Visual Dtudio 2019\Project\EESV2\AddDataToDB\bin\Debug\net5.0\Microsoft.IdentityModel.JsonWebTokens.dll
+D:\Users\Lenovo\Document\Visual Dtudio 2019\Project\EESV2\AddDataToDB\bin\Debug\net5.0\Microsoft.IdentityModel.Logging.dll
+D:\Users\Lenovo\Document\Visual Dtudio 2019\Project\EESV2\AddDataToDB\bin\Debug\net5.0\Microsoft.IdentityModel.Protocols.dll
+D:\Users\Lenovo\Document\Visual Dtudio 2019\Project\EESV2\AddDataToDB\bin\Debug\net5.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+D:\Users\Lenovo\Document\Visual Dtudio 2019\Project\EESV2\AddDataToDB\bin\Debug\net5.0\Microsoft.IdentityModel.Tokens.dll
+D:\Users\Lenovo\Document\Visual Dtudio 2019\Project\EESV2\AddDataToDB\bin\Debug\net5.0\Microsoft.Win32.SystemEvents.dll
+D:\Users\Lenovo\Document\Visual Dtudio 2019\Project\EESV2\AddDataToDB\bin\Debug\net5.0\Newtonsoft.Json.dll
+D:\Users\Lenovo\Document\Visual Dtudio 2019\Project\EESV2\AddDataToDB\bin\Debug\net5.0\System.Configuration.ConfigurationManager.dll
+D:\Users\Lenovo\Document\Visual Dtudio 2019\Project\EESV2\AddDataToDB\bin\Debug\net5.0\System.Drawing.Common.dll
+D:\Users\Lenovo\Document\Visual Dtudio 2019\Project\EESV2\AddDataToDB\bin\Debug\net5.0\System.IdentityModel.Tokens.Jwt.dll
+D:\Users\Lenovo\Document\Visual Dtudio 2019\Project\EESV2\AddDataToDB\bin\Debug\net5.0\System.Runtime.Caching.dll
+D:\Users\Lenovo\Document\Visual Dtudio 2019\Project\EESV2\AddDataToDB\bin\Debug\net5.0\System.Security.Cryptography.ProtectedData.dll
+D:\Users\Lenovo\Document\Visual Dtudio 2019\Project\EESV2\AddDataToDB\bin\Debug\net5.0\System.Security.Permissions.dll
+D:\Users\Lenovo\Document\Visual Dtudio 2019\Project\EESV2\AddDataToDB\bin\Debug\net5.0\System.Windows.Extensions.dll
+D:\Users\Lenovo\Document\Visual Dtudio 2019\Project\EESV2\AddDataToDB\bin\Debug\net5.0\runtimes\unix\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll
+D:\Users\Lenovo\Document\Visual Dtudio 2019\Project\EESV2\AddDataToDB\bin\Debug\net5.0\runtimes\win\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll
+D:\Users\Lenovo\Document\Visual Dtudio 2019\Project\EESV2\AddDataToDB\bin\Debug\net5.0\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.dll
+D:\Users\Lenovo\Document\Visual Dtudio 2019\Project\EESV2\AddDataToDB\bin\Debug\net5.0\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.pdb
+D:\Users\Lenovo\Document\Visual Dtudio 2019\Project\EESV2\AddDataToDB\bin\Debug\net5.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll
+D:\Users\Lenovo\Document\Visual Dtudio 2019\Project\EESV2\AddDataToDB\bin\Debug\net5.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.pdb
+D:\Users\Lenovo\Document\Visual Dtudio 2019\Project\EESV2\AddDataToDB\bin\Debug\net5.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
+D:\Users\Lenovo\Document\Visual Dtudio 2019\Project\EESV2\AddDataToDB\bin\Debug\net5.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.pdb
+D:\Users\Lenovo\Document\Visual Dtudio 2019\Project\EESV2\AddDataToDB\bin\Debug\net5.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
+D:\Users\Lenovo\Document\Visual Dtudio 2019\Project\EESV2\AddDataToDB\bin\Debug\net5.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.pdb
+D:\Users\Lenovo\Document\Visual Dtudio 2019\Project\EESV2\AddDataToDB\bin\Debug\net5.0\runtimes\win\lib\netcoreapp3.0\Microsoft.Win32.SystemEvents.dll
+D:\Users\Lenovo\Document\Visual Dtudio 2019\Project\EESV2\AddDataToDB\bin\Debug\net5.0\runtimes\unix\lib\netcoreapp3.0\System.Drawing.Common.dll
+D:\Users\Lenovo\Document\Visual Dtudio 2019\Project\EESV2\AddDataToDB\bin\Debug\net5.0\runtimes\win\lib\netcoreapp3.0\System.Drawing.Common.dll
+D:\Users\Lenovo\Document\Visual Dtudio 2019\Project\EESV2\AddDataToDB\bin\Debug\net5.0\runtimes\win\lib\netstandard2.0\System.Runtime.Caching.dll
+D:\Users\Lenovo\Document\Visual Dtudio 2019\Project\EESV2\AddDataToDB\bin\Debug\net5.0\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
+D:\Users\Lenovo\Document\Visual Dtudio 2019\Project\EESV2\AddDataToDB\bin\Debug\net5.0\runtimes\win\lib\netcoreapp3.0\System.Windows.Extensions.dll
+D:\Users\Lenovo\Document\Visual Dtudio 2019\Project\EESV2\AddDataToDB\bin\Debug\net5.0\EESV2.DAL.dll
+D:\Users\Lenovo\Document\Visual Dtudio 2019\Project\EESV2\AddDataToDB\bin\Debug\net5.0\EESV2.DAL.pdb
+D:\Users\Lenovo\Document\Visual Dtudio 2019\Project\EESV2\AddDataToDB\obj\Debug\net5.0\EESV2.AddDataToDB.csprojAssemblyReference.cache
+D:\Users\Lenovo\Document\Visual Dtudio 2019\Project\EESV2\AddDataToDB\obj\Debug\net5.0\EESV2.AddDataToDB.GeneratedMSBuildEditorConfig.editorconfig
+D:\Users\Lenovo\Document\Visual Dtudio 2019\Project\EESV2\AddDataToDB\obj\Debug\net5.0\EESV2.AddDataToDB.AssemblyInfoInputs.cache
+D:\Users\Lenovo\Document\Visual Dtudio 2019\Project\EESV2\AddDataToDB\obj\Debug\net5.0\EESV2.AddDataToDB.AssemblyInfo.cs
+D:\Users\Lenovo\Document\Visual Dtudio 2019\Project\EESV2\AddDataToDB\obj\Debug\net5.0\EESV2.AddDataToDB.csproj.CoreCompileInputs.cache
+D:\Users\Lenovo\Document\Visual Dtudio 2019\Project\EESV2\AddDataToDB\obj\Debug\net5.0\EESV2.AddDataToDB.csproj.CopyComplete
+D:\Users\Lenovo\Document\Visual Dtudio 2019\Project\EESV2\AddDataToDB\obj\Debug\net5.0\EESV2.AddDataToDB.dll
+D:\Users\Lenovo\Document\Visual Dtudio 2019\Project\EESV2\AddDataToDB\obj\Debug\net5.0\ref\EESV2.AddDataToDB.dll
+D:\Users\Lenovo\Document\Visual Dtudio 2019\Project\EESV2\AddDataToDB\obj\Debug\net5.0\EESV2.AddDataToDB.pdb
+D:\Users\Lenovo\Document\Visual Dtudio 2019\Project\EESV2\AddDataToDB\obj\Debug\net5.0\EESV2.AddDataToDB.genruntimeconfig.cache
+D:\Users\Lenovo\Document\Visual Dtudio 2019\Project\EESV3\AddDataToDB\bin\Debug\net5.0\EESV2.AddDataToDB.exe
+D:\Users\Lenovo\Document\Visual Dtudio 2019\Project\EESV3\AddDataToDB\bin\Debug\net5.0\EESV2.AddDataToDB.deps.json
+D:\Users\Lenovo\Document\Visual Dtudio 2019\Project\EESV3\AddDataToDB\bin\Debug\net5.0\EESV2.AddDataToDB.runtimeconfig.json
+D:\Users\Lenovo\Document\Visual Dtudio 2019\Project\EESV3\AddDataToDB\bin\Debug\net5.0\EESV2.AddDataToDB.runtimeconfig.dev.json
+D:\Users\Lenovo\Document\Visual Dtudio 2019\Project\EESV3\AddDataToDB\bin\Debug\net5.0\EESV2.AddDataToDB.dll
+D:\Users\Lenovo\Document\Visual Dtudio 2019\Project\EESV3\AddDataToDB\bin\Debug\net5.0\ref\EESV2.AddDataToDB.dll
+D:\Users\Lenovo\Document\Visual Dtudio 2019\Project\EESV3\AddDataToDB\bin\Debug\net5.0\EESV2.AddDataToDB.pdb
+D:\Users\Lenovo\Document\Visual Dtudio 2019\Project\EESV3\AddDataToDB\bin\Debug\net5.0\Humanizer.dll
+D:\Users\Lenovo\Document\Visual Dtudio 2019\Project\EESV3\AddDataToDB\bin\Debug\net5.0\Microsoft.Data.SqlClient.dll
+D:\Users\Lenovo\Document\Visual Dtudio 2019\Project\EESV3\AddDataToDB\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.dll
+D:\Users\Lenovo\Document\Visual Dtudio 2019\Project\EESV3\AddDataToDB\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+D:\Users\Lenovo\Document\Visual Dtudio 2019\Project\EESV3\AddDataToDB\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.Design.dll
+D:\Users\Lenovo\Document\Visual Dtudio 2019\Project\EESV3\AddDataToDB\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.Relational.dll
+D:\Users\Lenovo\Document\Visual Dtudio 2019\Project\EESV3\AddDataToDB\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.SqlServer.dll
+D:\Users\Lenovo\Document\Visual Dtudio 2019\Project\EESV3\AddDataToDB\bin\Debug\net5.0\Microsoft.Extensions.DependencyInjection.dll
+D:\Users\Lenovo\Document\Visual Dtudio 2019\Project\EESV3\AddDataToDB\bin\Debug\net5.0\Microsoft.Identity.Client.dll
+D:\Users\Lenovo\Document\Visual Dtudio 2019\Project\EESV3\AddDataToDB\bin\Debug\net5.0\Microsoft.IdentityModel.JsonWebTokens.dll
+D:\Users\Lenovo\Document\Visual Dtudio 2019\Project\EESV3\AddDataToDB\bin\Debug\net5.0\Microsoft.IdentityModel.Logging.dll
+D:\Users\Lenovo\Document\Visual Dtudio 2019\Project\EESV3\AddDataToDB\bin\Debug\net5.0\Microsoft.IdentityModel.Protocols.dll
+D:\Users\Lenovo\Document\Visual Dtudio 2019\Project\EESV3\AddDataToDB\bin\Debug\net5.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+D:\Users\Lenovo\Document\Visual Dtudio 2019\Project\EESV3\AddDataToDB\bin\Debug\net5.0\Microsoft.IdentityModel.Tokens.dll
+D:\Users\Lenovo\Document\Visual Dtudio 2019\Project\EESV3\AddDataToDB\bin\Debug\net5.0\Newtonsoft.Json.dll
+D:\Users\Lenovo\Document\Visual Dtudio 2019\Project\EESV3\AddDataToDB\bin\Debug\net5.0\System.Configuration.ConfigurationManager.dll
+D:\Users\Lenovo\Document\Visual Dtudio 2019\Project\EESV3\AddDataToDB\bin\Debug\net5.0\System.IdentityModel.Tokens.Jwt.dll
+D:\Users\Lenovo\Document\Visual Dtudio 2019\Project\EESV3\AddDataToDB\bin\Debug\net5.0\System.Runtime.Caching.dll
+D:\Users\Lenovo\Document\Visual Dtudio 2019\Project\EESV3\AddDataToDB\bin\Debug\net5.0\System.Security.Cryptography.ProtectedData.dll
+D:\Users\Lenovo\Document\Visual Dtudio 2019\Project\EESV3\AddDataToDB\bin\Debug\net5.0\runtimes\unix\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll
+D:\Users\Lenovo\Document\Visual Dtudio 2019\Project\EESV3\AddDataToDB\bin\Debug\net5.0\runtimes\win\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll
+D:\Users\Lenovo\Document\Visual Dtudio 2019\Project\EESV3\AddDataToDB\bin\Debug\net5.0\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.dll
+D:\Users\Lenovo\Document\Visual Dtudio 2019\Project\EESV3\AddDataToDB\bin\Debug\net5.0\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.pdb
+D:\Users\Lenovo\Document\Visual Dtudio 2019\Project\EESV3\AddDataToDB\bin\Debug\net5.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll
+D:\Users\Lenovo\Document\Visual Dtudio 2019\Project\EESV3\AddDataToDB\bin\Debug\net5.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.pdb
+D:\Users\Lenovo\Document\Visual Dtudio 2019\Project\EESV3\AddDataToDB\bin\Debug\net5.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
+D:\Users\Lenovo\Document\Visual Dtudio 2019\Project\EESV3\AddDataToDB\bin\Debug\net5.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.pdb
+D:\Users\Lenovo\Document\Visual Dtudio 2019\Project\EESV3\AddDataToDB\bin\Debug\net5.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
+D:\Users\Lenovo\Document\Visual Dtudio 2019\Project\EESV3\AddDataToDB\bin\Debug\net5.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.pdb
+D:\Users\Lenovo\Document\Visual Dtudio 2019\Project\EESV3\AddDataToDB\bin\Debug\net5.0\runtimes\win\lib\netstandard2.0\System.Runtime.Caching.dll
+D:\Users\Lenovo\Document\Visual Dtudio 2019\Project\EESV3\AddDataToDB\bin\Debug\net5.0\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
+D:\Users\Lenovo\Document\Visual Dtudio 2019\Project\EESV3\AddDataToDB\bin\Debug\net5.0\EESV2.DAL.dll
+D:\Users\Lenovo\Document\Visual Dtudio 2019\Project\EESV3\AddDataToDB\bin\Debug\net5.0\EESV2.DAL.pdb
+D:\Users\Lenovo\Document\Visual Dtudio 2019\Project\EESV3\AddDataToDB\obj\Debug\net5.0\EESV2.AddDataToDB.GeneratedMSBuildEditorConfig.editorconfig
+D:\Users\Lenovo\Document\Visual Dtudio 2019\Project\EESV3\AddDataToDB\obj\Debug\net5.0\EESV2.AddDataToDB.AssemblyInfoInputs.cache
+D:\Users\Lenovo\Document\Visual Dtudio 2019\Project\EESV3\AddDataToDB\obj\Debug\net5.0\EESV2.AddDataToDB.AssemblyInfo.cs
+D:\Users\Lenovo\Document\Visual Dtudio 2019\Project\EESV3\AddDataToDB\obj\Debug\net5.0\EESV2.AddDataToDB.csproj.CoreCompileInputs.cache
+D:\Users\Lenovo\Document\Visual Dtudio 2019\Project\EESV3\AddDataToDB\obj\Debug\net5.0\EESV2.AddDataToDB.csproj.CopyComplete
+D:\Users\Lenovo\Document\Visual Dtudio 2019\Project\EESV3\AddDataToDB\obj\Debug\net5.0\EESV2.AddDataToDB.dll
+D:\Users\Lenovo\Document\Visual Dtudio 2019\Project\EESV3\AddDataToDB\obj\Debug\net5.0\ref\EESV2.AddDataToDB.dll
+D:\Users\Lenovo\Document\Visual Dtudio 2019\Project\EESV3\AddDataToDB\obj\Debug\net5.0\EESV2.AddDataToDB.pdb
+D:\Users\Lenovo\Document\Visual Dtudio 2019\Project\EESV3\AddDataToDB\obj\Debug\net5.0\EESV2.AddDataToDB.genruntimeconfig.cache
+D:\Users\Lenovo\Document\Visual Dtudio 2019\Project\EESV3\AddDataToDB\obj\Debug\net5.0\EESV2.AddDataToDB.csproj.AssemblyReference.cache
+D:\Users\Lenovo\Document\Visual Dtudio 2019\Project\EESV3\AddDataToDB\bin\Debug\net5.0\Microsoft.AspNetCore.JsonPatch.dll
+D:\Users\Lenovo\Document\Visual Dtudio 2019\Project\EESV3\AddDataToDB\bin\Debug\net5.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
+D:\Users\Lenovo\Document\Visual Dtudio 2019\Project\EESV3\AddDataToDB\bin\Debug\net5.0\Newtonsoft.Json.Bson.dll
+F:\IMS PROJECTS\1401.08.14\AddDataToDB\bin\Debug\net5.0\EESV2.AddDataToDB.exe
+F:\IMS PROJECTS\1401.08.14\AddDataToDB\bin\Debug\net5.0\EESV2.AddDataToDB.deps.json
+F:\IMS PROJECTS\1401.08.14\AddDataToDB\bin\Debug\net5.0\EESV2.AddDataToDB.runtimeconfig.json
+F:\IMS PROJECTS\1401.08.14\AddDataToDB\bin\Debug\net5.0\EESV2.AddDataToDB.runtimeconfig.dev.json
+F:\IMS PROJECTS\1401.08.14\AddDataToDB\bin\Debug\net5.0\EESV2.AddDataToDB.dll
+F:\IMS PROJECTS\1401.08.14\AddDataToDB\bin\Debug\net5.0\ref\EESV2.AddDataToDB.dll
+F:\IMS PROJECTS\1401.08.14\AddDataToDB\bin\Debug\net5.0\EESV2.AddDataToDB.pdb
+F:\IMS PROJECTS\1401.08.14\AddDataToDB\bin\Debug\net5.0\Humanizer.dll
+F:\IMS PROJECTS\1401.08.14\AddDataToDB\bin\Debug\net5.0\Microsoft.AspNetCore.JsonPatch.dll
+F:\IMS PROJECTS\1401.08.14\AddDataToDB\bin\Debug\net5.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
+F:\IMS PROJECTS\1401.08.14\AddDataToDB\bin\Debug\net5.0\Microsoft.Data.SqlClient.dll
+F:\IMS PROJECTS\1401.08.14\AddDataToDB\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.dll
+F:\IMS PROJECTS\1401.08.14\AddDataToDB\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+F:\IMS PROJECTS\1401.08.14\AddDataToDB\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.Design.dll
+F:\IMS PROJECTS\1401.08.14\AddDataToDB\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.Relational.dll
+F:\IMS PROJECTS\1401.08.14\AddDataToDB\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.SqlServer.dll
+F:\IMS PROJECTS\1401.08.14\AddDataToDB\bin\Debug\net5.0\Microsoft.Extensions.DependencyInjection.dll
+F:\IMS PROJECTS\1401.08.14\AddDataToDB\bin\Debug\net5.0\Microsoft.Identity.Client.dll
+F:\IMS PROJECTS\1401.08.14\AddDataToDB\bin\Debug\net5.0\Microsoft.IdentityModel.JsonWebTokens.dll
+F:\IMS PROJECTS\1401.08.14\AddDataToDB\bin\Debug\net5.0\Microsoft.IdentityModel.Logging.dll
+F:\IMS PROJECTS\1401.08.14\AddDataToDB\bin\Debug\net5.0\Microsoft.IdentityModel.Protocols.dll
+F:\IMS PROJECTS\1401.08.14\AddDataToDB\bin\Debug\net5.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+F:\IMS PROJECTS\1401.08.14\AddDataToDB\bin\Debug\net5.0\Microsoft.IdentityModel.Tokens.dll
+F:\IMS PROJECTS\1401.08.14\AddDataToDB\bin\Debug\net5.0\Newtonsoft.Json.dll
+F:\IMS PROJECTS\1401.08.14\AddDataToDB\bin\Debug\net5.0\Newtonsoft.Json.Bson.dll
+F:\IMS PROJECTS\1401.08.14\AddDataToDB\bin\Debug\net5.0\System.Configuration.ConfigurationManager.dll
+F:\IMS PROJECTS\1401.08.14\AddDataToDB\bin\Debug\net5.0\System.IdentityModel.Tokens.Jwt.dll
+F:\IMS PROJECTS\1401.08.14\AddDataToDB\bin\Debug\net5.0\System.Runtime.Caching.dll
+F:\IMS PROJECTS\1401.08.14\AddDataToDB\bin\Debug\net5.0\System.Security.Cryptography.ProtectedData.dll
+F:\IMS PROJECTS\1401.08.14\AddDataToDB\bin\Debug\net5.0\runtimes\unix\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll
+F:\IMS PROJECTS\1401.08.14\AddDataToDB\bin\Debug\net5.0\runtimes\win\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll
+F:\IMS PROJECTS\1401.08.14\AddDataToDB\bin\Debug\net5.0\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.dll
+F:\IMS PROJECTS\1401.08.14\AddDataToDB\bin\Debug\net5.0\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.pdb
+F:\IMS PROJECTS\1401.08.14\AddDataToDB\bin\Debug\net5.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll
+F:\IMS PROJECTS\1401.08.14\AddDataToDB\bin\Debug\net5.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.pdb
+F:\IMS PROJECTS\1401.08.14\AddDataToDB\bin\Debug\net5.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
+F:\IMS PROJECTS\1401.08.14\AddDataToDB\bin\Debug\net5.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.pdb
+F:\IMS PROJECTS\1401.08.14\AddDataToDB\bin\Debug\net5.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
+F:\IMS PROJECTS\1401.08.14\AddDataToDB\bin\Debug\net5.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.pdb
+F:\IMS PROJECTS\1401.08.14\AddDataToDB\bin\Debug\net5.0\runtimes\win\lib\netstandard2.0\System.Runtime.Caching.dll
+F:\IMS PROJECTS\1401.08.14\AddDataToDB\bin\Debug\net5.0\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
+F:\IMS PROJECTS\1401.08.14\AddDataToDB\bin\Debug\net5.0\EESV2.DAL.dll
+F:\IMS PROJECTS\1401.08.14\AddDataToDB\bin\Debug\net5.0\EESV2.DAL.pdb
+F:\IMS PROJECTS\1401.08.14\AddDataToDB\obj\Debug\net5.0\EESV2.AddDataToDB.csproj.AssemblyReference.cache
+F:\IMS PROJECTS\1401.08.14\AddDataToDB\obj\Debug\net5.0\EESV2.AddDataToDB.GeneratedMSBuildEditorConfig.editorconfig
+F:\IMS PROJECTS\1401.08.14\AddDataToDB\obj\Debug\net5.0\EESV2.AddDataToDB.AssemblyInfoInputs.cache
+F:\IMS PROJECTS\1401.08.14\AddDataToDB\obj\Debug\net5.0\EESV2.AddDataToDB.AssemblyInfo.cs
+F:\IMS PROJECTS\1401.08.14\AddDataToDB\obj\Debug\net5.0\EESV2.AddDataToDB.csproj.CoreCompileInputs.cache
+F:\IMS PROJECTS\1401.08.14\AddDataToDB\obj\Debug\net5.0\EESV2.AddDataToDB.csproj.CopyComplete
+F:\IMS PROJECTS\1401.08.14\AddDataToDB\obj\Debug\net5.0\EESV2.AddDataToDB.dll
+F:\IMS PROJECTS\1401.08.14\AddDataToDB\obj\Debug\net5.0\ref\EESV2.AddDataToDB.dll
+F:\IMS PROJECTS\1401.08.14\AddDataToDB\obj\Debug\net5.0\EESV2.AddDataToDB.pdb
+F:\IMS PROJECTS\1401.08.14\AddDataToDB\obj\Debug\net5.0\EESV2.AddDataToDB.genruntimeconfig.cache
+C:\Users\agan7\Documents\Visual Studio 2022\Project\Web\EESV4\AddDataToDB\bin\Debug\net5.0\EESV2.AddDataToDB.exe
+C:\Users\agan7\Documents\Visual Studio 2022\Project\Web\EESV4\AddDataToDB\bin\Debug\net5.0\EESV2.AddDataToDB.deps.json
+C:\Users\agan7\Documents\Visual Studio 2022\Project\Web\EESV4\AddDataToDB\bin\Debug\net5.0\EESV2.AddDataToDB.runtimeconfig.json
+C:\Users\agan7\Documents\Visual Studio 2022\Project\Web\EESV4\AddDataToDB\bin\Debug\net5.0\EESV2.AddDataToDB.runtimeconfig.dev.json
+C:\Users\agan7\Documents\Visual Studio 2022\Project\Web\EESV4\AddDataToDB\bin\Debug\net5.0\EESV2.AddDataToDB.dll
+C:\Users\agan7\Documents\Visual Studio 2022\Project\Web\EESV4\AddDataToDB\bin\Debug\net5.0\EESV2.AddDataToDB.pdb
+C:\Users\agan7\Documents\Visual Studio 2022\Project\Web\EESV4\AddDataToDB\bin\Debug\net5.0\Humanizer.dll
+C:\Users\agan7\Documents\Visual Studio 2022\Project\Web\EESV4\AddDataToDB\bin\Debug\net5.0\Microsoft.AspNetCore.JsonPatch.dll
+C:\Users\agan7\Documents\Visual Studio 2022\Project\Web\EESV4\AddDataToDB\bin\Debug\net5.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
+C:\Users\agan7\Documents\Visual Studio 2022\Project\Web\EESV4\AddDataToDB\bin\Debug\net5.0\Microsoft.Data.SqlClient.dll
+C:\Users\agan7\Documents\Visual Studio 2022\Project\Web\EESV4\AddDataToDB\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.dll
+C:\Users\agan7\Documents\Visual Studio 2022\Project\Web\EESV4\AddDataToDB\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+C:\Users\agan7\Documents\Visual Studio 2022\Project\Web\EESV4\AddDataToDB\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.Design.dll
+C:\Users\agan7\Documents\Visual Studio 2022\Project\Web\EESV4\AddDataToDB\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.Relational.dll
+C:\Users\agan7\Documents\Visual Studio 2022\Project\Web\EESV4\AddDataToDB\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.SqlServer.dll
+C:\Users\agan7\Documents\Visual Studio 2022\Project\Web\EESV4\AddDataToDB\bin\Debug\net5.0\Microsoft.Extensions.DependencyInjection.dll
+C:\Users\agan7\Documents\Visual Studio 2022\Project\Web\EESV4\AddDataToDB\bin\Debug\net5.0\Microsoft.Identity.Client.dll
+C:\Users\agan7\Documents\Visual Studio 2022\Project\Web\EESV4\AddDataToDB\bin\Debug\net5.0\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\agan7\Documents\Visual Studio 2022\Project\Web\EESV4\AddDataToDB\bin\Debug\net5.0\Microsoft.IdentityModel.Logging.dll
+C:\Users\agan7\Documents\Visual Studio 2022\Project\Web\EESV4\AddDataToDB\bin\Debug\net5.0\Microsoft.IdentityModel.Protocols.dll
+C:\Users\agan7\Documents\Visual Studio 2022\Project\Web\EESV4\AddDataToDB\bin\Debug\net5.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\Users\agan7\Documents\Visual Studio 2022\Project\Web\EESV4\AddDataToDB\bin\Debug\net5.0\Microsoft.IdentityModel.Tokens.dll
+C:\Users\agan7\Documents\Visual Studio 2022\Project\Web\EESV4\AddDataToDB\bin\Debug\net5.0\Newtonsoft.Json.dll
+C:\Users\agan7\Documents\Visual Studio 2022\Project\Web\EESV4\AddDataToDB\bin\Debug\net5.0\Newtonsoft.Json.Bson.dll
+C:\Users\agan7\Documents\Visual Studio 2022\Project\Web\EESV4\AddDataToDB\bin\Debug\net5.0\System.Configuration.ConfigurationManager.dll
+C:\Users\agan7\Documents\Visual Studio 2022\Project\Web\EESV4\AddDataToDB\bin\Debug\net5.0\System.IdentityModel.Tokens.Jwt.dll
+C:\Users\agan7\Documents\Visual Studio 2022\Project\Web\EESV4\AddDataToDB\bin\Debug\net5.0\System.Runtime.Caching.dll
+C:\Users\agan7\Documents\Visual Studio 2022\Project\Web\EESV4\AddDataToDB\bin\Debug\net5.0\System.Security.Cryptography.ProtectedData.dll
+C:\Users\agan7\Documents\Visual Studio 2022\Project\Web\EESV4\AddDataToDB\bin\Debug\net5.0\runtimes\unix\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll
+C:\Users\agan7\Documents\Visual Studio 2022\Project\Web\EESV4\AddDataToDB\bin\Debug\net5.0\runtimes\win\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll
+C:\Users\agan7\Documents\Visual Studio 2022\Project\Web\EESV4\AddDataToDB\bin\Debug\net5.0\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\agan7\Documents\Visual Studio 2022\Project\Web\EESV4\AddDataToDB\bin\Debug\net5.0\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.pdb
+C:\Users\agan7\Documents\Visual Studio 2022\Project\Web\EESV4\AddDataToDB\bin\Debug\net5.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\agan7\Documents\Visual Studio 2022\Project\Web\EESV4\AddDataToDB\bin\Debug\net5.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.pdb
+C:\Users\agan7\Documents\Visual Studio 2022\Project\Web\EESV4\AddDataToDB\bin\Debug\net5.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\agan7\Documents\Visual Studio 2022\Project\Web\EESV4\AddDataToDB\bin\Debug\net5.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.pdb
+C:\Users\agan7\Documents\Visual Studio 2022\Project\Web\EESV4\AddDataToDB\bin\Debug\net5.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\agan7\Documents\Visual Studio 2022\Project\Web\EESV4\AddDataToDB\bin\Debug\net5.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.pdb
+C:\Users\agan7\Documents\Visual Studio 2022\Project\Web\EESV4\AddDataToDB\bin\Debug\net5.0\runtimes\win\lib\netstandard2.0\System.Runtime.Caching.dll
+C:\Users\agan7\Documents\Visual Studio 2022\Project\Web\EESV4\AddDataToDB\bin\Debug\net5.0\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
+C:\Users\agan7\Documents\Visual Studio 2022\Project\Web\EESV4\AddDataToDB\bin\Debug\net5.0\EESV2.DAL.dll
+C:\Users\agan7\Documents\Visual Studio 2022\Project\Web\EESV4\AddDataToDB\bin\Debug\net5.0\EESV2.DAL.pdb
+C:\Users\agan7\Documents\Visual Studio 2022\Project\Web\EESV4\AddDataToDB\obj\Debug\net5.0\EESV2.AddDataToDB.csproj.AssemblyReference.cache
+C:\Users\agan7\Documents\Visual Studio 2022\Project\Web\EESV4\AddDataToDB\obj\Debug\net5.0\EESV2.AddDataToDB.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\agan7\Documents\Visual Studio 2022\Project\Web\EESV4\AddDataToDB\obj\Debug\net5.0\EESV2.AddDataToDB.AssemblyInfoInputs.cache
+C:\Users\agan7\Documents\Visual Studio 2022\Project\Web\EESV4\AddDataToDB\obj\Debug\net5.0\EESV2.AddDataToDB.AssemblyInfo.cs
+C:\Users\agan7\Documents\Visual Studio 2022\Project\Web\EESV4\AddDataToDB\obj\Debug\net5.0\EESV2.AddDataToDB.csproj.CoreCompileInputs.cache
+C:\Users\agan7\Documents\Visual Studio 2022\Project\Web\EESV4\AddDataToDB\obj\Debug\net5.0\EESV2.AddDataToDB.csproj.CopyComplete
+C:\Users\agan7\Documents\Visual Studio 2022\Project\Web\EESV4\AddDataToDB\obj\Debug\net5.0\EESV2.AddDataToDB.dll
+C:\Users\agan7\Documents\Visual Studio 2022\Project\Web\EESV4\AddDataToDB\obj\Debug\net5.0\refint\EESV2.AddDataToDB.dll
+C:\Users\agan7\Documents\Visual Studio 2022\Project\Web\EESV4\AddDataToDB\obj\Debug\net5.0\EESV2.AddDataToDB.pdb
+C:\Users\agan7\Documents\Visual Studio 2022\Project\Web\EESV4\AddDataToDB\obj\Debug\net5.0\EESV2.AddDataToDB.genruntimeconfig.cache
+C:\Users\agan7\Documents\Visual Studio 2022\Project\Web\EESV4\AddDataToDB\obj\Debug\net5.0\ref\EESV2.AddDataToDB.dll

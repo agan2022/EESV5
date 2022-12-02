@@ -1,0 +1,119 @@
+﻿@inject IUnitOfWork _uw
+@{
+
+    List<UserPost> userPosts = _uw.UserPostRepository.Get().ToList();
+    ViewData["page"] = "UPOSTS";
+    ViewData["Title"] = "مدیریت سمت ها";
+    Layout = "Layout";
+}
+<!-- DataTables -->
+<link rel="stylesheet" href="~/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+
+<link rel="stylesheet" href="~/dist/css/animate.css">
+<script src="~/dist/js/wow.min.js"></script>
+
+<div class="content-wrapper" style="min-height: 915.8px;">
+    <section class="content-header">
+        <h1 class="wow animate__animated animate__lightSpeedInRight">
+            مدیریت سمت ها
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="/Home/Index"><i class="fas fa-home"></i> خانه</a></li>
+            <li class="active">مدیریت سمت ها</li>
+        </ol>
+    </section>
+
+    <section class="content wow animate__animated animate__zoomInDown" data-wow-delay=".3s">
+        <div class="box">
+            <div class="box-body table-responsive pad">
+                @if (TempData["Alert"] != null)
+                {
+                    <div class="callout callout-danger">
+                        <h4>تذکر</h4>
+                        <p>
+                            @TempData["Alert"]
+                        </p>
+                    </div>
+                }
+                <table id="DataTable1" class="table table-bordered table-hover data-table dataTable">
+                    <thead>
+                        <tr>
+                            <th>کد</th>
+                            <th>عنوان</th>
+                            <th>افراد دارای این سمت</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var userPost in userPosts)
+                        {
+                            <tr>
+                                <td>@userPost.ID</td>
+                                <td>@userPost.Title</td>
+                                <td>
+                                    <a href="/Secretary/UserPost/Members?id=@userPost.ID">مشاهده</a>
+                                </td>
+                                <td>
+                                    <a class="btn btn-primary" href="/Secretary/UserPost/Edit?id=@userPost.ID">ویرایش</a>
+                                </td>
+                                <td>
+                                    <a onclick="deleteUserPost(@userPost.ID)" class="btn btn-info" href="#">حذف</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+
+                </table>
+                <div style="direction:ltr">
+                    <a href="/Secretary/UserPost/Create" class="btn btn-success">سمت جدید</a>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+
+<!-- DataTables -->
+<script src="~/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="~/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+<script>
+    $(function () {
+        $('#DataTable1').DataTable({
+            'paging': true,
+            'lengthChange': true,
+            'searching': true,
+            'ordering': true,
+            'info': true,
+            'autoWidth': false,
+            "order": [[0, 'desc']],
+            'lengthMenu': [[10, 25, 50, -1], [10, 25, 50, "همه"]],
+            'language': {
+                'zeroRecords': 'رکوردی برای نمایش وجود ندارد',
+                'lengthMenu': 'نمایش _MENU_ رکورد در یک صفحه',
+                'search': 'جستجو در تمام ستون ها : ',
+                'info': 'تعداد کل رکورد ها :   _TOTAL_',
+                'infoFiltered': '',
+                "infoEmpty": '',
+                "paginate": {
+                    "first": "اولین",
+                    "last": "آخرین",
+                    "next": "بعدی",
+                    "previous": "قبلی"
+                },
+            }
+        })
+    })
+</script>
+<script>
+    function deleteUserPost(id) {
+        let check=confirm("ایا از حذف سمت مطمعن هستید؟");
+        if (check) {
+            window.location.href = "/Secretary/UserPost/Delete?id="+id;
+        }
+    }
+</script>
+
+
+
+

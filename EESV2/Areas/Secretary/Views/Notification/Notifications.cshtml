@@ -1,0 +1,119 @@
+﻿@inject IUnitOfWork _uw
+@{
+
+    List<Notification> notifications = _uw.NotificationRepository.Get().ToList();
+    ViewData["page"] = "NFT";
+    ViewData["Title"] = "مدیریت اطلاعیه ها";
+    Layout = "Layout";
+}
+<!-- DataTables -->
+<link rel="stylesheet" href="~/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+
+<link rel="stylesheet" href="~/dist/css/animate.css">
+<script src="~/dist/js/wow.min.js"></script>
+
+<div class="content-wrapper" style="min-height: 915.8px;">
+    <section class="content-header">
+        <h1 class="wow animate__animated animate__lightSpeedInRight">
+            مدیریت اطلاعیه ها
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="/Home/Index"><i class="fas fa-home"></i> خانه</a></li>
+            <li class="active">مدیریت اطلاعیه ها</li>
+        </ol>
+    </section>
+
+    <section class="content wow animate__animated animate__zoomInDown" data-wow-delay=".3s">
+        <div class="box">
+            <div class="box-body table-responsive pad">
+                @*<input asp-for="ObjectionID" />
+        <input asp-for="ProposalId" />
+        <input asp-for="FromDate" />
+        <input asp-for="ToDate" />
+        <input asp-for="Reasons" />
+        <input asp-for="AnswerOfObjection" />
+        <input asp-for="UnAnsweredObjections" />
+        <input asp-for="PersonnelID" />
+        <input type="submit" value="جست و جو" />*@
+                <table id="DataTable1" class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>تاریخ انتشار</th>
+                            <th>عنوان</th>
+                            <th>متن</th>
+                            <th>وضعیت نمایش</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var notification in notifications)
+                        {
+                            <tr>
+                                <td>@notification.PublishedDateTime</td>
+                                <td>@notification.Title</td>
+                                <td>@Html.Raw(notification.Text)</td>
+
+                                @if (notification.IsShow)
+                                {
+                                    <td class="text-primary">فعال</td>
+                                }
+                                else
+                                {
+                                    <td class="text-danger">غیر فعال</td>
+                                }
+                                <td>
+                                    <a class="btn btn-primary" href="/Secretary/Notification/Edit?id=@notification.ID">ویرایش</a>
+                                </td>
+                                <td>
+                                    <a class="btn btn-danger" href="/Secretary/Notification/Delete?id=@notification.ID">حذف</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+
+                </table>
+                <div style="direction:ltr">
+                    <a href="/Secretary/Notification/Create" class="btn btn-success">اطلاعیه جدید</a>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+
+<!-- DataTables -->
+<script src="~/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="~/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+<script>
+    $(function () {
+        $('#DataTable1').DataTable({
+            'paging': true,
+            'lengthChange': true,
+            'searching': true,
+            'ordering': true,
+            'info': true,
+            'autoWidth': false,
+            "order": [[0, 'desc']],
+            'lengthMenu': [[10, 25, 50, -1], [10, 25, 50, "همه"]],
+            'language': {
+                'zeroRecords': 'رکوردی برای نمایش وجود ندارد',
+                'lengthMenu': 'نمایش _MENU_ رکورد در یک صفحه',
+                'search': 'جستجو در تمام ستون ها : ',
+                'info': 'تعداد کل رکورد ها :   _TOTAL_',
+                'infoFiltered': '',
+                "infoEmpty": '',
+                "paginate": {
+                    "first": "اولین",
+                    "last": "آخرین",
+                    "next": "بعدی",
+                    "previous": "قبلی"
+                },
+            }
+        })
+    })
+</script>
+
+
+
+

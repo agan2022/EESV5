@@ -1,0 +1,54 @@
+﻿@model AddMembersToCommitteeEditModel
+@inject IUnitOfWork _uw
+@{
+    var committee = _uw.CommitteeRepository.Get(c => c.ID == Model.ID, include: s => s
+                                                      .Include(c => c.Members).ThenInclude(u => u.User).ThenInclude(u=>u.Office)
+                                                      .Include(c => c.Secretary).ThenInclude(u => u.Office))
+                                                      .Select(c => new { Members = c.Members, Secretary = c.Secretary, Name = c.Name })
+                                                      .SingleOrDefault();
+    var allUsers = _uw.UserRepository.Get()
+                                .Select(u=>new { FirstName = u.FirstName ,LastName=u.LastName,PersonnelCode=u.Username,ID=u.ID});
+    ViewData["Title"] = "افزودن عضو جدید";
+    ViewData["page"] = "WGList";
+    Layout = "Layout";
+}
+<link rel="stylesheet" href="~/plugins/select2/css/select2.min.css">
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1 class="wow animate__animated animate__lightSpeedInRight">
+            لیست اعضای کارگروه @committee.Name
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="/Home/Index"><i class="fas fa-home"></i> خانه</a></li>
+            <li><a href="/Secretary/Committee/index">مدیریت کارگروه ها</a></li>
+            <li class="active">لیست اعضای کارگروه</li>
+        </ol>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="box pad wow animate__animated animate__zoomInDown" data-wow-delay=".3s">
+            <div class="box-body">
+            <form method="post" action="/Secretary/Committee/AddMember">
+                <input type="hidden" asp-for="ID" />
+                <div class="form-group">
+                    <label>اعضای جدید را انتخاب کنید</label>
+                    <select dir="rtl" asp-for="MembersIDs" multiple class="form-control select2">
+                        @foreach (var user in allUsers)
+                        {
+                            <option value="@user.ID">@user.FirstName @user.LastName @user.PersonnelCode</option>
+                        }
+                    </select>
+                </div>
+                <div>
+                    <input class="btn btn-success" type="submit" value="تأیید" />
+                </div>
+            </form>
+
+            </div>
+        </div>
+    </section>
+    <!-- /.content -->
+</div>
+<script src="~/plugins/select2/js/select2.min.js"></script>

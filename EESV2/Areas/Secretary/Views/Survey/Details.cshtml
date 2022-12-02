@@ -1,0 +1,477 @@
+﻿@model DetailsSurveyViewModel
+@{
+    ViewData["page"] = "SRV";
+    ViewData["Title"] = "جزئیات";
+    Layout = "Layout";
+}
+<style>
+    input[type=radio] {
+        position: relative;
+        top: 4px;
+    }
+</style>
+<div class="content-wrapper" style="min-height: 915.8px;">
+    <section class="content-header">
+        <h1 class="wow animate__animated animate__lightSpeedInRight">
+            فرم نظرسنجی
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="/Home/Index"><i class="fas fa-home"></i> خانه</a></li>
+            <li><a href="#">فرم نظرسنجی</a></li>
+        </ol>
+    </section>
+
+    <section class="content">
+        <div class="row wow animate__animated animate__zoomInDown" data-wow-delay=".3s">
+            <div class="col-md-12">
+                <div class="box box-success">
+                    <div class="box-body pad">
+                        <h6 style="text-decoration:underline;text-align:center">بسمه  تعالي</h6>
+                        <h6 style="text-align:center">همكار گرامي، نظرات ارزشمند شما زمينه ساز رشد و همچنين راهنمای ما در پيشبرد اهداف شركت می باشد. لذا ضمن تشكر از صرف وقت شما جهت تكميل پرسشنامه نظرسنجی، خواهشمند است راهكارهای اصلاحی خود را نيز  از همين طريق (دربخش دوم سئوالات تشریحی) اعلام فرماييد.  </h6>
+                        <h6 style="text-align:center;font-weight:700">دبيرخانه نظام پيشنهادهای منطقه یک عملیات انتقال گاز</h6>
+                        <div class="box-body table-responsive no-padding">
+                            <table class="table border">
+                                <tbody>
+
+                                    <tr>
+                                        <td>جنسیت</td>
+                                        <td>
+                                            <label>
+                                                زن
+                                                <input asp-for="Q1" type="radio" disabled value="1" />
+                                            </label>
+
+                                        </td>
+                                        <td class="form-check" colspan="4">
+                                            <label>
+                                                مرد
+                                                <input asp-for="Q1" type="radio" disabled value="2" />
+                                            </label>
+
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>رده سنی</td>
+                                        <td>
+                                            <label>
+                                                20 تا سال30
+                                                <input asp-for="Q2" type="radio" disabled value="1" />
+                                            </label>
+
+                                        </td>
+                                        <td>
+                                            <label>
+                                                31  تا 40 سال
+                                                <input asp-for="Q2" type="radio" disabled value="2" />
+                                            </label>
+
+                                        </td>
+                                        <td>
+                                            <label>
+                                                41 تا 50 سال
+                                                <input asp-for="Q2" type="radio" disabled value="3" />
+                                            </label>
+
+                                        </td>
+                                        <td colspan="2">
+                                            <label>
+                                                51 سال به بالا
+                                                <input asp-for="Q2" type="radio" disabled value="4" />
+                                            </label>
+
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>تحصیلات</td>
+                                        <td>
+                                            <label>
+                                                زیر ديپلم
+                                                <input asp-for="Q3" type="radio" disabled value="1" />
+                                            </label>
+
+                                        </td>
+                                        <td>
+                                            <label>
+                                                ديپلم
+                                                <input asp-for="Q3" type="radio" disabled value="2" />
+                                            </label>
+
+                                        </td>
+                                        <td>
+                                            <label>
+                                                کاردانی
+                                                <input asp-for="Q3" type="radio" disabled value="3" />
+                                            </label>
+
+                                        </td>
+                                        <td>
+                                            <label>
+                                                کارشناسی
+                                                <input asp-for="Q3" type="radio" disabled value="4" />
+                                            </label>
+
+                                        </td>
+                                        <td>
+                                            <label>
+                                                کارشناسی ارشد
+                                                <input asp-for="Q3" type="radio" disabled value="5" />
+                                            </label>
+
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>رده شغلی</td>
+                                        <td>
+                                            <label>
+                                                كارمندان/کارگران
+                                                <input asp-for="Q4" type="radio" disabled value="1" />
+                                            </label>
+
+                                        </td>
+                                        <td>
+                                            <label>
+                                                رؤسا
+                                                <input asp-for="Q4" type="radio" disabled value="2" />
+                                            </label>
+
+                                        </td>
+                                        <td colspan="3">
+                                            <label>
+                                                معاونین
+                                                <input asp-for="Q4" type="radio" disabled value="3" />
+                                            </label>
+
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>نحوه استخدام</td>
+                                        <td>
+                                            <label>
+                                                رسمی
+                                                <input asp-for="Q5" type="radio" disabled value="1" />
+                                            </label>
+
+                                        </td>
+                                        <td class="form-check" colspan="4">
+                                            <label>
+                                                غیررسمی
+                                                <input asp-for="Q5" type="radio" disabled value="2" />
+                                            </label>
+
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="callout callout-info">
+                            <h4 style="color: #0097bc">بخش اول سئوالات چندگزینه ای: </h4>
+                            <p style="color: #0097bc">
+                                باتوجه به عملکرد نظام پیشنهادات از میان گزینه های خیلی خوب، خوب، متوسط، ضعیف وخیلی ضعیف یک مورد را انتخاب فرمایید.
+                            </p>
+                        </div>
+                        <div class="form-group">
+                            <label>1)میزان حمایت مدیریت منطقه/ معاونین و روئسای واحد ها را در خصوص مشارکت جویی کارکنان در حوزه نظام مشارکت را چگونه ارزیابی می کنید؟</label>
+                            <div class="form-group" style="display:flex;flex-direction:row">
+                                <label style="width:300px">
+                                    خیلی خوب
+                                    <input asp-for="Q6" type="radio" disabled value="5" />
+                                </label>
+                                <label style="width:300px">
+                                    خوب
+                                    <input asp-for="Q6" type="radio" disabled value="4" />
+                                </label>
+                                <label style="width:300px">
+                                    متوسط
+                                    <input asp-for="Q6" type="radio" disabled value="3" />
+                                </label>
+                                <label style="width:300px">
+                                    ضعیف
+                                    <input asp-for="Q6" type="radio" disabled value="2" />
+                                </label>
+                                <label style="width:300px">
+                                    خیلی ضعیف
+                                    <input asp-for="Q6" type="radio" disabled value="1" />
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>2)باور و اعتقاد مدیران منطقه به اهداف و برنامه های نظام مشارکت و توسعه و گسترش فرهنگ آن در منطقه و واحد مربوطه خود را چگونه ارزیابی  می کنید ؟ </label>
+                            <div class="form-group" style="display:flex;flex-direction:row">
+                                <label style="width:300px">
+                                    خیلی خوب
+                                    <input asp-for="Q7" type="radio" disabled value="5" />
+                                </label>
+                                <label style="width:300px">
+                                    خوب
+                                    <input asp-for="Q7" type="radio" disabled value="4" />
+                                </label>
+                                <label style="width:300px">
+                                    متوسط
+                                    <input asp-for="Q7" type="radio" disabled value="3" />
+                                </label>
+                                <label style="width:300px">
+                                    ضعیف
+                                    <input asp-for="Q7" type="radio" disabled value="2" />
+                                </label>
+                                <label style="width:300px">
+                                    خیلی ضعیف
+                                    <input asp-for="Q7" type="radio" disabled value="1" />
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>3) نقش مدیران در ایجاد ارتباط موثر و مناسب سیستم نظام پیشنهادات با فرایند های اجرایی و عملکرد منطقه را چگونه ارزیابی می کنید؟</label>
+                            <div class="form-group" style="display:flex;flex-direction:row">
+                                <label style="width:300px">
+                                    خیلی خوب
+                                    <input asp-for="Q8" type="radio" disabled value="5" />
+                                </label>
+                                <label style="width:300px">
+                                    خوب
+                                    <input asp-for="Q8" type="radio" disabled value="4" />
+                                </label>
+                                <label style="width:300px">
+                                    متوسط
+                                    <input asp-for="Q8" type="radio" disabled value="3" />
+                                </label>
+                                <label style="width:300px">
+                                    ضعیف
+                                    <input asp-for="Q8" type="radio" disabled value="2" />
+                                </label>
+                                <label style="width:300px">
+                                    خیلی ضعیف
+                                    <input asp-for="Q8" type="radio" disabled value="1" />
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>4) نحوه همکاری وهماهنگی مسئولین واحد ها برای اجرای پیشنهادات را چگونه ارزیابی می کنید؟ </label>
+                            <div class="form-group" style="display:flex;flex-direction:row">
+                                <label style="width:300px">
+                                    خیلی خوب
+                                    <input asp-for="Q9" type="radio" disabled value="5" />
+                                </label>
+                                <label style="width:300px">
+                                    خوب
+                                    <input asp-for="Q9" type="radio" disabled value="4" />
+                                </label>
+                                <label style="width:300px">
+                                    متوسط
+                                    <input asp-for="Q9" type="radio" disabled value="3" />
+                                </label>
+                                <label style="width:300px">
+                                    ضعیف
+                                    <input asp-for="Q9" type="radio" disabled value="2" />
+                                </label>
+                                <label style="width:300px">
+                                    خیلی ضعیف
+                                    <input asp-for="Q9" type="radio" disabled value="1" />
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>5)میزان آشنایی با نحوه ارسال پیشنهاد و آگاهی کارکنان از دستورالعمل ها و فرایند های مربوط به نظام پیشنهادات را چگونه ارزیابی می کنید؟</label>
+                            <div class="form-group" style="display:flex;flex-direction:row">
+                                <label style="width:300px">
+                                    خیلی خوب
+                                    <input asp-for="Q10" type="radio" disabled value="5" />
+                                </label>
+                                <label style="width:300px">
+                                    خوب
+                                    <input asp-for="Q10" type="radio" disabled value="4" />
+                                </label>
+                                <label style="width:300px">
+                                    متوسط
+                                    <input asp-for="Q10" type="radio" disabled value="3" />
+                                </label>
+                                <label style="width:300px">
+                                    ضعیف
+                                    <input asp-for="Q10" type="radio" disabled value="2" />
+                                </label>
+                                <label style="width:300px">
+                                    خیلی ضعیف
+                                    <input asp-for="Q10" type="radio" disabled value="1" />
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>6)وجود نگرش مثبت در بین کارکنان نسبت به نظام پیشنهادات را چگونه ارزیابی می کنید؟</label>
+                            <div class="form-group" style="display:flex;flex-direction:row">
+                                <label style="width:300px">
+                                    خیلی خوب
+                                    <input asp-for="Q11" type="radio" disabled value="5" />
+                                </label>
+                                <label style="width:300px">
+                                    خوب
+                                    <input asp-for="Q11" type="radio" disabled value="4" />
+                                </label>
+                                <label style="width:300px">
+                                    متوسط
+                                    <input asp-for="Q11" type="radio" disabled value="3" />
+                                </label>
+                                <label style="width:300px">
+                                    ضعیف
+                                    <input asp-for="Q11" type="radio" disabled value="2" />
+                                </label>
+                                <label style="width:300px">
+                                    خیلی ضعیف
+                                    <input asp-for="Q11" type="radio" disabled value="1" />
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>7)کیفیت سامانه نظام پیشنهادات و میزان سهولت کار با این سامانه را چگونه ارزیابی می کنید؟</label>
+                            <div class="form-group" style="display:flex;flex-direction:row">
+                                <label style="width:300px">
+                                    خیلی خوب
+                                    <input asp-for="Q12" type="radio" disabled value="5" />
+                                </label>
+                                <label style="width:300px">
+                                    خوب
+                                    <input asp-for="Q12" type="radio" disabled value="4" />
+                                </label>
+                                <label style="width:300px">
+                                    متوسط
+                                    <input asp-for="Q12" type="radio" disabled value="3" />
+                                </label>
+                                <label style="width:300px">
+                                    ضعیف
+                                    <input asp-for="Q12" type="radio" disabled value="2" />
+                                </label>
+                                <label style="width:300px">
+                                    خیلی ضعیف
+                                    <input asp-for="Q12" type="radio" disabled value="1" />
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>8) عملکرد شورای مشارکت در سال 1400 را در خصوص بررسی وارزیابی پیشنهادات چگونه ارزیابی می کنید؟ </label>
+                            <div class="form-group" style="display:flex;flex-direction:row">
+                                <label style="width:300px">
+                                    خیلی خوب
+                                    <input asp-for="Q13" type="radio" disabled value="5" />
+                                </label>
+                                <label style="width:300px">
+                                    خوب
+                                    <input asp-for="Q13" type="radio" disabled value="4" />
+                                </label>
+                                <label style="width:300px">
+                                    متوسط
+                                    <input asp-for="Q13" type="radio" disabled value="3" />
+                                </label>
+                                <label style="width:300px">
+                                    ضعیف
+                                    <input asp-for="Q13" type="radio" disabled value="2" />
+                                </label>
+                                <label style="width:300px">
+                                    خیلی ضعیف
+                                    <input asp-for="Q13" type="radio" disabled value="1" />
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>9)نحوه وزمان بررسی، تصویب و اجرای پیشنهادات مصوب شده درنظام مشارکت را چگونه ارزیابی می کنید؟</label>
+                            <div class="form-group" style="display:flex;flex-direction:row">
+                                <label style="width:300px">
+                                    خیلی خوب
+                                    <input asp-for="Q14" type="radio" disabled value="5" />
+                                </label>
+                                <label style="width:300px">
+                                    خوب
+                                    <input asp-for="Q14" type="radio" disabled value="4" />
+                                </label>
+                                <label style="width:300px">
+                                    متوسط
+                                    <input asp-for="Q14" type="radio" disabled value="3" />
+                                </label>
+                                <label style="width:300px">
+                                    ضعیف
+                                    <input asp-for="Q14" type="radio" disabled value="2" />
+                                </label>
+                                <label style="width:300px">
+                                    خیلی ضعیف
+                                    <input asp-for="Q14" type="radio" disabled value="1" />
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>10) عملکرد دبیرخانه نظام مشارکت در سال 1400 را در خصوص اطلاع رسانی، پیگیری و ارزیابی پیشنهادات چگونه ارزیابی می کنید؟</label>
+                            <div class="form-group" style="display:flex;flex-direction:row">
+                                <label style="width:300px">
+                                    خیلی خوب
+                                    <input asp-for="Q15" type="radio" disabled value="5" />
+                                </label>
+                                <label style="width:300px">
+                                    خوب
+                                    <input asp-for="Q15" type="radio" disabled value="4" />
+                                </label>
+                                <label style="width:300px">
+                                    متوسط
+                                    <input asp-for="Q15" type="radio" disabled value="3" />
+                                </label>
+                                <label style="width:300px">
+                                    ضعیف
+                                    <input asp-for="Q15" type="radio" disabled value="2" />
+                                </label>
+                                <label style="width:300px">
+                                    خیلی ضعیف
+                                    <input asp-for="Q15" type="radio" disabled value="1" />
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>11)عملکرد دبیرخانه نظام مشارکت را در اطلاع رسانی و تجلیل از برترین پیشنهادات و پیشنهاد دهندگان برتر را چگونه ارزیابی می کنید؟</label>
+                            <div class="form-group" style="display:flex;flex-direction:row">
+                                <label style="width:300px">
+                                    خیلی خوب
+                                    <input asp-for="Q16" type="radio" disabled value="5" />
+                                </label>
+                                <label style="width:300px">
+                                    خوب
+                                    <input asp-for="Q16" type="radio" disabled value="4" />
+                                </label>
+                                <label style="width:300px">
+                                    متوسط
+                                    <input asp-for="Q16" type="radio" disabled value="3" />
+                                </label>
+                                <label style="width:300px">
+                                    ضعیف
+                                    <input asp-for="Q16" type="radio" disabled value="2" />
+                                </label>
+                                <label style="width:300px">
+                                    خیلی ضعیف
+                                    <input asp-for="Q16" type="radio" disabled value="1" />
+                                </label>
+                            </div>
+                        </div>
+                        <div class="callout callout-info">
+                            <h4 style="color: #0097bc">بخش دوم: سئوالات تشریحی: </h4>
+                        </div>
+                        <div class="form-group">
+                            <label>1)	راهکار شما برای بهبود کیفیت پیشنهادات و حذف پیشنهادات تکراری چیست؟</label>
+                            @Html.Raw(Model.Q17)
+                        </div>
+                        <div class="form-group">
+                            <label>2)	مشکلات عمده نظام مشارکت از دیدگاه شما چه چیزهایی می باشد؟ چه راهکاری جهت حل این مورد پیشنهاد می دهید؟</label>
+                            @Html.Raw(Model.Q18)
+                        </div>
+                        <div class="form-group">
+                            <label>
+                                3)	 به نظر شما مهمترین عامل در توسعه و رونق نظام پیشنهادات و علاقه مندی همکاران به پیشنهاددهی کدام یک ازموارد زیر می باشد؟ (به ترتیب اولویت بندی کنید)
+                                1-پیشنهادهای مادی   2-پاسخ گویی سریع به پیشنهادات     3-احترام و توجه به پیشنهاد دهندگان   4-اعتماد همکاران به متولیان نظام پیشنهادات و امانت داری آنان     5-مشروعیت و صلاحیت بررسی کنندگان پیشنهادات
+                                6- سایر موارد (ذکر کنید)
+                            </label>
+                            @Html.Raw(Model.Q19)
+                        </div>
+                        <div class="form-group">
+                            <label>4)	پیشنهاد شما برای جذب و دریافت پیشنهادات برون سازمانی (تامین کنندگان، پیمانکاران، خانواده کارکنان و مشتریان و ذی نفعان) چه می باشد؟    </label>
+                            @Html.Raw(Model.Q20)
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.col-->
+        </div>
+        <!-- ./row -->
+    </section>
+</div>
