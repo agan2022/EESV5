@@ -15,6 +15,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using EESV2.DAL.Services.Interfaces;
 
 namespace EESV2.Controllers
 {
@@ -25,15 +26,20 @@ namespace EESV2.Controllers
         private readonly IUtilities _utilities;
         private readonly IWebHostEnvironment _environment;
         private readonly IMapper _mapper;
+
+        private IProposalService _proposalService;
+
         public ProposalController(IUnitOfWork uw
             ,IUtilities utilities
             , IWebHostEnvironment environment
-            ,IMapper mapper)
+            ,IMapper mapper,
+            IProposalService proposalService)
         {
             _uw = uw;
             _utilities = utilities;
             _environment = environment;
             _mapper = mapper;
+            _proposalService = proposalService;
         }
 
 
@@ -162,6 +168,19 @@ namespace EESV2.Controllers
         {
             return View();
         }
+
+        [HttpGet]
+        public IActionResult ParticipantProposal()
+        {
+            //get logged user name
+            string username = User.Identity.Name;
+
+            //get participant proposal with model
+            var model = _proposalService.GetParticipantProposal(username);
+
+            return View(model);
+        }
+
         public IActionResult DownloadFile(int proposalID)
         {
             string fileName = _uw.ProposalRepository.Get(p => p.ID == proposalID)

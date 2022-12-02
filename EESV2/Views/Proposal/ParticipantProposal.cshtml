@@ -1,0 +1,93 @@
+﻿
+@model List<EESV2.DAL.ViewModels.Prroposal.ParticipantProposalViewModel>
+@{
+    ViewData["page"] = "SNTP";
+    ViewData["Title"] = "پیشنهادات گروهی ارسال شده ";
+    Layout = "Layout";
+}
+<link rel="stylesheet" href="~/dist/css/animate.css">
+<script src="~/dist/js/wow.min.js"></script>
+<!-- DataTables -->
+<link rel="stylesheet" href="../../bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1 class="wow animate__animated animate__lightSpeedInRight">
+            پیشنهادات ارسال شده توسط شما
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="/Home/Index"><i class="fas fa-home"></i> خانه</a></li>
+            <li><a href="#">پیشنهادات</a></li>
+            <li class="active">پیشنهادات گروهی ارسال شده</li>
+        </ol>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="box wow animate__animated animate__zoomInDown" data-wow-delay=".3s">
+            <div class="box-header">
+                <h3 class="box-title">لیست پیشنهادات گروهی</h3>
+            </div>
+            <div class="box-body table-responsive no-padding">
+                <table id="example2" class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>تاریخ</th>
+                            <th>عنوان</th>
+                            <th>کد</th>
+                            <th>وضعیت</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var proposal in Model)
+                        {
+                            <tr>
+                                <td>@proposal.Date</td>
+                                <td>@proposal.SubjectPr</td>
+                                <td>@proposal.ID</td>
+                                <td>@proposal.Status</td>
+                                <td>
+                                    <a target="_blank" href="/Proposal/Review?proposalID=@proposal.ID">جزئیات پیشنهاد</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+    <!-- /.content -->
+</div>
+<!-- DataTables -->
+<script src="/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+<script>
+    new WOW().init();
+    $(function () {
+        $('#example2').DataTable({
+            'paging': true,
+            'lengthChange': true,
+            'searching': true,
+            'ordering': true,
+            "order": [[0, "desc"]],
+            'info': true,
+            'autoWidth': false,
+            'lengthMenu': [[5, 10, 25, 50, -1], [5, 10, 25, 50, "همه"]],
+            'language': {
+                'zeroRecords': 'رکوردی برای نمایش وجود ندارد',
+                'lengthMenu': 'نمایش _MENU_ رکورد در یک صفحه',
+                'search': 'جستجو در تمام ستون ها : ',
+                'info': 'تعداد کل رکوردها :   _TOTAL_',
+                'infoFiltered': '',
+                "infoEmpty": '',
+                "paginate": {
+                    "first": "اولین",
+                    "last": "آخرین",
+                    "next": "بعدی",
+                    "previous": "قبلی"
+                },
+            }
+        })
+    })
+</script>
