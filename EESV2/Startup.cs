@@ -13,6 +13,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using EESV2.DAL.Services;
 using EESV2.DAL.Repository;
+using EESV2.DAL.Services.Interfaces;
 using EESV2.DAL.ViewModels;
 using EESV2.Utilities;
 using EESV2.MiddleWares;
@@ -48,6 +49,7 @@ namespace EESV2
             services.AddScoped<IRankCalculator, RankCalculator>();
             services.AddScoped<IDarsadPishraftCalculator, DarsadPishraftCalculator>();
             services.AddSingleton<IUtilities,Utilities.Utilities>();
+            services.AddTransient<IProposalService, ProposalService>();
             services.AddAutoMapper(typeof(Startup));
             services.AddMvc().AddNewtonsoftJson(options => {
                                       options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
