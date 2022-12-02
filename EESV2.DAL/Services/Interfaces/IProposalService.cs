@@ -9,5 +9,14 @@ namespace EESV2.DAL.Services.Interfaces
 {
     public interface IProposalService
     {
+        #region Proposal
+
+        #region Participant Proposal
+
+        List<ParticipantProposalViewModel> GetParticipantProposal(string userName);
+
+        #endregion
+
+        #endregion
     }
 }
