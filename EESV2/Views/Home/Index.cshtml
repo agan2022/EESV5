@@ -1,7 +1,7 @@
 ﻿@inject IRankCalculator _rankCalculator;
 @{
     List<UserRankViewModel> userRankViewModels= _rankCalculator.CalculateRank();
-    UserRankViewModel userRank = userRankViewModels.SingleOrDefault(u=>u.PersonnelCode==User.Identity.Name);
+    UserRankViewModel userRank = userRankViewModels.FirstOrDefault(u=>u.PersonnelCode==User.Identity.Name);
 
 
     ViewData["Title"] = "خانه";
