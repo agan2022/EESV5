@@ -150,21 +150,22 @@ namespace EESV2.DAL.Repository
 
         public List<UserRankViewModel> CalculateRank()
         {
-            List<User> users = _context.Users
-                                .Include(u => u.Office)
-                                .Include(u => u.Proposals)
-                                .ThenInclude(p => p.Referrals)
-                                .Include(u => u.Proposals)
-                                .ThenInclude(p => p.Imparts)
-                                .ThenInclude(p => p.Reports)
-                                .ToList();
-            //get user for participant proposal
-            var users2 = _context.Users
-                .Include(u => u.ProposalsThatHelped);
+            IQueryable<User> query = _context.Users;
 
-            int score = 0;
+            List<User> users = query
+                .Include(u => u.Office)
+                .Include(u => u.Proposals)
+                .ThenInclude(p => p.Referrals)
+                .Include(u => u.Proposals)
+                .ThenInclude(p => p.Imparts)
+                .ThenInclude(p => p.Reports)
+                .ToList();
+
+            var users2 = query
+                .Include(p => p.ProposalsThatHelped);
+
             List<UserRankViewModel> userRankViewModels = new List<UserRankViewModel>();
-            //proposal
+
             foreach (User user in users)
             {
                 int q1 = user.Proposals.Where(p => p.StatusID != 3).Count();//تعداد پیشنهادات رد نشده کاربر
@@ -175,42 +176,29 @@ namespace EESV2.DAL.Repository
                 int q6 = user.Proposals.Where(p => p.StatusID == 2 && p.Referrals.Count > 0 && p.Referrals.OrderBy(r => r.ID).LastOrDefault().EvaluationTypeID == 1).Count();//تعداد پیشنهادات که تصویب کمی شده اند ولی هنوز به واحد مجری ارسل نشده اند
                 int q7 = user.Proposals.Where(p => p.StatusID == 2 && p.Referrals.Count > 0 && p.Referrals.OrderBy(r => r.ID).LastOrDefault().EvaluationTypeID == 2).Count();//تعداد پیشنهادات که تصویب کیفی شده اند ولی هنوز به واحد مجری ارسل نشده اند
 
-                
 
 
-                score = (q1 > 30 ? 30 : q1) + (q6 * 30 + q7 * 10) ;
-
+                int score = (q1 > 30 ? 30 : q1) + (q6 * 30 + q7 * 10);
                 foreach (Proposal p in p1)
                 {
                     score += 60 * _darsadPishraftCalculator.CalculateDarsadPishraft(p.ID) / 100;
                 }
-
-
-
                 foreach (Proposal p in p2)
                 {
                     score += 20 * _darsadPishraftCalculator.CalculateDarsadPishraft(p.ID) / 100;
                 }
-
-
-
                 foreach (Proposal p in p3)
                 {
                     score += 60 * _darsadPishraftCalculator.CalculateDarsadPishraft(p.ID) / 100;
                 }
-
-
-
                 foreach (Proposal p in p4)
                 {
                     score += 20 * _darsadPishraftCalculator.CalculateDarsadPishraft(p.ID) / 100;
                 }
 
-
-
                 UserRankViewModel temp = new UserRankViewModel()
                 {
-                    ID=user.ID,
+                    ID = user.ID,
                     FirstName = user.FirstName,
                     LastName = user.LastName,
                     PersonnelCode = user.Username,
@@ -222,42 +210,40 @@ namespace EESV2.DAL.Repository
                 userRankViewModels.Add(temp);
             }
 
-            //participant proposal
             foreach (var user in users2)
             {
                 #region Participant Proposal
 
                 int qqp1 = user.ProposalsThatHelped
-                   .Select(p => p.Proposal).Count(p => p.StatusID != 3);//تعداد پیشنهادات رد نشده گروهی کاربر
+                  .Select(p => p.Proposal).Count(p => p.StatusID != 3);//تعداد پیشنهادات رد نشده گروهی کاربر
 
                 var qp1 = user.ProposalsThatHelped.Select(p => p.Proposal).Where(p =>
-                    p.StatusID == 9 && p.Referrals.Count > 0 &&
-                    p.Referrals.OrderBy(r => r.ID).LastOrDefault().EvaluationTypeID == 1).ToList();//پیشنهادات گروهی که به واحد مجری ارسال شده اند و تصویب شده کمی هستند
+                   p.StatusID == 9 && p.Referrals.Count > 0 &&
+                   p.Referrals.OrderBy(r => r.ID).LastOrDefault().EvaluationTypeID == 1).ToList();//پیشنهادات گروهی که به واحد مجری ارسال شده اند و تصویب شده کمی هستند
 
                 var qp2 = user.ProposalsThatHelped.Select(p => p.Proposal).Where(p =>
-                    p.StatusID == 9 && p.Referrals.Count > 0 &&
-                    p.Referrals.OrderBy(r => r.ID).LastOrDefault().EvaluationTypeID == 2).ToList();//پیشنهادات گروهی که به واحد مجری ارسال شده اند و تصویب شده کیفی هستند
+                   p.StatusID == 9 && p.Referrals.Count > 0 &&
+                   p.Referrals.OrderBy(r => r.ID).LastOrDefault().EvaluationTypeID == 2).ToList();//پیشنهادات گروهی که به واحد مجری ارسال شده اند و تصویب شده کیفی هستند
 
                 var qp3 = user.ProposalsThatHelped.Select(p => p.Proposal).Where(p =>
-                    p.StatusID == 5 && p.Referrals.Count > 0 &&
-                    p.Referrals.OrderBy(r => r.ID).LastOrDefault().EvaluationTypeID == 1).ToList();// پیشنهادات گروهی ای که اجرا شده کمی هستند
+                   p.StatusID == 5 && p.Referrals.Count > 0 &&
+                   p.Referrals.OrderBy(r => r.ID).LastOrDefault().EvaluationTypeID == 1).ToList();// پیشنهادات گروهی ای که اجرا شده کمی هستند
 
                 var qp4 = user.ProposalsThatHelped.Select(p => p.Proposal).Where(p =>
-                    p.StatusID == 5 && p.Referrals.Count > 0 &&
-                    p.Referrals.OrderBy(r => r.ID).LastOrDefault().EvaluationTypeID == 2).ToList();//پیشنهادات گروهی که اجرا شده کیفی هستند
+                   p.StatusID == 5 && p.Referrals.Count > 0 &&
+                   p.Referrals.OrderBy(r => r.ID).LastOrDefault().EvaluationTypeID == 2).ToList();//پیشنهادات گروهی که اجرا شده کیفی هستند
 
                 int qp6 = user.ProposalsThatHelped.Select(p => p.Proposal).Where(p =>
-                    p.StatusID == 2 && p.Referrals.Count > 0 &&
-                    p.Referrals.OrderBy(r => r.ID).LastOrDefault().EvaluationTypeID == 1).Count();//تعداد پیشنهادات گروهی که تصویب کمی شده اند ولی هنوز به واحد مجری ارسال نشده اند
+                   p.StatusID == 2 && p.Referrals.Count > 0 &&
+                   p.Referrals.OrderBy(r => r.ID).LastOrDefault().EvaluationTypeID == 1).Count();//تعداد پیشنهادات گروهی که تصویب کمی شده اند ولی هنوز به واحد مجری ارسال نشده اند
 
                 int qp7 = user.ProposalsThatHelped.Select(p => p.Proposal).Where(p =>
-                    p.StatusID == 2 && p.Referrals.Count > 0 &&
-                    p.Referrals.OrderBy(r => r.ID).LastOrDefault().EvaluationTypeID == 2).Count();//تعداد پیشنهادات گروهی ای که تصویب کیفی شده اند ولی هنوز به واحد مجری ارسال نشده اند
+                   p.StatusID == 2 && p.Referrals.Count > 0 &&
+                   p.Referrals.OrderBy(r => r.ID).LastOrDefault().EvaluationTypeID == 2).Count();//تعداد پیشنهادات گروهی ای که تصویب کیفی شده اند ولی هنوز به واحد مجری ارسال نشده اند
 
                 #endregion
 
-                score = (qqp1 > 30 ? 30 : qqp1) + (qp6 * 30 + qp7 * 10);
-
+                int score = (qqp1 > 30 ? 30 : qqp1) + (qp6 * 30 + qp7 * 10);
 
                 //Participant
                 foreach (Proposal p in qp1)
@@ -282,25 +268,29 @@ namespace EESV2.DAL.Repository
                 {
                     score += 20 * _darsadPishraftCalculator.CalculateDarsadPishraft(p.ID) / 100;
                 }
-                
 
+                //get user of user rank list
+                var model = userRankViewModels.Where(p=> p.ID==user.ID).FirstOrDefault();
+
+                //making new model and update score
                 UserRankViewModel temp = new UserRankViewModel()
                 {
-                    ID = user.ID,
-                    FirstName = user.FirstName,
-                    LastName = user.LastName,
-                    PersonnelCode = user.Username,
-                    Office = user.Office.Name,
-                    ProposalCount = user.Proposals.Count,
-                    Score = score,
-                    Rank = 1
+                    ID = model.ID,
+                    FirstName = model.FirstName,
+                    LastName = model.LastName,
+                    PersonnelCode = model.PersonnelCode,
+                    Office = model.Office,
+                    ProposalCount = model.ProposalCount,
+                    Rank = model.Rank,
+                    Score = score + model.Score,
                 };
 
+                //remove old model
                 userRankViewModels.Remove(temp);
+
+                //add new model
                 userRankViewModels.Add(temp);
             }
-
-
 
             userRankViewModels =userRankViewModels.OrderByDescending(v => v.Score).ToList();
             for (int i = 1; i < userRankViewModels.Count; i++)
