@@ -16,5 +16,6 @@ namespace EESV2.DAL.ViewModels
         public string Office { get; set; }
         public int ProposalCount { get; set; }
         public int Score { get; set; }
+        public int ParticipantProposal { get; set; }
     }
 }

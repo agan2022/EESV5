@@ -152,7 +152,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach (var user in viewModel.Where(v => v.ProposalCount != 0))
+                                @foreach (var user in viewModel.Where(v => v.ProposalCount != 0 || v.ParticipantProposal != 0))
                                 {
                                     <tr>
                                         <td>@user.Rank</td>
