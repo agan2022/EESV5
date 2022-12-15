@@ -1,12 +1,13 @@
-﻿@model LoginViewModel
+﻿@using EESV2.DAL.Services.Interfaces
+@model LoginViewModel
 @inject IUnitOfWork _uw
-@inject IRankCalculator _rankCalculator;
+@inject IRankService _rankService;
 @{
     List<Notification> notifications = _uw.NotificationRepository.Get(n=>n.IsShow).ToList();
     int countTotalProposals= _uw.ProposalRepository.Get().Count();
     int countApprovedProposals = _uw.ProposalRepository.Get(p => p.StatusID == 2 || p.StatusID == 5 || p.StatusID == 9).Count();
     int countExecutedProposals = _uw.ProposalRepository.Get(p => p.StatusID == 9).Count();
-    var TopUsers = _rankCalculator.CalculateRank().Take(5);
+    var TopUsers = _rankService.RankCalculation().Take(5);
     Layout = null;
 }
 <!DOCTYPE html>

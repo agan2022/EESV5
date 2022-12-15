@@ -1,6 +1,7 @@
-﻿@inject IRankCalculator _rankCalculator;
+﻿@using EESV2.DAL.Services.Interfaces
+@inject IRankService _rankService;
 @{
-    List<UserRankViewModel> userRankViewModels= _rankCalculator.CalculateRank();
+    List<UserRankViewModel> userRankViewModels = _rankService.RankCalculation();
     UserRankViewModel userRank = userRankViewModels.FirstOrDefault(u=>u.PersonnelCode==User.Identity.Name);
 
 
