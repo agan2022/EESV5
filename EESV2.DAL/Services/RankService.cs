@@ -290,5 +290,39 @@ namespace EESV2.DAL.Services
         }
 
         #endregion
+
+        #region Progress Calculation
+
+        public double ProgressCalculation(int proposalId)
+        {
+            _context.Database.CloseConnection();
+
+            _context.Database.OpenConnection();
+
+            var imparts = _context.Imparts
+                .Where(i => i.ProposalID == proposalId)
+                .Include(i => i.Reports)
+                .ToList();
+
+            _context.Database.CloseConnection();
+
+            _context.Database.OpenConnection();
+
+            if (imparts != null)
+            {
+                double percent = 0;
+
+                foreach (var impart in imparts)
+                {
+                    percent += impart.Reports.Sum(r => r.Percentage);
+                }
+
+                return percent / imparts.Count;
+            }
+
+            return 0;
+        }
+
+        #endregion
     }
 }

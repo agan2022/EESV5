@@ -14,6 +14,13 @@ namespace EESV2.DAL.Services.Interfaces
         #region Rank Calculator
         public List<UserRankViewModel> CalculatedScoreOfProposal(List<User> users);
         public List<UserRankViewModel> CalculatedScoreOfParticipantProposal(List<User> users2, List<UserRankViewModel> userRank);
+
+        #endregion
+
+        #region Progress Calculation
+
+        public double ProgressCalculation(int proposalId);
+
         #endregion
     }
 }
