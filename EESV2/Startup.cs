@@ -46,8 +46,6 @@ namespace EESV2
             services.AddScoped<IProposalRepository, ProposalRepository>();
             services.AddScoped<IQuantitativeEvaluationRepository, QuantitativeEvaluationRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
-            services.AddScoped<IRankCalculator, RankCalculator>();
-            services.AddScoped<IDarsadPishraftCalculator, DarsadPishraftCalculator>();
             services.AddSingleton<IUtilities,Utilities.Utilities>();
             services.AddTransient<IProposalService, ProposalService>();
             services.AddAutoMapper(typeof(Startup));
