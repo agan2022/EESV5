@@ -154,7 +154,9 @@ namespace EESV2.Controllers
         public async Task<IActionResult> Review(int proposalID)
         {
             //چک میکنیم فقط کاربری که پیشنهاد دهنده باشد یا مجری یا ارزیاب باشد بتواند پیشنهاد را ببیند
-            bool isRecommenderOrExecutor = await _uw.ProposalRepository.IsExistAsync(p =>p.ID==proposalID&&(p.Registrar.Username == User.Identity.Name||p.Imparts.Any(i=>i.Executor.Username==User.Identity.Name)||p.Referrals.Any(r=>r.Reciver.Username==User.Identity.Name)));
+            bool isRecommenderOrExecutor = await _uw.ProposalRepository.IsExistAsync(p => p.ID == proposalID && (p.Registrar.Username == User.Identity.Name ||
+                p.HelpersToRegistrar.Any(p=> p.User.Username==User.Identity.Name)
+                || p.Imparts.Any(i => i.Executor.Username == User.Identity.Name) || p.Referrals.Any(r => r.Reciver.Username == User.Identity.Name)));
             if (!isRecommenderOrExecutor)
             {
                 return BadRequest();
