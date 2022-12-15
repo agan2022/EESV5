@@ -32,7 +32,7 @@ namespace EESV2.MiddleWares
                     Secure = false,
                     Expires= DateTime.Today.AddDays(1)
                 });
-                VisitorStatistic visitorStatistic = UW.VisitorStatisticRepository.Get(v => v.Date == utilities.GetDate()).SingleOrDefault();
+                VisitorStatistic visitorStatistic = UW.VisitorStatisticRepository.Get(v => v.Date == utilities.GetDate()).FirstOrDefault();
                 if ((visitorStatistic != null))
                 {
                     visitorStatistic.VisitCount++;
