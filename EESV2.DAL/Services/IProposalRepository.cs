@@ -42,9 +42,5 @@ namespace EESV2.DAL.Services
 
         public int[] CountProposalsInEachMonth(int year);//تعدد پیشنهادادت در هر ماه در سال ورودی
 
-
-
-        public int CalculateDarsadPishraft(Proposal proposal);
-
     }
 }

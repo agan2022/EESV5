@@ -131,18 +131,6 @@ namespace EESV2.DAL.ViewModels
             return proposal.ID;
         }
 
-        public int CalculateDarsadPishraft(Proposal proposal)
-        {
-            int impartsCount = 0;
-            int darsad = 0;
-            foreach (var impart in proposal.Imparts)
-            {
-                darsad += impart.Reports.Sum(r => r.Percentage);
-                impartsCount++;
-            }
-            return darsad / impartsCount;
-        }
-
         public int CountApprovedProposals(int year)
         {
             int count =_context.proposals.Where(p=>p.StatusID==2|| p.StatusID == 5|| p.StatusID == 9).Count();
