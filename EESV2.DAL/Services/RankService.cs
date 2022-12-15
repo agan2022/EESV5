@@ -22,6 +22,90 @@ namespace EESV2.DAL.Services
 
         #region Rank Calculator
 
+        public List<UserRankViewModel> RankCalculation()
+        {
+            IQueryable<User> query = _context.Users;
+
+            List<User> users = query
+                .Include(u => u.Office)
+                .Include(u => u.Proposals)
+                .ThenInclude(p => p.Referrals)
+                .Include(u => u.Proposals)
+                .ThenInclude(p => p.Imparts)
+                .ThenInclude(p => p.Reports)
+                .ToList();
+
+            //get users for participant
+            var users2 = query
+                .Include(p => p.ProposalsThatHelped).ToList();
+
+            List<UserRankViewModel> userRankViewModels = new List<UserRankViewModel>();
+
+            //Calculate the score of proposal
+            userRankViewModels = CalculatedScoreOfProposal(users);
+
+            //Calculate the score of participant proposal
+            userRankViewModels = CalculatedScoreOfParticipantProposal(users2, userRankViewModels);
+
+            userRankViewModels = userRankViewModels.OrderByDescending(v => v.Score).ToList();
+            for (int i = 1; i < userRankViewModels.Count; i++)
+            {
+                if (userRankViewModels[i].Score == userRankViewModels[i - 1].Score)
+                {
+                    userRankViewModels[i].Rank = userRankViewModels[i - 1].Rank;
+                }
+                else
+                {
+                    userRankViewModels[i].Rank = userRankViewModels[i - 1].Rank + 1;
+                }
+            }
+            return userRankViewModels;
+        }
+
+        public List<UserRankViewModel> RankCalculation(List<int> officeIDs, int year, int month)
+        {
+            IQueryable<User> query = _context.Users;
+
+            List<User> users = query
+                .Where(u => officeIDs.Contains((int)u.OfficeID))
+                .Include(u => u.Office)
+                .Include(u => u.Proposals.Where(p => EF.Functions.Like(p.Date, (year != 0 ? year : "%") + "/" + (month != 0 ? month.ToString("0#") : "%") + "/%")))
+                .ThenInclude(p => p.Referrals)
+                .Include(u => u.Proposals.Where(p => EF.Functions.Like(p.Date, (year != 0 ? year : "%") + "/" + (month != 0 ? month.ToString("0#") : "%") + "/%")))
+                .ThenInclude(p => p.Imparts)
+                .ThenInclude(p => p.Reports)
+                .ToList();
+
+            //get users for participant
+            var users2 = query
+                .Where(u => officeIDs.Contains((int)u.OfficeID))
+                .Include(p => p.ProposalsThatHelped
+                    .Where(p => EF.Functions.Like(p.Proposal.Date, (year != 0 ? year : "%") + "/" + (month != 0 ? month.ToString("0#") : "%") + "/%")))
+                .ToList();
+
+            List<UserRankViewModel> userRankViewModels = new List<UserRankViewModel>();
+
+            //Calculate the score of proposal
+            userRankViewModels = CalculatedScoreOfProposal(users);
+
+            //Calculate the score of participant proposal
+            userRankViewModels = CalculatedScoreOfParticipantProposal(users2, userRankViewModels);
+
+            userRankViewModels = userRankViewModels.OrderByDescending(v => v.Score).ToList();
+            for (int i = 1; i < userRankViewModels.Count; i++)
+            {
+                if (userRankViewModels[i].Score == userRankViewModels[i - 1].Score)
+                {
+                    userRankViewModels[i].Rank = userRankViewModels[i - 1].Rank;
+                }
+                else
+                {
+                    userRankViewModels[i].Rank = userRankViewModels[i - 1].Rank + 1;
+                }
+            }
+            return userRankViewModels;
+        }
+
         public List<UserRankViewModel> CalculatedScoreOfProposal(List<User> users)
         {
             List<UserRankViewModel> userRankViewModels = new List<UserRankViewModel>();
