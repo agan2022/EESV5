@@ -1,10 +1,13 @@
-﻿@inject IUnitOfWork _uw
+﻿@using EESV2.DAL.Services
+@using Microsoft.VisualBasic
+@inject IUnitOfWork _uw
 @{
     ViewData["page"] = "Inbox";
     ViewData["Title"] = "صندوق ورودی";
     Layout = "Layout";
 
     var referrals = _uw.ReferralRepository.Get(r => r.QualityEvaluation == null && r.QuantitativEvaluation == null && r.NewQualityEvaluation == null && r.StatusID != 3 && r.Reciver.Username == User.Identity.Name && r.EvaluationTypeID != null)
+        .OrderByDescending(p=> p.Date)
                                                 .Select(r=>new
                                                 {
                                                     SenderFirstName=r.Sender.FirstName,
