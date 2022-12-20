@@ -168,33 +168,7 @@ namespace EESV2.DAL.Services
                     p.StatusID == 2 && p.Referrals.Count > 0 &&
                     p.Referrals.OrderBy(r => r.ID).LastOrDefault().EvaluationTypeID == 2).ToList(); //تعداد پیشنهادات که تصویب کیفی شده اند ولی هنوز به واحد مجری ارسل نشده اند
 
-                double score = (q1 > 30 ? 30 : q1) + (q6.Count * 30 + q7.Count * 10);
-
-                foreach (var p in p1)
-                {
-                    //درصد پیشرفت کار
-                    //double workProgress = (double)(ProgressCalculation(p.ID)) / 100.0;
-
-                    //درصد مشارکت
-                    //double participationPercentage = (double)p.RegistrarParticipatePercent / 100.0;
-
-                    double a = /*participationPercentage **/ 60 /** workProgress*/;
-
-                    score += a;
-                }
-
-                foreach (var p in p2)
-                {
-                    //درصد پیشرفت کار
-                    //double workProgress = (double)(ProgressCalculation(p.ID)) / 100.0;
-
-                    //درصد مشارکت
-                    //double participationPercentage = (double)p.RegistrarParticipatePercent / 100.0;
-
-                    double a = /*participationPercentage **/ 20 /** workProgress*/;
-
-                    score += a;
-                }
+                double score = (q1 > 30 ? 30 : q1) + (q6.Count * 30 + q7.Count * 10) + (p1.Count * 30 + p2.Count * 10);
 
                 foreach (var p in p3)
                 {
@@ -218,26 +192,6 @@ namespace EESV2.DAL.Services
                     //double participationPercentage = (double)p.RegistrarParticipatePercent / 100.0;
 
                     double a = /*participationPercentage **/ 20 * workProgress;
-
-                    score += a;
-                }
-
-                foreach (var p in q6)
-                {
-                    //درصد مشارکت
-                    //double participationPercentage = (double)p.RegistrarParticipatePercent / 100.0;
-
-                    double a = /*participationPercentage **/ 30;
-
-                    score += a;
-                }
-
-                foreach (var p in q7)
-                {
-                    //درصد مشارکت
-                    //double participationPercentage = (double)p.RegistrarParticipatePercent / 100.0;
-
-                    double a = /*participationPercentage **/ 10;
 
                     score += a;
                 }
@@ -298,7 +252,7 @@ namespace EESV2.DAL.Services
                     //درصد مشارکت
                     double participationPercentage = (double)p.RegistrarParticipatePercent / 100.0;
 
-                    double a = participationPercentage * 60 /** workProgress*/;
+                    double a = participationPercentage * 30 /** workProgress*/;
 
                     score += a;
                 }
@@ -311,7 +265,7 @@ namespace EESV2.DAL.Services
                     //درصد مشارکت
                     double participationPercentage = (double)p.RegistrarParticipatePercent / 100.0;
 
-                    double a = participationPercentage * 20/* * workProgress*/;
+                    double a = participationPercentage * 10/* * workProgress*/;
 
                     score += a;
                 }
@@ -443,34 +397,8 @@ namespace EESV2.DAL.Services
                         p.StatusID == 2 && p.Referrals.Count > 0 &&
                         p.Referrals.OrderBy(r => r.ID).LastOrDefault().EvaluationTypeID == 2).ToList(); //تعداد پیشنهادات که تصویب کیفی شده اند ولی هنوز به واحد مجری ارسل نشده اند
 
-                    double score = (q1 > 30 ? 30 : q1) + (q6.Count * 30 + q7.Count * 10);
-
-                    foreach (var p in p1)
-                    {
-                        //درصد پیشرفت کار
-                        //double workProgress = (double)(ProgressCalculation(p.ID)) / 100.0;
-
-                        //درصد مشارکت
-                        //double participationPercentage = (double)p.RegistrarParticipatePercent / 100.0;
-
-                        double a = /*participationPercentage **/ 60 /** workProgress*/;
-
-                        score += a;
-                    }
-
-                    foreach (var p in p2)
-                    {
-                        //درصد پیشرفت کار
-                        //double workProgress = (double)(ProgressCalculation(p.ID)) / 100.0;
-
-                        //درصد مشارکت
-                        //double participationPercentage = (double)p.RegistrarParticipatePercent / 100.0;
-
-                        double a = /*participationPercentage **/ 20 /** workProgress*/;
-
-                        score += a;
-                    }
-
+                    double score = (q1 > 30 ? 30 : q1) + (q6.Count * 30 + q7.Count * 10) + (p1.Count * 30 + p2.Count *10);
+                    
                     foreach (var p in p3)
                     {
                         //درصد پیشرفت کار
@@ -493,26 +421,6 @@ namespace EESV2.DAL.Services
                         //double participationPercentage = (double)p.RegistrarParticipatePercent / 100.0;
 
                         double a = /*participationPercentage **/ 20 * workProgress;
-
-                        score += a;
-                    }
-
-                    foreach (var p in q6)
-                    {
-                        //درصد مشارکت
-                        //double participationPercentage = (double)p.RegistrarParticipatePercent / 100.0;
-
-                        double a = /*participationPercentage **/ 30;
-
-                        score += a;
-                    }
-
-                    foreach (var p in q7)
-                    {
-                        //درصد مشارکت
-                        //double participationPercentage = (double)p.RegistrarParticipatePercent / 100.0;
-
-                        double a = /*participationPercentage **/ 10;
 
                         score += a;
                     }
@@ -579,7 +487,7 @@ namespace EESV2.DAL.Services
                         //درصد مشارکت
                         double participationPercentage = (double)p.RegistrarParticipatePercent / 100.0;
 
-                        double a = participationPercentage * 60 /** workProgress*/;
+                        double a = participationPercentage * 30 /** workProgress*/;
 
                         score += a;
                     }
@@ -592,7 +500,7 @@ namespace EESV2.DAL.Services
                         //درصد مشارکت
                         double participationPercentage = (double)p.RegistrarParticipatePercent / 100.0;
 
-                        double a = participationPercentage * 20/* * workProgress*/;
+                        double a = participationPercentage * 10/* * workProgress*/;
 
                         score += a;
                     }
