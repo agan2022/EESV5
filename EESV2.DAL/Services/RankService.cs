@@ -36,8 +36,15 @@ namespace EESV2.DAL.Services
                 .ToList();
 
             //get users for participant
-            var users2 = query
-                .Include(p => p.ProposalsThatHelped).ToList();
+            var users2 = query                       
+                .Include(p => p.ProposalsThatHelped)
+                .ThenInclude(p=> p.Proposal)
+                .ThenInclude(p=> p.Referrals)
+                .Include(p => p.ProposalsThatHelped)
+                .ThenInclude(p => p.Proposal)
+                .ThenInclude(p => p.Imparts)
+                .ThenInclude(p=> p.Reports)
+                .ToList();
 
             List<UserRankViewModel> userRankViewModels = new List<UserRankViewModel>();
 
@@ -453,7 +460,9 @@ namespace EESV2.DAL.Services
                 {
                     #region Participant Proposal
 
-                    var qp1 = user.ProposalsThatHelped.Select(p => p.Proposal).Where(p =>
+                    var qp1 = user.ProposalsThatHelped
+                        .Select(p => p.Proposal)                                                              
+                        .Where(p =>
                         p.StatusID == 9 && p.Referrals.Count > 0 &&
                         p.Referrals.OrderBy(r => r.ID).LastOrDefault().EvaluationTypeID == 1).ToList();//پیشنهادات گروهی که به واحد مجری ارسال شده اند و تصویب شده کمی هستند
 
@@ -601,7 +610,7 @@ namespace EESV2.DAL.Services
 
             _context.Database.OpenConnection();
 
-            if (imparts != null)
+            if (imparts.Any())
             {
                 double percent = 0;
 
