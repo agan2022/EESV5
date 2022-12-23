@@ -15,7 +15,7 @@ namespace EESV2.DAL.Services.Interfaces
 
         public List<UserRankViewModel> RankCalculation();
 
-        public List<UserRankViewModel> RankCalculation(List<int> officeIDs, int year, int month);
+        public List<UserRankViewModel> RankCalculation(List<int>? officeIDs, int year, int month);
 
         public List<UserRankViewModel> TopMembersRankCalculation(TopMemberViewModel model);
 

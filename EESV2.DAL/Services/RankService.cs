@@ -69,26 +69,49 @@ namespace EESV2.DAL.Services
             return userRankViewModels;
         }
 
-        public List<UserRankViewModel> RankCalculation(List<int> officeIDs, int year, int month)
+        public List<UserRankViewModel> RankCalculation(List<int>? officeIDs, int year, int month)
         {
             IQueryable<User> query = _context.Users;
 
-            List<User> users = query
-                .Where(u => officeIDs.Contains((int)u.OfficeID))
-                .Include(u => u.Office)
-                .Include(u => u.Proposals.Where(p => EF.Functions.Like(p.Date, (year != 0 ? year : "%") + "/" + (month != 0 ? month.ToString("0#") : "%") + "/%")))
-                .ThenInclude(p => p.Referrals)
-                .Include(u => u.Proposals.Where(p => EF.Functions.Like(p.Date, (year != 0 ? year : "%") + "/" + (month != 0 ? month.ToString("0#") : "%") + "/%")))
-                .ThenInclude(p => p.Imparts)
-                .ThenInclude(p => p.Reports)
-                .ToList();
+            List<User> users;
+            List<User> users2;
 
-            //get users for participant
-            var users2 = query
-                .Where(u => officeIDs.Contains((int)u.OfficeID))
-                .Include(p => p.ProposalsThatHelped
-                    .Where(p => EF.Functions.Like(p.Proposal.Date, (year != 0 ? year : "%") + "/" + (month != 0 ? month.ToString("0#") : "%") + "/%")))
-                .ToList();
+            if (officeIDs != null)
+            {
+                users= query
+                    .Where(u => officeIDs.Contains((int)u.OfficeID))
+                    .Include(u => u.Office)
+                    .Include(u => u.Proposals.Where(p => EF.Functions.Like(p.Date, (year != 0 ? year : "%") + "/" + (month != 0 ? month.ToString("0#") : "%") + "/%")))
+                    .ThenInclude(p => p.Referrals)
+                    .Include(u => u.Proposals.Where(p => EF.Functions.Like(p.Date, (year != 0 ? year : "%") + "/" + (month != 0 ? month.ToString("0#") : "%") + "/%")))
+                    .ThenInclude(p => p.Imparts)
+                    .ThenInclude(p => p.Reports)
+                    .ToList();
+
+                //get users for participant
+                 users2 = query
+                    .Where(u => officeIDs.Contains((int)u.OfficeID))
+                    .Include(p => p.ProposalsThatHelped
+                        .Where(p => EF.Functions.Like(p.Proposal.Date, (year != 0 ? year : "%") + "/" + (month != 0 ? month.ToString("0#") : "%") + "/%")))
+                    .ToList();
+            }
+            else
+            {
+                 users = query                                                         
+                    .Include(u => u.Office)
+                    .Include(u => u.Proposals.Where(p => EF.Functions.Like(p.Date, (year != 0 ? year : "%") + "/" + (month != 0 ? month.ToString("0#") : "%") + "/%")))
+                    .ThenInclude(p => p.Referrals)
+                    .Include(u => u.Proposals.Where(p => EF.Functions.Like(p.Date, (year != 0 ? year : "%") + "/" + (month != 0 ? month.ToString("0#") : "%") + "/%")))
+                    .ThenInclude(p => p.Imparts)
+                    .ThenInclude(p => p.Reports)
+                    .ToList();
+
+                //get users for participant
+                 users2 = query                                                        
+                    .Include(p => p.ProposalsThatHelped
+                        .Where(p => EF.Functions.Like(p.Proposal.Date, (year != 0 ? year : "%") + "/" + (month != 0 ? month.ToString("0#") : "%") + "/%")))
+                    .ToList();
+            }
 
             List<UserRankViewModel> userRankViewModels = new List<UserRankViewModel>();
 
