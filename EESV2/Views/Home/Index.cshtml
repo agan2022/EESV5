@@ -1,8 +1,8 @@
 ﻿@using EESV2.DAL.Services.Interfaces
-@inject IRankService _rankService;
+@using MD.PersianDateTime.Core
+@model List<UserRankViewModel>
 @{
-    List<UserRankViewModel> userRankViewModels = _rankService.RankCalculation();
-    UserRankViewModel userRank = userRankViewModels.FirstOrDefault(u=>u.PersonnelCode==User.Identity.Name);
+    UserRankViewModel userRank = Model.FirstOrDefault(u=>u.PersonnelCode==User.Identity.Name);
 
 
     ViewData["Title"] = "خانه";
@@ -11,6 +11,8 @@
 }
 
 <!-- DataTables -->
+<!-- babakhani datepicker -->
+<link rel="stylesheet" href="~/dist/css/persian-datepicker-0.4.5.min.css" />
 
 <link rel="stylesheet" href="~/dist/css/animate.css">
 <script src="~/dist/js/wow.min.js"></script>
@@ -30,8 +32,12 @@
 
         <div class="box wow animate__animated animate__zoomInDown" data-wow-delay=".3s" data-wow-duration=".6s">
             <div class="box-header with-border ">
-                <h3 style="padding:7px 0 7px 0" class="box-title col-md-4">رتبه بندی 10 پرسنل برتر پیشنهاد دهنده در سال</h3>
-        
+                <h3 style="padding:7px 0 7px 0" class="box-title col-md-6">رتبه بندی 10 پرسنل برتر پیشنهاد دهنده در سال</h3>
+                <div class="form-group col-md-6">
+                    <form method="get" id="formDate">
+                        <input onchange="OnChangeDate()" type="text" class="form-control pull-right persianDatepicker pwt-datepicker-input-element" id="Date" name="Date" value="">
+                    </form>
+                </div>
             </div>
             <div class="box-body">
                 <div class="box-body table-responsive no-padding ">
@@ -47,7 +53,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach(var urVM in userRankViewModels.Where(u=>u.Rank<=10))
+                            @foreach(var urVM in Model.Where(u=>u.Rank<=10).Take(10))
                             {
                             <tr>
                                 <td>@urVM.Rank</td>
@@ -130,3 +136,73 @@
         window.location.href = url;
     }
 </script>
+<!--WOW().init();-->
+<script>
+    new WOW().init();
+</script>
+
+<!-- babakhani datepicker -->
+<script src="~/dist/js/persian-date-0.1.8.min.js"></script>
+<script src="~/dist/js/persian-datepicker-0.4.5.min.js"></script>
+<script>
+    $(document).ready(function () {
+        let forms = document.getElementsByTagName("form");
+        for (let form of forms) {
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                let persianDatepickers = form.getElementsByClassName("persianDatepicker");
+                for (let persianDatepicker of persianDatepickers) {
+                    let enNumbers = fixNumbers(persianDatepicker.value);
+                    persianDatepicker.value = enNumbers;
+                }
+                e.target.submit();
+            })
+        }
+        $('.persianDatepicker').persianDatepicker({
+            initialValueType: 'persian',
+            persianDigit: false,
+            format: 'YYYY',
+            observer: true,
+            timePicker: {
+                enabled: false
+            },
+            viewMode: 'year',
+            initialValue: false,
+            checkYear: function (year) {
+                return year >= 1391;
+            }
+
+        });
+        function fixNumbers(str) {
+            let persianNumbers = [/۰/g, /۱/g, /۲/g, /۳/g, /۴/g, /۵/g, /۶/g, /۷/g, /۸/g, /۹/g];
+            let arabicNumbers = [/٠/g, /١/g, /٢/g, /٣/g, /٤/g, /٥/g, /٦/g, /٧/g, /٨/g, /٩/g];
+            if (typeof str === 'string') {
+                for (var i = 0; i < 10; i++) {
+                    str = str.replace(persianNumbers[i], i).replace(arabicNumbers[i], i);
+                }
+            }
+            return str;
+        };
+    });
+</script>
+
+<script>
+function OnChangeDate(){
+        $("#formDate").submit();
+ }
+
+</script>
+@if (!String.IsNullOrEmpty(Context.Request.Query["Date"].ToString()))
+{
+    <script>
+        document.getElementById("Date").value = @(Context.Request.Query["Date"].ToString());
+    </script>
+}
+else
+{
+    PersianDateTime pd = new PersianDateTime(DateTime.Now);
+
+    <script>
+        document.getElementById("Date").value = @(pd.Year);
+    </script>
+}
