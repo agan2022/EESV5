@@ -206,9 +206,9 @@ namespace EESV2.DAL.Services
                     double workProgress = (double)(ProgressCalculation(p.ID)) / 100.0;
 
                     //درصد مشارکت
-                    //double participationPercentage = (double)p.RegistrarParticipatePercent / 100.0;
+                    double participationPercentage = (double)p.RegistrarParticipatePercent / 100.0;
 
-                    double a = /*participationPercentage **/ 60 * workProgress;
+                    double a = participationPercentage * 60 * workProgress + 30;
 
                     score += a;
                 }
@@ -219,9 +219,9 @@ namespace EESV2.DAL.Services
                     double workProgress = (double)(ProgressCalculation(p.ID)) / 100.0;
 
                     //درصد مشارکت
-                    //double participationPercentage = (double)p.RegistrarParticipatePercent / 100.0;
+                    double participationPercentage = (double)(p.RegistrarParticipatePercent / 100.0);
 
-                    double a = /*participationPercentage **/ 20 * workProgress;
+                    double a = participationPercentage * 20 * workProgress + 10;
 
                     score += a;
                 }
@@ -437,7 +437,7 @@ namespace EESV2.DAL.Services
                         //درصد مشارکت
                         double participationPercentage = (double)p.RegistrarParticipatePercent / 100.0;
 
-                        double a = participationPercentage * 60 * workProgress;
+                        double a = participationPercentage * 60 * workProgress + 30;
 
                         score += a;
                     }
@@ -448,9 +448,9 @@ namespace EESV2.DAL.Services
                         double workProgress = (double)(ProgressCalculation(p.ID)) / 100.0;
 
                         //درصد مشارکت
-                        double participationPercentage = (double)p.RegistrarParticipatePercent / 100.0;
+                        double participationPercentage = (double)(p.RegistrarParticipatePercent / 100.0);
 
-                        double a = participationPercentage * 20 * workProgress;
+                        double a = participationPercentage * 20 * workProgress + 10;
 
                         score += a;
                     }
