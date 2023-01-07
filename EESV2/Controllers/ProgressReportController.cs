@@ -103,12 +103,12 @@ namespace EESV2.Controllers
                     Percentage = model.Percentage,
                     File= fileName
                 };
-                if (totalpercent == 100)
-                {
+                //if (totalpercent == 100)
+                //{
                     Proposal proposal = impart.Proposal;
                     proposal.StatusID = 5;
                     _uw.ProposalRepository.Update(proposal);
-                }
+                //}
                 _uw.ProgressReportRepository.Create(progressReport);
                 await _uw.SaveChangesAsync();
                 return RedirectToAction("Imparts");
